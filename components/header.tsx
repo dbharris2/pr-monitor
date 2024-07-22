@@ -4,17 +4,16 @@ import useLocalState from 'utils/use-local-state';
 
 type Props = {
   isPending: boolean;
-  onClickRefresh: () => void;
+  onUpdatedToken: () => void;
 };
 
-const Header = ({ isPending, onClickRefresh }: Props) => {
+const Header = ({ isPending, onUpdatedToken }: Props) => {
   const [isUpdatingToken, setIsUpdatingToken] = useState(false);
   return (
     <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2">
       {!isUpdatingToken && (
         <DefaultHeader
           isPending={isPending}
-          onClickRefresh={onClickRefresh}
           onClickUpdateToken={() => setIsUpdatingToken(true)}
         />
       )}
@@ -23,7 +22,7 @@ const Header = ({ isPending, onClickRefresh }: Props) => {
           onClickCancel={() => setIsUpdatingToken(false)}
           onUpdatedToken={() => {
             setIsUpdatingToken(false);
-            onClickRefresh();
+            onUpdatedToken();
           }}
         />
       )}
@@ -33,13 +32,11 @@ const Header = ({ isPending, onClickRefresh }: Props) => {
 
 type DefaultHeaderProps = {
   isPending: boolean;
-  onClickRefresh: () => void;
   onClickUpdateToken: () => void;
 };
 
 const DefaultHeader = ({
   isPending,
-  onClickRefresh,
   onClickUpdateToken,
 }: DefaultHeaderProps) => (
   <>
@@ -51,14 +48,6 @@ const DefaultHeader = ({
         type="button"
       >
         Update Token
-      </button>
-      <button
-        className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
-        disabled={isPending}
-        onClick={onClickRefresh}
-        type="button"
-      >
-        Refresh
       </button>
     </div>
   </>

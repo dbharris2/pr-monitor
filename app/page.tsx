@@ -54,7 +54,7 @@ const PrMonitor = () => {
 
   return (
     <div className="m-auto flex  max-w-3xl flex-col gap-2 p-4">
-      <Header isPending={isPending} onClickRefresh={refresh} />
+      <Header isPending={isPending} onUpdatedToken={refresh} />
       {reviewQueryRef && <ReviewPrList queryRef={reviewQueryRef} />}
       {reviewedQueryRef && <ReviewedPrList queryRef={reviewedQueryRef} />}
       {myPrQueryRef && <MyPrList queryRef={myPrQueryRef} />}
