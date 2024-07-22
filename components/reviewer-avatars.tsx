@@ -22,20 +22,36 @@ const ReviewerAvatars = ({ prKey }: Props) => {
             }
           }
         }
+        reviews(first: 10) {
+          nodes @required(action: THROW) {
+            author {
+              avatarUrl
+            }
+          }
+        }
       }
     `,
     prKey
   );
 
-  const requests = nonnull(pr.reviewRequests.nodes);
-  if (requests.length === 0) {
+  const avatarUrls = Array.from(
+    new Set(
+      nonnull(pr.reviewRequests.nodes)
+        .map(({ requestedReviewer }) => requestedReviewer.avatarUrl)
+        .concat(
+          nonnull(pr?.reviews?.nodes).map(({ author }) => author?.avatarUrl)
+        )
+    )
+  );
+
+  if (avatarUrls.length === 0) {
     return null;
   }
 
   return (
     <div className="flex gap-0.5">
-      {requests.map(({ requestedReviewer }, index) => (
-        <Avatar key={index} src={requestedReviewer.avatarUrl} />
+      {avatarUrls.map((avatarUrl, index) => (
+        <Avatar key={index} src={avatarUrl} />
       ))}
     </div>
   );

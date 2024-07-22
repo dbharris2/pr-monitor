@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f839e7c72d0c0b3ff21d248630bdfdfd>>
+ * @generated SignedSource<<805b2058d61f120d696c5c4b78fa9fc7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -66,7 +66,24 @@ v5 = {
   ],
   "type": "Node",
   "abstractKey": "__isNode"
-};
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "author",
+  "plural": false,
+  "selections": [
+    (v2/*: any*/),
+    (v4/*: any*/),
+    (v5/*: any*/)
+  ],
+  "storageKey": null
+},
+v7 = [
+  (v0/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": [],
@@ -118,20 +135,7 @@ return {
                     "kind": "InlineFragment",
                     "selections": [
                       (v3/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": null,
-                        "kind": "LinkedField",
-                        "name": "author",
-                        "plural": false,
-                        "selections": [
-                          (v2/*: any*/),
-                          (v4/*: any*/),
-                          (v5/*: any*/)
-                        ],
-                        "storageKey": null
-                      },
+                      (v6/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -262,9 +266,7 @@ return {
                       },
                       {
                         "alias": null,
-                        "args": [
-                          (v0/*: any*/)
-                        ],
+                        "args": (v7/*: any*/),
                         "concreteType": "ReviewRequestConnection",
                         "kind": "LinkedField",
                         "name": "reviewRequests",
@@ -305,6 +307,30 @@ return {
                           }
                         ],
                         "storageKey": "reviewRequests(first:10)"
+                      },
+                      {
+                        "alias": null,
+                        "args": (v7/*: any*/),
+                        "concreteType": "PullRequestReviewConnection",
+                        "kind": "LinkedField",
+                        "name": "reviews",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "PullRequestReview",
+                            "kind": "LinkedField",
+                            "name": "nodes",
+                            "plural": true,
+                            "selections": [
+                              (v6/*: any*/),
+                              (v3/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": "reviews(first:10)"
                       }
                     ],
                     "type": "PullRequest",
@@ -367,12 +393,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "50dd165873b6c0835ddf6d2a1dd35463",
+    "cacheID": "1a2a83f8678d100ca8544810b3497f86",
     "id": null,
     "metadata": {},
     "name": "reviewPrListQuery",
     "operationKind": "query",
-    "text": "query reviewPrListQuery {\n  ...reviewPrList_search\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  reviewDecision\n  merged\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  repository {\n    owner {\n      __typename\n      login\n      id\n    }\n    id\n  }\n  merged\n  number\n  permalink\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewPrList_search on Query {\n  search(query: \"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved\", type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query reviewPrListQuery {\n  ...reviewPrList_search\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  reviewDecision\n  merged\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  repository {\n    owner {\n      __typename\n      login\n      id\n    }\n    id\n  }\n  merged\n  number\n  permalink\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewPrList_search on Query {\n  search(query: \"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved\", type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<484a4fb72ccaa627287defc7bf2dcad1>>
+ * @generated SignedSource<<82fd72bd157df8c4f92615783e04e35e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,13 @@ export type reviewerAvatars_pullRequest$data = {
       };
     } | null | undefined>;
   };
+  readonly reviews: {
+    readonly nodes: ReadonlyArray<{
+      readonly author: {
+        readonly avatarUrl: any;
+      } | null | undefined;
+    } | null | undefined>;
+  } | null | undefined;
   readonly " $fragmentType": "reviewerAvatars_pullRequest";
 };
 export type reviewerAvatars_pullRequest$key = {
@@ -25,7 +32,22 @@ export type reviewerAvatars_pullRequest$key = {
   readonly " $fragmentSpreads": FragmentRefs<"reviewerAvatars_pullRequest">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 10
+  }
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "avatarUrl",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -35,13 +57,7 @@ const node: ReaderFragment = {
       "kind": "RequiredField",
       "field": {
         "alias": null,
-        "args": [
-          {
-            "kind": "Literal",
-            "name": "first",
-            "value": 10
-          }
-        ],
+        "args": (v0/*: any*/),
         "concreteType": "ReviewRequestConnection",
         "kind": "LinkedField",
         "name": "reviewRequests",
@@ -72,13 +88,7 @@ const node: ReaderFragment = {
                         "selections": [
                           {
                             "kind": "RequiredField",
-                            "field": {
-                              "alias": null,
-                              "args": null,
-                              "kind": "ScalarField",
-                              "name": "avatarUrl",
-                              "storageKey": null
-                            },
+                            "field": (v1/*: any*/),
                             "action": "THROW",
                             "path": "reviewRequests.nodes.requestedReviewer.avatarUrl"
                           }
@@ -103,12 +113,52 @@ const node: ReaderFragment = {
       },
       "action": "THROW",
       "path": "reviewRequests"
+    },
+    {
+      "alias": null,
+      "args": (v0/*: any*/),
+      "concreteType": "PullRequestReviewConnection",
+      "kind": "LinkedField",
+      "name": "reviews",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "RequiredField",
+          "field": {
+            "alias": null,
+            "args": null,
+            "concreteType": "PullRequestReview",
+            "kind": "LinkedField",
+            "name": "nodes",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": null,
+                "kind": "LinkedField",
+                "name": "author",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          "action": "THROW",
+          "path": "reviews.nodes"
+        }
+      ],
+      "storageKey": "reviews(first:10)"
     }
   ],
   "type": "PullRequest",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "3d138ef375649346132e1dffe1c4de77";
+(node as any).hash = "9803debb3341fe1558bdd5f397b26706";
 
 export default node;
