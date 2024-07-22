@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+
+import relay from "./relay.config.js";
+
+const nextConfig = {
+  compiler: {
+    relay,
+  },
+};
 
 export default nextConfig;
