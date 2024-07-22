@@ -38,6 +38,7 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'import',
+    'no-relative-import-paths',
     'react',
     'relay',
     'simple-import-sort',
@@ -47,6 +48,7 @@ module.exports = {
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
+    'no-relative-import-paths/no-relative-import-paths': ['error'],
     'react/jsx-sort-props': 'error',
     'simple-import-sort/exports': 'error',
     'simple-import-sort/imports': [
