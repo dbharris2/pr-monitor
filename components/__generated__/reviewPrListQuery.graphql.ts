@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6296e529a818ef1c697adac7cab6cec5>>
+ * @generated SignedSource<<f839e7c72d0c0b3ff21d248630bdfdfd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,15 +12,7 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type reviewPrListQuery$variables = Record<PropertyKey, never>;
 export type reviewPrListQuery$data = {
-  readonly search: {
-    readonly nodes: ReadonlyArray<{
-      readonly id?: string;
-      readonly " $fragmentSpreads": FragmentRefs<"pr_pullRequest">;
-    } | null | undefined>;
-  };
-  readonly viewer: {
-    readonly login: string;
-  };
+  readonly " $fragmentSpreads": FragmentRefs<"reviewPrList_search">;
 };
 export type reviewPrListQuery = {
   response: reviewPrListQuery$data;
@@ -28,12 +20,13 @@ export type reviewPrListQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 30
-  },
+var v0 = {
+  "kind": "Literal",
+  "name": "first",
+  "value": 10
+},
+v1 = [
+  (v0/*: any*/),
   {
     "kind": "Literal",
     "name": "query",
@@ -45,25 +38,18 @@ var v0 = [
     "value": "ISSUE"
   }
 ],
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "login",
+  "name": "__typename",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
@@ -76,7 +62,7 @@ v4 = {
 v5 = {
   "kind": "InlineFragment",
   "selections": [
-    (v1/*: any*/)
+    (v3/*: any*/)
   ],
   "type": "Node",
   "abstractKey": "__isNode"
@@ -89,61 +75,9 @@ return {
     "name": "reviewPrListQuery",
     "selections": [
       {
-        "kind": "RequiredField",
-        "field": {
-          "alias": null,
-          "args": (v0/*: any*/),
-          "concreteType": "SearchResultItemConnection",
-          "kind": "LinkedField",
-          "name": "search",
-          "plural": false,
-          "selections": [
-            {
-              "kind": "RequiredField",
-              "field": {
-                "alias": null,
-                "args": null,
-                "concreteType": null,
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": [
-                  {
-                    "kind": "InlineFragment",
-                    "selections": [
-                      (v1/*: any*/),
-                      {
-                        "args": null,
-                        "kind": "FragmentSpread",
-                        "name": "pr_pullRequest"
-                      }
-                    ],
-                    "type": "PullRequest",
-                    "abstractKey": null
-                  }
-                ],
-                "storageKey": null
-              },
-              "action": "THROW",
-              "path": "search.nodes"
-            }
-          ],
-          "storageKey": "search(first:30,query:\"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved\",type:\"ISSUE\")"
-        },
-        "action": "THROW",
-        "path": "search"
-      },
-      {
-        "alias": null,
         "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "viewer",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/)
-        ],
-        "storageKey": null
+        "kind": "FragmentSpread",
+        "name": "reviewPrList_search"
       }
     ],
     "type": "Query",
@@ -157,7 +91,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "SearchResultItemConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -166,239 +100,283 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": null,
+            "concreteType": "SearchResultItemEdge",
             "kind": "LinkedField",
-            "name": "nodes",
+            "name": "edges",
             "plural": true,
             "selections": [
-              (v3/*: any*/),
               {
-                "kind": "InlineFragment",
+                "alias": null,
+                "args": null,
+                "concreteType": null,
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
                 "selections": [
-                  (v1/*: any*/),
+                  (v2/*: any*/),
                   {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": null,
-                    "kind": "LinkedField",
-                    "name": "author",
-                    "plural": false,
+                    "kind": "InlineFragment",
                     "selections": [
                       (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v5/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "additions",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "changedFiles",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "deletions",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Repository",
-                    "kind": "LinkedField",
-                    "name": "repository",
-                    "plural": false,
-                    "selections": [
                       {
                         "alias": null,
                         "args": null,
                         "concreteType": null,
                         "kind": "LinkedField",
-                        "name": "owner",
+                        "name": "author",
                         "plural": false,
                         "selections": [
-                          (v3/*: any*/),
                           (v2/*: any*/),
-                          (v1/*: any*/)
+                          (v4/*: any*/),
+                          (v5/*: any*/)
                         ],
                         "storageKey": null
                       },
-                      (v1/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "merged",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "number",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "permalink",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "reviewDecision",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "totalCommentsCount",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "updatedAt",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "isDraft",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "StatusCheckRollup",
-                    "kind": "LinkedField",
-                    "name": "statusCheckRollup",
-                    "plural": false,
-                    "selections": [
                       {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "state",
+                        "name": "additions",
                         "storageKey": null
                       },
-                      (v1/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": [
-                      {
-                        "kind": "Literal",
-                        "name": "first",
-                        "value": 10
-                      }
-                    ],
-                    "concreteType": "ReviewRequestConnection",
-                    "kind": "LinkedField",
-                    "name": "reviewRequests",
-                    "plural": false,
-                    "selections": [
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "ReviewRequest",
+                        "kind": "ScalarField",
+                        "name": "changedFiles",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "deletions",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "Repository",
                         "kind": "LinkedField",
-                        "name": "nodes",
-                        "plural": true,
+                        "name": "repository",
+                        "plural": false,
                         "selections": [
                           {
                             "alias": null,
                             "args": null,
                             "concreteType": null,
                             "kind": "LinkedField",
-                            "name": "requestedReviewer",
+                            "name": "owner",
                             "plural": false,
                             "selections": [
-                              (v3/*: any*/),
+                              (v2/*: any*/),
                               {
-                                "kind": "InlineFragment",
-                                "selections": [
-                                  (v4/*: any*/)
-                                ],
-                                "type": "User",
-                                "abstractKey": null
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "login",
+                                "storageKey": null
                               },
-                              (v5/*: any*/)
+                              (v3/*: any*/)
                             ],
                             "storageKey": null
                           },
-                          (v1/*: any*/)
+                          (v3/*: any*/)
                         ],
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "merged",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "number",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "permalink",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "reviewDecision",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "title",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "totalCommentsCount",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "updatedAt",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "isDraft",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "StatusCheckRollup",
+                        "kind": "LinkedField",
+                        "name": "statusCheckRollup",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "state",
+                            "storageKey": null
+                          },
+                          (v3/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": [
+                          (v0/*: any*/)
+                        ],
+                        "concreteType": "ReviewRequestConnection",
+                        "kind": "LinkedField",
+                        "name": "reviewRequests",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ReviewRequest",
+                            "kind": "LinkedField",
+                            "name": "nodes",
+                            "plural": true,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": null,
+                                "kind": "LinkedField",
+                                "name": "requestedReviewer",
+                                "plural": false,
+                                "selections": [
+                                  (v2/*: any*/),
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": [
+                                      (v4/*: any*/)
+                                    ],
+                                    "type": "User",
+                                    "abstractKey": null
+                                  },
+                                  (v5/*: any*/)
+                                ],
+                                "storageKey": null
+                              },
+                              (v3/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": "reviewRequests(first:10)"
                       }
                     ],
-                    "storageKey": "reviewRequests(first:10)"
-                  }
+                    "type": "PullRequest",
+                    "abstractKey": null
+                  },
+                  (v5/*: any*/)
                 ],
-                "type": "PullRequest",
-                "abstractKey": null
+                "storageKey": null
               },
-              (v5/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "endCursor",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "hasNextPage",
+                "storageKey": null
+              }
             ],
             "storageKey": null
           }
         ],
-        "storageKey": "search(first:30,query:\"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved\",type:\"ISSUE\")"
+        "storageKey": "search(first:10,query:\"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved\",type:\"ISSUE\")"
       },
       {
         "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "viewer",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          (v1/*: any*/)
+        "args": (v1/*: any*/),
+        "filters": [
+          "query",
+          "type"
         ],
-        "storageKey": null
+        "handle": "connection",
+        "key": "reviewPrList_search",
+        "kind": "LinkedHandle",
+        "name": "search"
       }
     ]
   },
   "params": {
-    "cacheID": "9ced98c7b6862fe52622bcb1f0b664ad",
+    "cacheID": "50dd165873b6c0835ddf6d2a1dd35463",
     "id": null,
     "metadata": {},
     "name": "reviewPrListQuery",
     "operationKind": "query",
-    "text": "query reviewPrListQuery {\n  search(query: \"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved\", type: ISSUE, first: 30) {\n    nodes {\n      __typename\n      ... on PullRequest {\n        id\n        ...pr_pullRequest\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  viewer {\n    login\n    id\n  }\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  reviewDecision\n  merged\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  repository {\n    owner {\n      __typename\n      login\n      id\n    }\n    id\n  }\n  merged\n  number\n  permalink\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query reviewPrListQuery {\n  ...reviewPrList_search\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  reviewDecision\n  merged\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  repository {\n    owner {\n      __typename\n      login\n      id\n    }\n    id\n  }\n  merged\n  number\n  permalink\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewPrList_search on Query {\n  search(query: \"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved\", type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cc75415fcb7e3b529505f69f12000249";
+(node as any).hash = "4c0eebab5942261328da0752979ea153";
 
 export default node;
