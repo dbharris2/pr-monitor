@@ -10,8 +10,6 @@
     "relay": "relay-compiler"
   },
   "dependencies": {
-    "@octokit/plugin-paginate-graphql": "^5.2.2",
-    "@octokit/request": "^8.1.5",
     "@primer/octicons-react": "^19.8.0",
     "graphql": "^16.6.0",
     "moment": "^2.30.1",
