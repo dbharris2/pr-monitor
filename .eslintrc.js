@@ -5,6 +5,7 @@ module.exports = {
     'next/core-web-vitals',
     'plugin:react-hooks/recommended',
     'plugin:relay/recommended',
+    'plugin:tailwindcss/recommended',
   ],
   overrides: [
     {

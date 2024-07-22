@@ -36,6 +36,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-relay": "^1.8.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-tailwindcss": "^3.17.4",
     "eslint-plugin-unused-imports": "^3.2.0",
     "postcss": "^8",
     "prettier": "^3.3.3",

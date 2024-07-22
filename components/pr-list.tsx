@@ -8,7 +8,7 @@ type Props = {
 const PrList = ({ children, title }: Props) => (
   <div className="flex flex-col gap-2">
     {title}
-    <div className="rounded-lg border border-solid min-h-3">{children}</div>
+    <div className="min-h-3 rounded-lg border border-solid">{children}</div>
   </div>
 );
 

@@ -10,7 +10,7 @@ type Props = {
 const Header = ({ isPending, onClickRefresh }: Props) => {
   const [isUpdatingToken, setIsUpdatingToken] = useState(false);
   return (
-    <div className="items-center flex rounded-lg border border-solid bg-white justify-between p-2">
+    <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2">
       {!isUpdatingToken && (
         <DefaultHeader
           isPending={isPending}
