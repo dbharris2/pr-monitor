@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c03b53feae9b27e98c1f551d72acfed3>>
+ * @generated SignedSource<<9a9bc21ed565e98f6cf53b60bd877515>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -76,7 +76,7 @@ return {
           {
             "kind": "Literal",
             "name": "query",
-            "value": "-author:@me -is:draft is:open is:pr review-requested:@me -review:approved"
+            "value": "-author:@me -is:draft is:open is:pr review-requested:@me -review:approved sort:updated"
           },
           {
             "kind": "Literal",
@@ -170,7 +170,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "__reviewPrList_search_connection(query:\"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved\",type:\"ISSUE\")"
+        "storageKey": "__reviewPrList_search_connection(query:\"-author:@me -is:draft is:open is:pr review-requested:@me -review:approved sort:updated\",type:\"ISSUE\")"
       },
       "action": "THROW",
       "path": "search"
@@ -181,6 +181,6 @@ return {
 };
 })();
 
-(node as any).hash = "591212d47282709bb447cb8bb2500646";
+(node as any).hash = "78d1b45486a87f2f192f88dc4ce50ce3";
 
 export default node;

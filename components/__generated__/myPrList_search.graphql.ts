@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e4df3c1cab3d5186c9bb3279196f1cb0>>
+ * @generated SignedSource<<ee3e1da2b16347803b85c3fd7e04c774>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -76,7 +76,7 @@ return {
           {
             "kind": "Literal",
             "name": "query",
-            "value": "author:@me is:pr is:open"
+            "value": "author:@me is:pr is:open sort:updated"
           },
           {
             "kind": "Literal",
@@ -170,7 +170,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "__myPrList_search_connection(query:\"author:@me is:pr is:open\",type:\"ISSUE\")"
+        "storageKey": "__myPrList_search_connection(query:\"author:@me is:pr is:open sort:updated\",type:\"ISSUE\")"
       },
       "action": "THROW",
       "path": "search"
@@ -181,6 +181,6 @@ return {
 };
 })();
 
-(node as any).hash = "60edab019533a45b844916e2b5ce9541";
+(node as any).hash = "8e8d3e0fe7b7e21366d69c11aaf5f763";
 
 export default node;

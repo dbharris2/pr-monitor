@@ -62,7 +62,7 @@ const Pr = ({ prKey }: Props) => {
               {pr.title} (#{pr.number})
             </div>
           </div>
-          {moment(pr.updatedAt).fromNow()}
+          {moment(pr.updatedAt).format('MM/DD HH:mm')}
         </div>
         <div className="flex justify-between">
           <div className="flex grow flex-wrap gap-2">

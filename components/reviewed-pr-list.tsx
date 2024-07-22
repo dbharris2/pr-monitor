@@ -42,7 +42,7 @@ const ReviewedPrList = ({ queryRef }: Props) => {
       )
       @refetchable(queryName: "ReviewedPrListPaginationQuery") {
         search(
-          query: "-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved"
+          query: "-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved sort:updated"
           type: ISSUE
           first: $count
           after: $cursor

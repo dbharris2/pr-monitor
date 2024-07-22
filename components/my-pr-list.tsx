@@ -36,7 +36,7 @@ const MyPrList = ({ queryRef }: Props) => {
       )
       @refetchable(queryName: "MyPrListPaginationQuery") {
         search(
-          query: "author:@me is:pr is:open"
+          query: "author:@me is:pr is:open sort:updated"
           type: ISSUE
           first: $count
           after: $cursor
