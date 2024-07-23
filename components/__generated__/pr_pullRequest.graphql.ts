@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<feaca51917d7825f36dbb44dca403c4a>>
+ * @generated SignedSource<<41e9169c6c20c971d76f8181c7730349>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,9 +22,7 @@ export type pr_pullRequest$data = {
   readonly number: number;
   readonly permalink: any;
   readonly repository: {
-    readonly owner: {
-      readonly login: string;
-    };
+    readonly nameWithOwner: string;
   };
   readonly reviewDecision: PullRequestReviewDecision | null | undefined;
   readonly title: string;
@@ -94,19 +92,8 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "concreteType": null,
-          "kind": "LinkedField",
-          "name": "owner",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "login",
-              "storageKey": null
-            }
-          ],
+          "kind": "ScalarField",
+          "name": "nameWithOwner",
           "storageKey": null
         }
       ],
@@ -176,6 +163,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "c78363607752d82a84ac47fea0488c6f";
+(node as any).hash = "ce7c57014548a1a1b72b13352f61b424";
 
 export default node;

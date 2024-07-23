@@ -25,9 +25,7 @@ const Pr = ({ prKey }: Props) => {
         changedFiles
         deletions
         repository {
-          owner {
-            login
-          }
+          nameWithOwner
         }
         merged
         number
@@ -68,7 +66,7 @@ const Pr = ({ prKey }: Props) => {
         </div>
         <div className="flex justify-between">
           <div className="flex grow flex-wrap gap-2">
-            {pr.repository.owner.login}
+            {pr.repository.nameWithOwner}
             <div className="flex gap-1">
               <div className="text-green-600">+{pr.additions}</div>
               <div className="text-red-600">-{pr.deletions}</div>@
