@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<82fd72bd157df8c4f92615783e04e35e>>
+ * @generated SignedSource<<9ccf67ad4eb03242a2c72d15e3d01baf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,9 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type reviewerAvatars_pullRequest$data = {
+  readonly author: {
+    readonly avatarUrl: any;
+  };
   readonly reviewRequests: {
     readonly nodes: ReadonlyArray<{
       readonly requestedReviewer: {
@@ -33,20 +36,32 @@ export type reviewerAvatars_pullRequest$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 10
-  }
-],
-v1 = {
+var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "avatarUrl",
   "storageKey": null
-};
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "author",
+  "plural": false,
+  "selections": [
+    (v0/*: any*/)
+  ],
+  "storageKey": null
+},
+v2 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 10
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -55,9 +70,15 @@ return {
   "selections": [
     {
       "kind": "RequiredField",
+      "field": (v1/*: any*/),
+      "action": "THROW",
+      "path": "author"
+    },
+    {
+      "kind": "RequiredField",
       "field": {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "ReviewRequestConnection",
         "kind": "LinkedField",
         "name": "reviewRequests",
@@ -88,7 +109,7 @@ return {
                         "selections": [
                           {
                             "kind": "RequiredField",
-                            "field": (v1/*: any*/),
+                            "field": (v0/*: any*/),
                             "action": "THROW",
                             "path": "reviewRequests.nodes.requestedReviewer.avatarUrl"
                           }
@@ -116,7 +137,7 @@ return {
     },
     {
       "alias": null,
-      "args": (v0/*: any*/),
+      "args": (v2/*: any*/),
       "concreteType": "PullRequestReviewConnection",
       "kind": "LinkedField",
       "name": "reviews",
@@ -132,18 +153,7 @@ return {
             "name": "nodes",
             "plural": true,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": null,
-                "kind": "LinkedField",
-                "name": "author",
-                "plural": false,
-                "selections": [
-                  (v1/*: any*/)
-                ],
-                "storageKey": null
-              }
+              (v1/*: any*/)
             ],
             "storageKey": null
           },
@@ -159,6 +169,6 @@ return {
 };
 })();
 
-(node as any).hash = "9803debb3341fe1558bdd5f397b26706";
+(node as any).hash = "69724c8d963de135c6ee2bc67a217822";
 
 export default node;

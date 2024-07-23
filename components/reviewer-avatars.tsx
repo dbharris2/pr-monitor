@@ -13,6 +13,9 @@ const ReviewerAvatars = ({ prKey }: Props) => {
   const pr = useFragment<reviewerAvatars_pullRequest$key>(
     graphql`
       fragment reviewerAvatars_pullRequest on PullRequest {
+        author @required(action: THROW) {
+          avatarUrl
+        }
         reviewRequests(first: 10) @required(action: THROW) {
           nodes @required(action: THROW) {
             requestedReviewer @required(action: THROW) {
@@ -34,23 +37,22 @@ const ReviewerAvatars = ({ prKey }: Props) => {
     prKey
   );
 
-  const avatarUrls = Array.from(
-    new Set(
-      nonnull(pr.reviewRequests.nodes)
-        .map(({ requestedReviewer }) => requestedReviewer.avatarUrl)
-        .concat(
-          nonnull(pr?.reviews?.nodes).map(({ author }) => author?.avatarUrl)
-        )
-    )
+  const avatarUrls = new Set(
+    nonnull(pr.reviewRequests.nodes)
+      .map(({ requestedReviewer }) => requestedReviewer.avatarUrl)
+      .concat(
+        nonnull(pr?.reviews?.nodes).map(({ author }) => author?.avatarUrl)
+      )
   );
+  avatarUrls.delete(pr.author.avatarUrl);
 
-  if (avatarUrls.length === 0) {
+  if (avatarUrls.size === 0) {
     return null;
   }
 
   return (
     <div className="flex gap-0.5">
-      {avatarUrls.map((avatarUrl, index) => (
+      {Array.from(avatarUrls).map((avatarUrl, index) => (
         <Avatar key={index} src={avatarUrl} />
       ))}
     </div>
