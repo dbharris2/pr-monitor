@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import 'app/globals.css';
 
 import RelayContextProvider from 'components/relay-context-provider';
+import cn from 'utils/cn';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,8 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="h-screen bg-gray-50">
+      <body className={cn(inter.className, 'h-screen')}>
+        <div className="h-full bg-gray-50">
           <RelayContextProvider>{children}</RelayContextProvider>
         </div>
       </body>
