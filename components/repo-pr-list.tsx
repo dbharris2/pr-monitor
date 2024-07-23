@@ -18,9 +18,10 @@ export const RepoPrListQuery = graphql`
 
 type Props = {
   queryRef: PreloadedQuery<repoPrListQuery, Record<string, unknown>>;
+  title: string;
 };
 
-const RepoPrList = ({ queryRef }: Props) => {
+const RepoPrList = ({ queryRef, title }: Props) => {
   const data = usePreloadedQuery<repoPrListQuery>(RepoPrListQuery, queryRef);
   const {
     data: { search },
@@ -54,7 +55,7 @@ const RepoPrList = ({ queryRef }: Props) => {
   );
 
   return (
-    <PrList title="Open PRs">
+    <PrList title={title}>
       {nonnull(search.edges)
         .map(({ node }) => node)
         .map((pr) => (

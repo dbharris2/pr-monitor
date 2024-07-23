@@ -17,23 +17,43 @@ import useLocalState from 'utils/use-local-state';
 const PrMonitor = () => {
   const [token, _setToken] = useLocalState('pr-monitor-gh-token', '');
   const [repo, setRepo] = useLocalState('pr-monitor-repo', '');
-  const query = `repo:${repo} is:open is:pr draft:false sort:updated`;
+
+  const openPrQuery = `repo:${repo} is:open is:pr draft:false sort:updated`;
+  const mergedPrQuery = `repo:${repo} is:merged is:pr sort:updated`;
+
   const repoRef = useRef<HTMLInputElement>(null);
 
   const [isPending, startTransition] = useTransition();
 
-  const [queryRef, loadQuery] =
+  const [openPrQueryRef, loadOpenPrQuery] =
+    useQueryLoader<repoPrListQuery>(RepoPrListQuery);
+
+  const [mergedPrQueryRef, loadMergedPrQuery] =
     useQueryLoader<repoPrListQuery>(RepoPrListQuery);
 
   const refresh = useCallback(() => {
     startTransition(() => {
-      loadQuery({ query }, { fetchPolicy: 'network-only' });
+      loadOpenPrQuery({ query: openPrQuery }, { fetchPolicy: 'network-only' });
+      loadMergedPrQuery(
+        { query: mergedPrQuery },
+        { fetchPolicy: 'network-only' }
+      );
     });
-  }, [loadQuery, query]);
+  }, [loadMergedPrQuery, loadOpenPrQuery, mergedPrQuery, openPrQuery]);
 
   useEffect(() => {
-    queryRef == null && token && loadQuery({ query });
-  }, [token, queryRef, loadQuery, query]);
+    openPrQueryRef == null && token && loadOpenPrQuery({ query: openPrQuery });
+    openPrQueryRef == null &&
+      token &&
+      loadMergedPrQuery({ query: mergedPrQuery });
+  }, [
+    token,
+    openPrQuery,
+    openPrQueryRef,
+    loadOpenPrQuery,
+    loadMergedPrQuery,
+    mergedPrQuery,
+  ]);
 
   useEffect(() => {
     const timerId = setInterval(() => token && refresh(), 1000 * 60 * 10);
@@ -57,7 +77,12 @@ const PrMonitor = () => {
           ref={repoRef}
         />
       </form>
-      {queryRef && <RepoPrList queryRef={queryRef} />}
+      {openPrQueryRef && (
+        <RepoPrList queryRef={openPrQueryRef} title="Open PRs" />
+      )}
+      {mergedPrQueryRef && (
+        <RepoPrList queryRef={mergedPrQueryRef} title="Merged PRs" />
+      )}
     </div>
   );
 };
