@@ -56,13 +56,15 @@ const Pr = ({ prKey }: Props) => {
     >
       <div className="flex w-full flex-col">
         <div className="flex justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 overflow-hidden">
             <Avatar src={pr.author?.avatarUrl ?? ''} />
-            <div className="flex flex-wrap">
+            <div className="truncate">
               {pr.title} (#{pr.number})
             </div>
           </div>
-          {moment(pr.updatedAt).format('MM/DD HH:mm')}
+          <div className="flex shrink-0 pl-2">
+            {moment(pr.updatedAt).format('MM/DD HH:mm')}
+          </div>
         </div>
         <div className="flex justify-between">
           <div className="flex grow flex-wrap gap-2">
