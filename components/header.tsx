@@ -40,7 +40,7 @@ const DefaultHeader = ({
   onClickUpdateToken,
 }: DefaultHeaderProps) => (
   <>
-    {isPending ? 'Refreshing...' : 'Pr Monitor'}
+    {isPending ? 'Refreshing...' : 'PR Monitor'}
     <div className="flex gap-2">
       <button
         className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
