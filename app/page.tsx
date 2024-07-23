@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useCallback, useEffect, useTransition } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { useQueryLoader } from 'react-relay';
 
 import type { myPrListQuery } from 'components/__generated__/myPrListQuery.graphql';
@@ -16,7 +16,6 @@ import useLocalState from 'utils/use-local-state';
 
 const PrMonitor = () => {
   const [token, _setToken] = useLocalState('pr-monitor-gh-token', '');
-  const [isPending, startTransition] = useTransition();
 
   const [myPrQueryRef, loadMyPrQuery] =
     useQueryLoader<myPrListQuery>(MyPrListQuery);
@@ -26,11 +25,9 @@ const PrMonitor = () => {
     useQueryLoader<reviewedPrListQuery>(ReviewedPrListQuery);
 
   const refresh = useCallback(() => {
-    startTransition(() => {
-      loadMyPrQuery({}, { fetchPolicy: 'network-only' });
-      loadReviewQuery({}, { fetchPolicy: 'network-only' });
-      loadReviewedQuery({}, { fetchPolicy: 'network-only' });
-    });
+    loadMyPrQuery({}, { fetchPolicy: 'network-only' });
+    loadReviewQuery({}, { fetchPolicy: 'network-only' });
+    loadReviewedQuery({}, { fetchPolicy: 'network-only' });
   }, [loadMyPrQuery, loadReviewQuery, loadReviewedQuery]);
 
   useEffect(() => {
@@ -54,7 +51,7 @@ const PrMonitor = () => {
 
   return (
     <div className="m-auto flex  max-w-3xl flex-col gap-2 p-4">
-      <Header isPending={isPending} onUpdatedToken={refresh} />
+      <Header onUpdatedToken={refresh} />
       {reviewQueryRef && <ReviewPrList queryRef={reviewQueryRef} />}
       {reviewedQueryRef && <ReviewedPrList queryRef={reviewedQueryRef} />}
       {myPrQueryRef && <MyPrList queryRef={myPrQueryRef} />}

@@ -3,19 +3,15 @@ import { memo, useRef, useState } from 'react';
 import useLocalState from 'utils/use-local-state';
 
 type Props = {
-  isPending: boolean;
   onUpdatedToken: () => void;
 };
 
-const Header = ({ isPending, onUpdatedToken }: Props) => {
+const Header = ({ onUpdatedToken }: Props) => {
   const [isUpdatingToken, setIsUpdatingToken] = useState(false);
   return (
     <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2">
       {!isUpdatingToken && (
-        <DefaultHeader
-          isPending={isPending}
-          onClickUpdateToken={() => setIsUpdatingToken(true)}
-        />
+        <DefaultHeader onClickUpdateToken={() => setIsUpdatingToken(true)} />
       )}
       {isUpdatingToken && (
         <UpdateTokenHeader
@@ -31,16 +27,12 @@ const Header = ({ isPending, onUpdatedToken }: Props) => {
 };
 
 type DefaultHeaderProps = {
-  isPending: boolean;
   onClickUpdateToken: () => void;
 };
 
-const DefaultHeader = ({
-  isPending,
-  onClickUpdateToken,
-}: DefaultHeaderProps) => (
+const DefaultHeader = ({ onClickUpdateToken }: DefaultHeaderProps) => (
   <>
-    {isPending ? 'Refreshing...' : 'PR Monitor'}
+    PR Monitor
     <div className="flex gap-2">
       <button
         className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"

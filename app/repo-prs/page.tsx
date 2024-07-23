@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useRef,
-  useTransition,
-} from 'react';
+import React, { memo, useCallback, useEffect, useRef } from 'react';
 import { useQueryLoader } from 'react-relay';
 
 import type { repoPrListQuery } from 'components/__generated__/repoPrListQuery.graphql';
@@ -23,8 +17,6 @@ const PrMonitor = () => {
 
   const repoRef = useRef<HTMLInputElement>(null);
 
-  const [isPending, startTransition] = useTransition();
-
   const [openPrQueryRef, loadOpenPrQuery] =
     useQueryLoader<repoPrListQuery>(RepoPrListQuery);
 
@@ -32,13 +24,11 @@ const PrMonitor = () => {
     useQueryLoader<repoPrListQuery>(RepoPrListQuery);
 
   const refresh = useCallback(() => {
-    startTransition(() => {
-      loadOpenPrQuery({ query: openPrQuery }, { fetchPolicy: 'network-only' });
-      loadMergedPrQuery(
-        { query: mergedPrQuery },
-        { fetchPolicy: 'network-only' }
-      );
-    });
+    loadOpenPrQuery({ query: openPrQuery }, { fetchPolicy: 'network-only' });
+    loadMergedPrQuery(
+      { query: mergedPrQuery },
+      { fetchPolicy: 'network-only' }
+    );
   }, [loadMergedPrQuery, loadOpenPrQuery, mergedPrQuery, openPrQuery]);
 
   useEffect(() => {
@@ -62,7 +52,7 @@ const PrMonitor = () => {
 
   return (
     <div className="m-auto flex  max-w-3xl flex-col gap-2 p-4">
-      <Header isPending={isPending} onUpdatedToken={refresh} />
+      <Header onUpdatedToken={refresh} />
       <form
         className="flex w-full justify-between"
         onSubmit={() => {
