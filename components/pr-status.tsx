@@ -7,6 +7,7 @@ import {
   CodeReviewIcon,
   FileDiffIcon,
   GitMergeIcon,
+  GitMergeQueueIcon,
   GitPullRequestDraftIcon,
 } from '@primer/octicons-react';
 
@@ -63,6 +64,9 @@ const CHECK_STATUS_PENDING = (
   <Badge icon={<BeakerIcon />} isPending key="tests-pending" />
 );
 const DRAFT = <Badge icon={<GitPullRequestDraftIcon />} isDraft key="draft" />;
+const MERGE_QUEUE = (
+  <Badge icon={<GitMergeQueueIcon />} isMerged key="merging" />
+);
 const MERGED = <Badge icon={<GitMergeIcon />} isMerged key="merged" />;
 const NEEDS_REVIEW = (
   <Badge icon={<CodeReviewIcon />} isReviewRequested key="needs-review" />
@@ -77,8 +81,9 @@ const PrStatus = ({ prKey }: Props) => {
     graphql`
       fragment prStatus_pullRequest on PullRequest {
         isDraft
-        reviewDecision
+        isInMergeQueue
         merged
+        reviewDecision
         statusCheckRollup @required(action: THROW) {
           state
         }
@@ -92,6 +97,8 @@ const PrStatus = ({ prKey }: Props) => {
   if (pr.merged) {
     badges.push(MERGED);
     return badges;
+  } else if (pr.isInMergeQueue) {
+    badges.push(MERGE_QUEUE);
   } else if (pr.isDraft) {
     badges.push(DRAFT);
   } else if (pr.reviewDecision === 'APPROVED') {

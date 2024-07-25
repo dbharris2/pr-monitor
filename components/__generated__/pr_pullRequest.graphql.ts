@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<41e9169c6c20c971d76f8181c7730349>>
+ * @generated SignedSource<<44bd84657fe308f783c7502882798d45>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -84,24 +84,6 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "Repository",
-      "kind": "LinkedField",
-      "name": "repository",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "nameWithOwner",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
       "kind": "ScalarField",
       "name": "merged",
       "storageKey": null
@@ -118,6 +100,24 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "permalink",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Repository",
+      "kind": "LinkedField",
+      "name": "repository",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "nameWithOwner",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -163,6 +163,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "ce7c57014548a1a1b72b13352f61b424";
+(node as any).hash = "87f436ddcc0910446f4edc22dd70d522";
 
 export default node;

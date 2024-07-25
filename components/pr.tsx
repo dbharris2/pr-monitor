@@ -24,12 +24,12 @@ const Pr = ({ prKey }: Props) => {
         additions
         changedFiles
         deletions
-        repository {
-          nameWithOwner
-        }
         merged
         number
         permalink
+        repository {
+          nameWithOwner
+        }
         reviewDecision
         title
         totalCommentsCount

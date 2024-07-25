@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<361693b0ac27c3c9a8ab5449af5c7a18>>
+ * @generated SignedSource<<b825569024b3ce8b24be7a45f2e93352>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ export type StatusState = "ERROR" | "EXPECTED" | "FAILURE" | "PENDING" | "SUCCES
 import { FragmentRefs } from "relay-runtime";
 export type prStatus_pullRequest$data = {
   readonly isDraft: boolean;
+  readonly isInMergeQueue: boolean;
   readonly merged: boolean;
   readonly reviewDecision: PullRequestReviewDecision | null | undefined;
   readonly statusCheckRollup: {
@@ -43,7 +44,7 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "reviewDecision",
+      "name": "isInMergeQueue",
       "storageKey": null
     },
     {
@@ -51,6 +52,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "merged",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "reviewDecision",
       "storageKey": null
     },
     {
@@ -81,6 +89,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "f83d20e3786ed6871af80e6c5c561010";
+(node as any).hash = "893c5abafffcd6352afde9f29575c4fc";
 
 export default node;
