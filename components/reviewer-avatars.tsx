@@ -18,9 +18,9 @@ const ReviewerAvatars = ({ prKey }: Props) => {
         }
         reviewRequests(first: 10) @required(action: THROW) {
           nodes @required(action: THROW) {
-            requestedReviewer @required(action: THROW) {
+            requestedReviewer {
               ... on User {
-                avatarUrl @required(action: THROW)
+                avatarUrl
               }
             }
           }
@@ -39,10 +39,11 @@ const ReviewerAvatars = ({ prKey }: Props) => {
 
   const avatarUrls = new Set(
     nonnull(pr.reviewRequests.nodes)
-      .map(({ requestedReviewer }) => requestedReviewer.avatarUrl)
+      .map(({ requestedReviewer }) => requestedReviewer?.avatarUrl)
       .concat(
         nonnull(pr?.reviews?.nodes).map(({ author }) => author?.avatarUrl)
       )
+      .filter(Boolean)
   );
   avatarUrls.delete(pr.author.avatarUrl);
 

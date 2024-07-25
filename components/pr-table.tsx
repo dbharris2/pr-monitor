@@ -2,43 +2,41 @@ import { memo, useEffect, useMemo, useState } from 'react';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePaginationFragment, usePreloadedQuery } from 'react-relay';
 
-import type {
-  orgPrTable_search$data,
-  orgPrTable_search$key,
-} from 'components/__generated__/orgPrTable_search.graphql';
-import type { OrgPrTablePaginationQuery } from 'components/__generated__/OrgPrTablePaginationQuery.graphql';
-import type { orgPrTableQuery } from 'components/__generated__/orgPrTableQuery.graphql';
+import type { orgPrTable_search$data } from 'components/__generated__/orgPrTable_search.graphql';
+import type { prTable_search$key } from 'components/__generated__/prTable_search.graphql';
+import type { PrTablePaginationQuery } from 'components/__generated__/PrTablePaginationQuery.graphql';
+import type { prTableQuery } from 'components/__generated__/prTableQuery.graphql';
 import nonnull from 'utils/nonnull';
 
 type Stats = { prs: number; reviews: number; comments: number };
 
-export const OrgPrTableQuery = graphql`
-  query orgPrTableQuery($query: String!) {
-    ...orgPrTable_search @arguments(query: $query)
+export const PrTableQuery = graphql`
+  query prTableQuery($query: String!) {
+    ...prTable_search @arguments(query: $query)
   }
 `;
 
 type Props = {
-  queryRef: PreloadedQuery<orgPrTableQuery, Record<string, unknown>>;
+  queryRef: PreloadedQuery<prTableQuery, Record<string, unknown>>;
 };
 
-const OrgPrTable = ({ queryRef }: Props) => {
-  const data = usePreloadedQuery<orgPrTableQuery>(OrgPrTableQuery, queryRef);
+const PrTable = ({ queryRef }: Props) => {
+  const data = usePreloadedQuery<prTableQuery>(PrTableQuery, queryRef);
   const {
     data: { search },
     hasNext,
     loadNext,
-  } = usePaginationFragment<OrgPrTablePaginationQuery, orgPrTable_search$key>(
+  } = usePaginationFragment<PrTablePaginationQuery, prTable_search$key>(
     graphql`
-      fragment orgPrTable_search on Query
+      fragment prTable_search on Query
       @argumentDefinitions(
         cursor: { type: "String" }
         count: { type: "Int", defaultValue: 100 }
         query: { type: "String!" }
       )
-      @refetchable(queryName: "OrgPrTablePaginationQuery") {
+      @refetchable(queryName: "PrTablePaginationQuery") {
         search(query: $query, type: ISSUE, first: $count, after: $cursor)
-          @connection(key: "orgPrTable_search")
+          @connection(key: "prTable_search")
           @required(action: THROW) {
           edges @required(action: THROW) {
             node {
@@ -179,4 +177,4 @@ const getStatsMap = (prs: Pr[]) => {
   return stats;
 };
 
-export default memo(OrgPrTable);
+export default memo(PrTable);

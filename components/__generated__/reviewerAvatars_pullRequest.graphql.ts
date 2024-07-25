@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9ccf67ad4eb03242a2c72d15e3d01baf>>
+ * @generated SignedSource<<63a88251499462607478babe234346f0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,7 @@ export type reviewerAvatars_pullRequest$data = {
     readonly nodes: ReadonlyArray<{
       readonly requestedReviewer: {
         readonly avatarUrl?: any;
-      };
+      } | null | undefined;
     } | null | undefined>;
   };
   readonly reviews: {
@@ -36,13 +36,15 @@ export type reviewerAvatars_pullRequest$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "avatarUrl",
-  "storageKey": null
-},
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "avatarUrl",
+    "storageKey": null
+  }
+],
 v1 = {
   "alias": null,
   "args": null,
@@ -50,9 +52,7 @@ v1 = {
   "kind": "LinkedField",
   "name": "author",
   "plural": false,
-  "selections": [
-    (v0/*: any*/)
-  ],
+  "selections": (v0/*: any*/),
   "storageKey": null
 },
 v2 = [
@@ -95,33 +95,21 @@ return {
               "plural": true,
               "selections": [
                 {
-                  "kind": "RequiredField",
-                  "field": {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": null,
-                    "kind": "LinkedField",
-                    "name": "requestedReviewer",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "kind": "InlineFragment",
-                        "selections": [
-                          {
-                            "kind": "RequiredField",
-                            "field": (v0/*: any*/),
-                            "action": "THROW",
-                            "path": "reviewRequests.nodes.requestedReviewer.avatarUrl"
-                          }
-                        ],
-                        "type": "User",
-                        "abstractKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
-                  "action": "THROW",
-                  "path": "reviewRequests.nodes.requestedReviewer"
+                  "alias": null,
+                  "args": null,
+                  "concreteType": null,
+                  "kind": "LinkedField",
+                  "name": "requestedReviewer",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "kind": "InlineFragment",
+                      "selections": (v0/*: any*/),
+                      "type": "User",
+                      "abstractKey": null
+                    }
+                  ],
+                  "storageKey": null
                 }
               ],
               "storageKey": null
@@ -169,6 +157,6 @@ return {
 };
 })();
 
-(node as any).hash = "69724c8d963de135c6ee2bc67a217822";
+(node as any).hash = "2db382ee9f2dbe1996795cd15adf8250";
 
 export default node;

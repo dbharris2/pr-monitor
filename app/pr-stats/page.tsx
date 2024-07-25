@@ -9,47 +9,34 @@ import React, {
 } from 'react';
 import { useQueryLoader } from 'react-relay';
 
-import type { orgPrTableQuery } from 'components/__generated__/orgPrTableQuery.graphql';
+import type { prTableQuery } from 'components/__generated__/prTableQuery.graphql';
 import Header from 'components/header';
-import OrgPrTable, { OrgPrTableQuery } from 'components/org-pr-table';
+import PrTable, { PrTableQuery } from 'components/pr-table';
 import useLocalState from 'utils/use-local-state';
 
 const PrMonitor = () => {
   const [token, _setToken] = useLocalState('pr-monitor-gh-token', '');
-  const [org, setOrg] = useLocalState('pr-monitor-org', '');
-  const [startDate, setStartDate] = useLocalState(
-    'pr-monitor-start-date',
-    '2024-06-23'
-  );
-  const [endDate, setEndDate] = useLocalState(
-    'pr-monitor-end-date',
-    '2024-06-30'
-  );
+  const [query, setQuery] = useLocalState('pr-monitor-search-query', '');
 
-  const orgPrQuery = `org:${org} is:pr is:merged merged:${startDate}..${endDate} sort:updated`;
-
-  const orgRef = useRef<HTMLInputElement>(null);
-  const startDateRef = useRef<HTMLInputElement>(null);
-  const endDateRef = useRef<HTMLInputElement>(null);
+  const searchQueryRef = useRef<HTMLInputElement>(null);
 
   const [isPending, startTransition] = useTransition();
 
-  const [queryRef, loadQuery] =
-    useQueryLoader<orgPrTableQuery>(OrgPrTableQuery);
+  const [queryRef, loadQuery] = useQueryLoader<prTableQuery>(PrTableQuery);
 
   const refresh = useCallback(() => {
     startTransition(() => {
-      loadQuery({ query: orgPrQuery }, { fetchPolicy: 'network-only' });
+      loadQuery({ query }, { fetchPolicy: 'network-only' });
     });
-  }, [loadQuery, orgPrQuery]);
+  }, [loadQuery, query]);
 
   useEffect(() => {
     queryRef == null &&
       token &&
       startTransition(() => {
-        loadQuery({ query: orgPrQuery });
+        loadQuery({ query });
       });
-  }, [token, queryRef, loadQuery, orgPrQuery]);
+  }, [token, queryRef, loadQuery, query]);
 
   return (
     <div className="m-auto flex  max-w-3xl flex-col gap-2 p-4">
@@ -58,39 +45,19 @@ const PrMonitor = () => {
         className="flex w-full justify-between gap-2"
         onSubmit={() => {
           console.log('on submit');
-          setOrg(orgRef.current?.value ?? '');
-          setStartDate(startDateRef.current?.value ?? '');
-          setEndDate(endDateRef.current?.value ?? '');
+          setQuery(searchQueryRef.current?.value ?? '');
           refresh();
         }}
       >
         <input
           className="flex w-full p-2"
-          defaultValue={org}
-          placeholder="Insert org here..."
-          ref={orgRef}
+          defaultValue={query}
+          placeholder="Insert GitHub search query here..."
+          ref={searchQueryRef}
         />
-        <input
-          className="flex w-full p-2"
-          defaultValue={startDate}
-          placeholder="Insert start date (YYYY-MM-DD)..."
-          ref={startDateRef}
-        />
-        <input
-          className="flex w-full p-2"
-          defaultValue={endDate}
-          placeholder="Insert end date (YYYY-MM-DD)..."
-          ref={endDateRef}
-        />
-        <button
-          className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
-          type="submit"
-        >
-          Submit
-        </button>
       </form>
       {isPending && 'Loading...'}
-      {queryRef && <OrgPrTable queryRef={queryRef} />}
+      {queryRef && <PrTable queryRef={queryRef} />}
     </div>
   );
 };
