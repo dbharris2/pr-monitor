@@ -3,18 +3,18 @@
 import React, { memo, useCallback, useEffect } from 'react';
 import { useQueryLoader } from 'react-relay';
 
+import type { mentionedPrListQuery } from 'components/__generated__/mentionedPrListQuery.graphql';
 import type { myPrListQuery } from 'components/__generated__/myPrListQuery.graphql';
 import type { reviewedPrListQuery } from 'components/__generated__/reviewedPrListQuery.graphql';
 import type { reviewPrListQuery } from 'components/__generated__/reviewPrListQuery.graphql';
 import Header from 'components/header';
+import MentionedPrList, { MentionedPrListQuery } from 'components/mentioned-pr-list';
 import MyPrList, { MyPrListQuery } from 'components/my-pr-list';
 import ReviewPrList, { ReviewPrListQuery } from 'components/review-pr-list';
 import ReviewedPrList, {
   ReviewedPrListQuery,
 } from 'components/reviewed-pr-list';
 import useLocalState from 'utils/use-local-state';
-import { mentionedPrListQuery } from 'components/__generated__/mentionedPrListQuery.graphql';
-import MentionedPrList, { MentionedPrListQuery } from 'components/mentioned-pr-list';
 
 const PrMonitor = () => {
   const [token, _setToken] = useLocalState('pr-monitor-gh-token', '');
