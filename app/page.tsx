@@ -13,6 +13,8 @@ import ReviewedPrList, {
   ReviewedPrListQuery,
 } from 'components/reviewed-pr-list';
 import useLocalState from 'utils/use-local-state';
+import { mentionedPrListQuery } from 'components/__generated__/mentionedPrListQuery.graphql';
+import MentionedPrList, { MentionedPrListQuery } from 'components/mentioned-pr-list';
 
 const PrMonitor = () => {
   const [token, _setToken] = useLocalState('pr-monitor-gh-token', '');
@@ -23,17 +25,21 @@ const PrMonitor = () => {
     useQueryLoader<reviewPrListQuery>(ReviewPrListQuery);
   const [reviewedQueryRef, loadReviewedQuery] =
     useQueryLoader<reviewedPrListQuery>(ReviewedPrListQuery);
+  const [mentionedQueryRef, loadMentionedQuery] =
+    useQueryLoader<mentionedPrListQuery>(MentionedPrListQuery);
 
   const refresh = useCallback(() => {
     loadMyPrQuery({}, { fetchPolicy: 'network-only' });
     loadReviewQuery({}, { fetchPolicy: 'network-only' });
     loadReviewedQuery({}, { fetchPolicy: 'network-only' });
-  }, [loadMyPrQuery, loadReviewQuery, loadReviewedQuery]);
+    loadMentionedQuery({}, { fetchPolicy: 'network-only' });
+  }, [loadMyPrQuery, loadReviewQuery, loadReviewedQuery, loadMentionedQuery]);
 
   useEffect(() => {
     myPrQueryRef == null && token && loadMyPrQuery({});
     reviewQueryRef == null && token && loadReviewQuery({});
     reviewedQueryRef == null && token && loadReviewedQuery({});
+    mentionedQueryRef == null && token && loadMentionedQuery({});
   }, [
     token,
     myPrQueryRef,
@@ -42,6 +48,8 @@ const PrMonitor = () => {
     loadReviewQuery,
     reviewedQueryRef,
     loadReviewedQuery,
+    mentionedQueryRef,
+    loadMentionedQuery,
   ]);
 
   useEffect(() => {
@@ -54,6 +62,7 @@ const PrMonitor = () => {
       <Header onUpdatedToken={refresh} />
       {reviewQueryRef && <ReviewPrList queryRef={reviewQueryRef} />}
       {reviewedQueryRef && <ReviewedPrList queryRef={reviewedQueryRef} />}
+      {mentionedQueryRef && <MentionedPrList queryRef={mentionedQueryRef} />}
       {myPrQueryRef && <MyPrList queryRef={myPrQueryRef} />}
     </div>
   );
