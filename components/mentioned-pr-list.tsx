@@ -62,7 +62,7 @@ const MentionedPrList = ({ queryRef }: Props) => {
   );
 
   return (
-    <PrList title="PRs I'm mentioned in">
+    <PrList title="Mentions">
       {nonnull(search.edges)
         .map(({ node }) => node)
         .map((pr) => (
