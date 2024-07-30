@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b825569024b3ce8b24be7a45f2e93352>>
+ * @generated SignedSource<<6448729779d8fc4e73134dc7bef57c6e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,7 @@ export type prStatus_pullRequest$data = {
   readonly reviewDecision: PullRequestReviewDecision | null | undefined;
   readonly statusCheckRollup: {
     readonly state: StatusState;
-  };
+  } | null | undefined;
   readonly " $fragmentType": "prStatus_pullRequest";
 };
 export type prStatus_pullRequest$key = {
@@ -62,33 +62,28 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "kind": "RequiredField",
-      "field": {
-        "alias": null,
-        "args": null,
-        "concreteType": "StatusCheckRollup",
-        "kind": "LinkedField",
-        "name": "statusCheckRollup",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "state",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      "action": "THROW",
-      "path": "statusCheckRollup"
+      "alias": null,
+      "args": null,
+      "concreteType": "StatusCheckRollup",
+      "kind": "LinkedField",
+      "name": "statusCheckRollup",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "state",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "PullRequest",
   "abstractKey": null
 };
 
-(node as any).hash = "893c5abafffcd6352afde9f29575c4fc";
+(node as any).hash = "f2e5c8ba86779bc26d591ad2a988f420";
 
 export default node;

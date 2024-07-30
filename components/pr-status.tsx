@@ -84,7 +84,7 @@ const PrStatus = ({ prKey }: Props) => {
         isInMergeQueue
         merged
         reviewDecision
-        statusCheckRollup @required(action: THROW) {
+        statusCheckRollup {
           state
         }
       }
@@ -109,7 +109,7 @@ const PrStatus = ({ prKey }: Props) => {
     badges.push(NEEDS_REVIEW);
   }
 
-  switch (pr.statusCheckRollup.state) {
+  switch (pr.statusCheckRollup?.state) {
     case 'PENDING':
       badges.push(CHECK_STATUS_PENDING);
       break;
@@ -118,6 +118,8 @@ const PrStatus = ({ prKey }: Props) => {
       break;
     case 'FAILURE':
       badges.push(CHECK_STATUS_FAILED);
+      break;
+    default:
       break;
   }
 
