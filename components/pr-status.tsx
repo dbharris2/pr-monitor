@@ -18,6 +18,7 @@ type BadgeProps = {
   icon: React.ReactNode;
   isApproved?: boolean;
   isDraft?: boolean;
+  isInMergeQueue?: boolean;
   isMerged?: boolean;
   isPending?: boolean;
   isReviewRequested?: boolean;
@@ -28,6 +29,7 @@ const Badge = ({
   icon,
   isApproved,
   isDraft,
+  isInMergeQueue,
   isMerged,
   isPending,
   isReviewRequested,
@@ -39,6 +41,7 @@ const Badge = ({
       {
         'bg-green-600': isApproved,
         'bg-gray-600': isDraft,
+        'bg-yellow-600': isInMergeQueue,
         'bg-purple-500': isMerged,
         'bg-blue-500': isPending,
         'bg-orange-400': isReviewRequested,
@@ -65,7 +68,7 @@ const CHECK_STATUS_PENDING = (
 );
 const DRAFT = <Badge icon={<GitPullRequestDraftIcon />} isDraft key="draft" />;
 const MERGE_QUEUE = (
-  <Badge icon={<GitMergeQueueIcon />} isMerged key="merging" />
+  <Badge icon={<GitMergeQueueIcon />} isInMergeQueue key="merging" />
 );
 const MERGED = <Badge icon={<GitMergeIcon />} isMerged key="merged" />;
 const NEEDS_REVIEW = (
