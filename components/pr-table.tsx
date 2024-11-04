@@ -2,8 +2,7 @@ import { memo, useEffect, useMemo, useState } from 'react';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePaginationFragment, usePreloadedQuery } from 'react-relay';
 
-import type { orgPrTable_search$data } from 'components/__generated__/orgPrTable_search.graphql';
-import type { prTable_search$key } from 'components/__generated__/prTable_search.graphql';
+import type { prTable_search$data, prTable_search$key } from 'components/__generated__/prTable_search.graphql';
 import type { PrTablePaginationQuery } from 'components/__generated__/PrTablePaginationQuery.graphql';
 import type { prTableQuery } from 'components/__generated__/prTableQuery.graphql';
 import nonnull from 'utils/nonnull';
@@ -123,7 +122,7 @@ const StatsRow = ({ name, stats }: { name: string; stats: Stats }) => (
   </tr>
 );
 
-type PrEdges = NonNullable<orgPrTable_search$data['search']['edges']>[number];
+type PrEdges = NonNullable<prTable_search$data['search']['edges']>[number];
 type PrNode = NonNullable<PrEdges>['node'];
 type Pr = NonNullable<PrNode>;
 
