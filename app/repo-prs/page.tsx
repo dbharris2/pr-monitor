@@ -13,7 +13,7 @@ const PrMonitor = () => {
   const [repo, setRepo] = useLocalState('pr-monitor-repo', '');
 
   const openPrQuery = `repo:${repo} is:open is:pr draft:false sort:updated`;
-  const mergedPrQuery = `repo:${repo} is:merged is:pr sort:updated`;
+  const mergedPrQuery = `repo:${repo} is:merged is:pr`;
 
   const repoRef = useRef<HTMLInputElement>(null);
 
