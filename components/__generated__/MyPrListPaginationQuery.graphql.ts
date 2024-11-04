@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<287f241db9ee0a923151c59c12951507>>
+ * @generated SignedSource<<04e5da7c1731a3765133be4c3e9271b9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -196,6 +196,13 @@ return {
                         "args": null,
                         "kind": "ScalarField",
                         "name": "merged",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "mergedAt",
                         "storageKey": null
                       },
                       {
@@ -421,12 +428,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b64e3a1fde83dc971b5d613ff086cb9d",
+    "cacheID": "6b5be0172b4e000b6c0f61ea354f01df",
     "id": null,
     "metadata": {},
     "name": "MyPrListPaginationQuery",
     "operationKind": "query",
-    "text": "query MyPrListPaginationQuery(\n  $count: Int = 10\n  $cursor: String\n) {\n  ...myPrList_search_1G22uz\n}\n\nfragment myPrList_search_1G22uz on Query {\n  search(query: \"author:@me is:pr is:open sort:updated\", type: ISSUE, first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  merged\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query MyPrListPaginationQuery(\n  $count: Int = 10\n  $cursor: String\n) {\n  ...myPrList_search_1G22uz\n}\n\nfragment myPrList_search_1G22uz on Query {\n  search(query: \"author:@me is:pr is:open sort:updated\", type: ISSUE, first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  merged\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

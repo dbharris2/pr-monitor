@@ -25,6 +25,7 @@ const Pr = ({ prKey }: Props) => {
         changedFiles
         deletions
         merged
+        mergedAt
         number
         permalink
         repository {
@@ -61,7 +62,7 @@ const Pr = ({ prKey }: Props) => {
             </div>
           </div>
           <div className="flex shrink-0 pl-2">
-            {moment(pr.updatedAt).format('MM/DD HH:mm')}
+            {moment(pr.mergedAt ?? pr.updatedAt).format('MM/DD HH:mm')}
           </div>
         </div>
         <div className="flex justify-between">

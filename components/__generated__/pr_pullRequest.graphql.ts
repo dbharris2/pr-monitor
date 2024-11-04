@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<44bd84657fe308f783c7502882798d45>>
+ * @generated SignedSource<<e94636df3b54fb835b1a68eb4a8bddd1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,7 @@ export type pr_pullRequest$data = {
   readonly changedFiles: number;
   readonly deletions: number;
   readonly merged: boolean;
+  readonly mergedAt: any | null | undefined;
   readonly number: number;
   readonly permalink: any;
   readonly repository: {
@@ -86,6 +87,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "merged",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "mergedAt",
       "storageKey": null
     },
     {
@@ -163,6 +171,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "87f436ddcc0910446f4edc22dd70d522";
+(node as any).hash = "6f196cb0190477149490ba13a5b88797";
 
 export default node;
