@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<08c69921b00f9d9d28428b88657959e9>>
+ * @generated SignedSource<<7504dfcfc9fc736570779d044ce57c55>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type repoPrList_search$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id?: string;
+        readonly mergedAt?: any | null | undefined;
         readonly " $fragmentSpreads": FragmentRefs<"pr_pullRequest">;
       } | null | undefined;
     } | null | undefined> | null | undefined;
@@ -121,6 +122,13 @@ return {
                         "storageKey": null
                       },
                       {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "mergedAt",
+                        "storageKey": null
+                      },
+                      {
                         "args": null,
                         "kind": "FragmentSpread",
                         "name": "pr_pullRequest"
@@ -186,6 +194,6 @@ return {
 };
 })();
 
-(node as any).hash = "1ba83cfe6d614deaa1be611d836afb03";
+(node as any).hash = "bc2a0d6e1b13ad0dcc57eabfb9cca4c5";
 
 export default node;
