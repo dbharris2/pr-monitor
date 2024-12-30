@@ -23,9 +23,13 @@ const fetchQuery = async (params: RequestParameters, variables: Variables) => {
       }),
     });
     const json = await response.json();
+    if (json?.status === '401') {
+      throw new Error(json?.message);
+    }
     return json;
   } catch (error) {
     console.error('Failed to fetch data from server', error);
+    throw error;
   }
 };
 
