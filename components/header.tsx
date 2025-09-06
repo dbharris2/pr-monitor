@@ -1,5 +1,6 @@
 import { memo, useRef, useState } from 'react';
 
+import { ThemeToggle } from 'components/theme-toggle';
 import useLocalState from 'utils/use-local-state';
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 const Header = ({ onUpdatedToken }: Props) => {
   const [isUpdatingToken, setIsUpdatingToken] = useState(false);
   return (
-    <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2">
+    <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2 dark:bg-sky-950 dark:text-blue-200">
       {!isUpdatingToken && (
         <DefaultHeader onClickUpdateToken={() => setIsUpdatingToken(true)} />
       )}
@@ -33,9 +34,10 @@ type DefaultHeaderProps = {
 const DefaultHeader = ({ onClickUpdateToken }: DefaultHeaderProps) => (
   <>
     PR Monitor
-    <div className="flex gap-2">
+    <div className="flex gap-4">
+      <ThemeToggle />
       <button
-        className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
+        className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600 dark:bg-amber-800 dark:text-blue-200"
         onClick={onClickUpdateToken}
         type="button"
       >

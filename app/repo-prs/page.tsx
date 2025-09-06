@@ -61,7 +61,7 @@ const PrMonitor = () => {
         }}
       >
         <input
-          className="flex w-full p-2"
+          className="flex w-full rounded p-2 dark:bg-sky-950 dark:text-blue-200"
           defaultValue={repo}
           placeholder="Insert org/repo here..."
           ref={repoRef}

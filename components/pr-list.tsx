@@ -6,7 +6,7 @@ type Props = {
 };
 
 const PrList = ({ children, title }: Props) => (
-  <div className="flex flex-col gap-2">
+  <div className="flex flex-col gap-2 dark:text-blue-200">
     {title}
     <div className="min-h-3 rounded-lg border border-solid">{children}</div>
   </div>
