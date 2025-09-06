@@ -45,8 +45,14 @@ const Pr = ({ prKey }: Props) => {
     <a
       className={cn(
         'flex cursor-pointer border-b border-solid bg-white dark:bg-sky-950 p-2 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300 dark:hover:bg-purple-950',
-        { 'bg-red-300 dark:bg-red-950': pr.reviewDecision === 'CHANGES_REQUESTED' },
-        { 'bg-green-300 dark:bg-green-900': pr.reviewDecision === 'APPROVED' && !pr.merged }
+        {
+          'bg-red-300 dark:bg-red-950':
+            pr.reviewDecision === 'CHANGES_REQUESTED',
+        },
+        {
+          'bg-green-300 dark:bg-green-900':
+            pr.reviewDecision === 'APPROVED' && !pr.merged,
+        }
       )}
       href={pr.permalink}
       key={pr.number}
@@ -69,9 +75,13 @@ const Pr = ({ prKey }: Props) => {
           <div className="flex grow flex-wrap gap-2 dark:text-blue-200">
             {pr.repository.nameWithOwner}
             <div className="flex gap-1">
-              <div className="text-green-600 dark:text-green-700">+{pr.additions}</div>
-              <div className="text-red-600 dark:text-red-700">-{pr.deletions}</div>@
-              {pr.changedFiles}
+              <div className="text-green-600 dark:text-green-700">
+                +{pr.additions}
+              </div>
+              <div className="text-red-600 dark:text-red-700">
+                -{pr.deletions}
+              </div>
+              @{pr.changedFiles}
               <div className="ml-1 flex items-center gap-1">
                 <CommentIcon /> {pr.totalCommentsCount}
               </div>

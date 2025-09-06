@@ -58,11 +58,10 @@ const RepoPrList = ({ queryRef, title }: Props) => {
   return (
     <PrList title={title}>
       {nonnull(search.edges)
-        .sort((a, b) => a.node!.mergedAt > b.node!.mergedAt ? -1 : 1)
-        .map(({node}) => (
+        .sort((a, b) => (a.node!.mergedAt > b.node!.mergedAt ? -1 : 1))
+        .map(({ node }) => (
           <Pr key={node!.id} prKey={node!} />
-        ))
-        }
+        ))}
       {hasNext && (
         <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />
       )}

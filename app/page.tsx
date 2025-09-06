@@ -8,7 +8,9 @@ import type { myPrListQuery } from 'components/__generated__/myPrListQuery.graph
 import type { reviewedPrListQuery } from 'components/__generated__/reviewedPrListQuery.graphql';
 import type { reviewPrListQuery } from 'components/__generated__/reviewPrListQuery.graphql';
 import Header from 'components/header';
-import MentionedPrList, { MentionedPrListQuery } from 'components/mentioned-pr-list';
+import MentionedPrList, {
+  MentionedPrListQuery,
+} from 'components/mentioned-pr-list';
 import MyPrList, { MyPrListQuery } from 'components/my-pr-list';
 import ReviewPrList, { ReviewPrListQuery } from 'components/review-pr-list';
 import ReviewedPrList, {

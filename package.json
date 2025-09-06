@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbo --port 3001",
     "build": "next build",
+    "format": "prettier . --write",
     "start": "next start",
     "lint": "next lint",
     "relay": "relay-compiler"

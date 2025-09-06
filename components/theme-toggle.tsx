@@ -22,18 +22,14 @@ const ThemeToggleImpl = () => {
     return null;
   }
 
-  return (
-    <button onClick={toggleTheme}>
-      {isDark ? '🌙' : '☀️'}
-    </button>
-  );
-}
+  return <button onClick={toggleTheme}>{isDark ? '🌙' : '☀️'}</button>;
+};
 
 const getInitialIsDark = () => {
   const localStorage =
     typeof window !== 'undefined' ? window.localStorage : null;
   const storedTheme = localStorage?.getItem('theme');
   return storedTheme === 'dark';
-}
+};
 
 export const ThemeToggle = memo(ThemeToggleImpl);

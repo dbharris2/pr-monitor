@@ -1,11 +1,11 @@
 'use client';
 
-import Header from "components/header";
+import Header from 'components/header';
 
 type Props = {
   error: Error;
   refresh: () => void;
-}
+};
 
 const Error = ({ error, refresh }: Props) => {
   return (
@@ -17,7 +17,7 @@ const Error = ({ error, refresh }: Props) => {
   );
 };
 
-const errorSuggestion = (message: string) => 
+const errorSuggestion = (message: string) =>
   message.includes('Bad credentials') ? 'Try updating your token' : '';
 
 export default Error;

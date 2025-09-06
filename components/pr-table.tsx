@@ -2,7 +2,10 @@ import { memo, useEffect, useMemo, useState } from 'react';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePaginationFragment, usePreloadedQuery } from 'react-relay';
 
-import type { prTable_search$data, prTable_search$key } from 'components/__generated__/prTable_search.graphql';
+import type {
+  prTable_search$data,
+  prTable_search$key,
+} from 'components/__generated__/prTable_search.graphql';
 import type { PrTablePaginationQuery } from 'components/__generated__/PrTablePaginationQuery.graphql';
 import type { prTableQuery } from 'components/__generated__/prTableQuery.graphql';
 import nonnull from 'utils/nonnull';
