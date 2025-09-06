@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <link href="code-review.svg" rel="icon" type="image/svg+xml"></link>
       <body className={inter.className}>
-        <div className="h-full min-h-screen bg-gray-50">
+        <div className="h-full min-h-screen bg-gray-50 dark:bg-gray-900">
           <RelayContextProvider>{children}</RelayContextProvider>
         </div>
       </body>
