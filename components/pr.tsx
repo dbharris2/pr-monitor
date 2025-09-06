@@ -72,7 +72,7 @@ const Pr = ({ prKey }: Props) => {
               <div className="text-green-600 dark:text-green-700">+{pr.additions}</div>
               <div className="text-red-600 dark:text-red-700">-{pr.deletions}</div>@
               {pr.changedFiles}
-              <div className="ml-1">
+              <div className="ml-1 flex items-center gap-1">
                 <CommentIcon /> {pr.totalCommentsCount}
               </div>
             </div>

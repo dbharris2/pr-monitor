@@ -18,6 +18,10 @@ const ThemeToggleImpl = () => {
     }
   }, [isDark]);
 
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   return (
     <button onClick={toggleTheme}>
       {isDark ? '🌙' : '☀️'}
@@ -29,8 +33,7 @@ const getInitialIsDark = () => {
   const localStorage =
     typeof window !== 'undefined' ? window.localStorage : null;
   const storedTheme = localStorage?.getItem('theme');
-  const prefersDark = typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)').matches : false;
-  return storedTheme === 'dark' || (!storedTheme && prefersDark);
+  return storedTheme === 'dark';
 }
 
 export const ThemeToggle = memo(ThemeToggleImpl);
