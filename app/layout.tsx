@@ -31,7 +31,7 @@ export default function RootLayout({
                   document.documentElement.classList.add('dark');
                 }
               } catch (e) { console.error(e); }
-            `
+            `,
           }}
         />
       </head>
