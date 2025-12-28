@@ -32,10 +32,14 @@ const PrMonitor = () => {
   }, [loadMergedPrQuery, loadOpenPrQuery, mergedPrQuery, openPrQuery]);
 
   useEffect(() => {
-    openPrQueryRef == null && token && loadOpenPrQuery({ query: openPrQuery });
-    openPrQueryRef == null &&
-      token &&
-      loadMergedPrQuery({ query: mergedPrQuery });
+    if (token) {
+      if (openPrQueryRef == null) {
+        loadOpenPrQuery({ query: openPrQuery });
+      }
+      if (mergedPrQueryRef == null) {
+        loadMergedPrQuery({ query: mergedPrQuery });
+      }
+    }
   }, [
     token,
     openPrQuery,
@@ -43,6 +47,7 @@ const PrMonitor = () => {
     loadOpenPrQuery,
     loadMergedPrQuery,
     mergedPrQuery,
+    mergedPrQueryRef,
   ]);
 
   useEffect(() => {

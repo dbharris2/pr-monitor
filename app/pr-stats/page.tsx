@@ -31,11 +31,11 @@ const PrMonitor = () => {
   }, [loadQuery, query]);
 
   useEffect(() => {
-    queryRef == null &&
-      token &&
+    if (token && queryRef == null) {
       startTransition(() => {
         loadQuery({ query });
       });
+    }
   }, [token, queryRef, loadQuery, query]);
 
   return (
