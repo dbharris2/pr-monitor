@@ -38,10 +38,20 @@ const PrMonitor = () => {
   }, [loadMyPrQuery, loadReviewQuery, loadReviewedQuery, loadMentionedQuery]);
 
   useEffect(() => {
-    myPrQueryRef == null && token && loadMyPrQuery({});
-    reviewQueryRef == null && token && loadReviewQuery({});
-    reviewedQueryRef == null && token && loadReviewedQuery({});
-    mentionedQueryRef == null && token && loadMentionedQuery({});
+    if (token) {
+      if (myPrQueryRef == null) {
+        loadMyPrQuery({});
+      }
+      if (reviewQueryRef == null) {
+        loadReviewQuery({});
+      }
+      if (reviewedQueryRef == null) {
+        loadReviewedQuery({});
+      }
+      if (mentionedQueryRef == null) {
+        loadMentionedQuery({});
+      }
+    }
   }, [
     token,
     myPrQueryRef,

@@ -81,6 +81,7 @@ const PrTable = ({ queryRef }: Props) => {
   );
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStatsMap(sm);
     const timerId = setInterval(() => hasNext && loadNext(100), 500);
     return () => clearInterval(timerId);
