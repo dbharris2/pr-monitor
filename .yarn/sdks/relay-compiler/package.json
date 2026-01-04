@@ -1,0 +1,7 @@
+{
+  "name": "relay-compiler",
+  "version": "20.1.1-sdk",
+  "main": "index.js",
+  "type": "commonjs",
+  "bin": "cli.js"
+}

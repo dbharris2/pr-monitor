@@ -19,6 +19,8 @@ export default defineConfig([
     '**/*.config.js',
     '**/*.config.mjs',
     '**/*.d.ts',
+    '.yarn/**/*',
+    '.pnp.*',
   ]),
   eslint.configs.recommended,
   tseslint.configs.recommended,
@@ -42,7 +44,7 @@ export default defineConfig([
     },
     settings: {
       'import/resolver': {
-        typescript: { project: './packages/shell/tsconfig.json' },
+        typescript: { project: './tsconfig.json' },
       },
       react: { version: 'detect' },
     },
