@@ -10,7 +10,7 @@ type Props = {
 const Header = ({ onUpdatedToken }: Props) => {
   const [isUpdatingToken, setIsUpdatingToken] = useState(false);
   return (
-    <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2 dark:bg-sky-950 dark:text-blue-200">
+    <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2 dark:bg-catppuccin-surface0 dark:text-catppuccin-text">
       {!isUpdatingToken && (
         <DefaultHeader onClickUpdateToken={() => setIsUpdatingToken(true)} />
       )}
@@ -37,7 +37,7 @@ const DefaultHeader = ({ onClickUpdateToken }: DefaultHeaderProps) => (
     <div className="flex gap-4">
       <ThemeToggle />
       <button
-        className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600 dark:bg-amber-800 dark:text-blue-200"
+        className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600 dark:bg-catppuccin-surface1 dark:text-catppuccin-text"
         onClick={onClickUpdateToken}
         type="button"
       >
