@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d66b695220e64f985f043fe971245eca>>
+ * @generated SignedSource<<a2a57a265785a7e83e0efc2d7bb96692>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type mentionedPrList_search$data = {
   readonly search: {
@@ -25,6 +25,8 @@ export type mentionedPrList_search$key = {
   readonly " $data"?: mentionedPrList_search$data;
   readonly " $fragmentSpreads": FragmentRefs<"mentionedPrList_search">;
 };
+
+import MentionedPrListPaginationQuery_graphql from './MentionedPrListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -63,7 +65,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./MentionedPrListPaginationQuery.graphql')
+      "operation": MentionedPrListPaginationQuery_graphql
     }
   },
   "name": "mentionedPrList_search",
@@ -172,8 +174,7 @@ return {
         ],
         "storageKey": "__mentionedPrList_search_connection(query:\"-author:@me is:open is:pr -review-requested:@me mentions:@me sort:updated\",type:\"ISSUE\")"
       },
-      "action": "THROW",
-      "path": "search"
+      "action": "THROW"
     }
   ],
   "type": "Query",

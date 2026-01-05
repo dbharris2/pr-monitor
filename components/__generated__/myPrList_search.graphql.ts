@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ee3e1da2b16347803b85c3fd7e04c774>>
+ * @generated SignedSource<<9483ee4f63264b3351e0d77e9c78ae5b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type myPrList_search$data = {
   readonly search: {
@@ -25,6 +25,8 @@ export type myPrList_search$key = {
   readonly " $data"?: myPrList_search$data;
   readonly " $fragmentSpreads": FragmentRefs<"myPrList_search">;
 };
+
+import MyPrListPaginationQuery_graphql from './MyPrListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -63,7 +65,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./MyPrListPaginationQuery.graphql')
+      "operation": MyPrListPaginationQuery_graphql
     }
   },
   "name": "myPrList_search",
@@ -172,8 +174,7 @@ return {
         ],
         "storageKey": "__myPrList_search_connection(query:\"author:@me is:pr is:open sort:updated\",type:\"ISSUE\")"
       },
-      "action": "THROW",
-      "path": "search"
+      "action": "THROW"
     }
   ],
   "type": "Query",

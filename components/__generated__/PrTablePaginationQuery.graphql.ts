@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<123dad5e2c81b61e3de61a5fa53c35f6>>
+ * @generated SignedSource<<a80e847832996e55dd638fc10d671a7e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type PrTablePaginationQuery$variables = {
   count?: number | null | undefined;

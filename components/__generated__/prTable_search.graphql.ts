@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b3966932c2daedf031f8e22db39f9527>>
+ * @generated SignedSource<<403f081629e46efa36091705f0896bfc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type prTable_search$data = {
   readonly search: {
@@ -44,6 +44,8 @@ export type prTable_search$key = {
   readonly " $data"?: prTable_search$data;
   readonly " $fragmentSpreads": FragmentRefs<"prTable_search">;
 };
+
+import PrTablePaginationQuery_graphql from './PrTablePaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -113,7 +115,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./PrTablePaginationQuery.graphql')
+      "operation": PrTablePaginationQuery_graphql
     }
   },
   "name": "prTable_search",
@@ -261,8 +263,7 @@ return {
               ],
               "storageKey": null
             },
-            "action": "THROW",
-            "path": "search.edges"
+            "action": "THROW"
           },
           {
             "alias": null,
@@ -292,8 +293,7 @@ return {
         ],
         "storageKey": null
       },
-      "action": "THROW",
-      "path": "search"
+      "action": "THROW"
     }
   ],
   "type": "Query",

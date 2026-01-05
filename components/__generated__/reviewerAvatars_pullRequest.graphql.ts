@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<63a88251499462607478babe234346f0>>
+ * @generated SignedSource<<daf3c0a846988c023e7797da9b0135e5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type reviewerAvatars_pullRequest$data = {
   readonly author: {
@@ -71,8 +71,7 @@ return {
     {
       "kind": "RequiredField",
       "field": (v1/*: any*/),
-      "action": "THROW",
-      "path": "author"
+      "action": "THROW"
     },
     {
       "kind": "RequiredField",
@@ -114,14 +113,12 @@ return {
               ],
               "storageKey": null
             },
-            "action": "THROW",
-            "path": "reviewRequests.nodes"
+            "action": "THROW"
           }
         ],
         "storageKey": "reviewRequests(first:10)"
       },
-      "action": "THROW",
-      "path": "reviewRequests"
+      "action": "THROW"
     },
     {
       "alias": null,
@@ -145,8 +142,7 @@ return {
             ],
             "storageKey": null
           },
-          "action": "THROW",
-          "path": "reviews.nodes"
+          "action": "THROW"
         }
       ],
       "storageKey": "reviews(first:10)"
