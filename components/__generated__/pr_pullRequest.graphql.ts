@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e94636df3b54fb835b1a68eb4a8bddd1>>
+ * @generated SignedSource<<2c2b4017d1d7dee0c78f8445c7589b4a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type PullRequestReviewDecision = "APPROVED" | "CHANGES_REQUESTED" | "REVIEW_REQUIRED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type pr_pullRequest$data = {
@@ -18,7 +18,6 @@ export type pr_pullRequest$data = {
   } | null | undefined;
   readonly changedFiles: number;
   readonly deletions: number;
-  readonly merged: boolean;
   readonly mergedAt: any | null | undefined;
   readonly number: number;
   readonly permalink: any;
@@ -80,13 +79,6 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "deletions",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "merged",
       "storageKey": null
     },
     {
@@ -171,6 +163,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "6f196cb0190477149490ba13a5b88797";
+(node as any).hash = "e5865e7f4415da47a679ca9cfbaffb94";
 
 export default node;

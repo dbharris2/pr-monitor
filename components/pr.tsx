@@ -24,7 +24,6 @@ const Pr = ({ prKey }: Props) => {
         additions
         changedFiles
         deletions
-        merged
         mergedAt
         number
         permalink
@@ -41,17 +40,16 @@ const Pr = ({ prKey }: Props) => {
     `,
     prKey
   );
+
   return (
     <a
       className={cn(
-        'flex cursor-pointer border-b border-solid bg-white dark:bg-sky-950 p-2 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300 dark:hover:bg-purple-950',
+        'flex cursor-pointer border-b border-solid bg-white dark:bg-catppuccin-surface0 p-2 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300 dark:hover:bg-catppuccin-mauve/50',
         {
-          'bg-red-300 dark:bg-red-950':
+          'bg-red-300 dark:bg-catppuccin-red/50':
             pr.reviewDecision === 'CHANGES_REQUESTED',
-        },
-        {
-          'bg-green-300 dark:bg-green-900':
-            pr.reviewDecision === 'APPROVED' && !pr.merged,
+          'bg-green-300 dark:bg-catppuccin-green/50':
+            pr.reviewDecision === 'APPROVED',
         }
       )}
       href={pr.permalink}
@@ -63,7 +61,7 @@ const Pr = ({ prKey }: Props) => {
         <div className="flex justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
             <Avatar src={pr.author?.avatarUrl ?? ''} />
-            <div className="truncate dark:text-blue-200">
+            <div className="truncate dark:text-catppuccin-text">
               {pr.title} (#{pr.number})
             </div>
           </div>
@@ -72,13 +70,13 @@ const Pr = ({ prKey }: Props) => {
           </div>
         </div>
         <div className="flex justify-between">
-          <div className="flex grow flex-wrap gap-2 dark:text-blue-200">
+          <div className="flex grow flex-wrap gap-2 dark:text-catppuccin-text">
             {pr.repository.nameWithOwner}
             <div className="flex gap-1">
-              <div className="text-green-600 dark:text-green-700">
+              <div className="text-green-600 dark:text-catppuccin-green">
                 +{pr.additions}
               </div>
-              <div className="text-red-600 dark:text-red-700">
+              <div className="text-red-600 dark:text-catppuccin-red">
                 -{pr.deletions}
               </div>
               @{pr.changedFiles}

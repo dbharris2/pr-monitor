@@ -36,7 +36,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <div className="h-full min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="h-full min-h-screen bg-gray-50 dark:bg-catppuccin-base">
           <RelayContextProvider>{children}</RelayContextProvider>
         </div>
       </body>

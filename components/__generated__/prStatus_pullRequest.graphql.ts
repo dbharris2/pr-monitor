@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6448729779d8fc4e73134dc7bef57c6e>>
+ * @generated SignedSource<<8d646613bf0166eba403111cbba16ecb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type PullRequestReviewDecision = "APPROVED" | "CHANGES_REQUESTED" | "REVIEW_REQUIRED" | "%future added value";
 export type StatusState = "ERROR" | "EXPECTED" | "FAILURE" | "PENDING" | "SUCCESS" | "%future added value";
 import { FragmentRefs } from "relay-runtime";

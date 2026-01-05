@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<34a37182e6944191e2deaf2907564d80>>
+ * @generated SignedSource<<423411d79ce76be21152d2a42a9d2b5e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type prTableQuery$variables = {
   query: string;
