@@ -15,15 +15,12 @@ import ReviewPrList, { ReviewPrListQuery } from 'components/review-pr-list';
 import ReviewedPrList, {
   ReviewedPrListQuery,
 } from 'components/reviewed-pr-list';
-import { usePrevious } from 'utils/use-previous';
 
 type Props = {
-  token: string | null;
+  isLoggedIn: boolean;
 };
 
-const ReviewPageImpl = ({ token }: Props) => {
-  const prevToken = usePrevious(token);
-
+const ReviewPageImpl = ({ isLoggedIn }: Props) => {
   const [myPrQueryRef, loadMyPrQuery] =
     useQueryLoader<myPrListQuery>(MyPrListQuery);
   const [reviewQueryRef, loadReviewQuery] =
@@ -34,13 +31,13 @@ const ReviewPageImpl = ({ token }: Props) => {
     useQueryLoader<mentionedPrListQuery>(MentionedPrListQuery);
 
   const refresh = useCallback(() => {
-    if (!token) return;
+    if (!isLoggedIn) return;
     loadMyPrQuery({}, { fetchPolicy: 'network-only' });
     loadReviewQuery({}, { fetchPolicy: 'network-only' });
     loadReviewedQuery({}, { fetchPolicy: 'network-only' });
     loadMentionedQuery({}, { fetchPolicy: 'network-only' });
   }, [
-    token,
+    isLoggedIn,
     loadMyPrQuery,
     loadReviewQuery,
     loadReviewedQuery,
@@ -48,13 +45,10 @@ const ReviewPageImpl = ({ token }: Props) => {
   ]);
 
   useEffect(() => {
-    if (!prevToken || prevToken !== token) {
-      refresh();
-    }
-
+    refresh();
     const timerId = setInterval(() => refresh(), 1000 * 60 * 10);
     return () => clearInterval(timerId);
-  }, [prevToken, refresh, token]);
+  }, [refresh]);
 
   return (
     <>
