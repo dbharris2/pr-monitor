@@ -60,7 +60,7 @@ const RepoPrsPage = ({ initialHasToken }: Props) => {
   }, [refresh, hasToken]);
 
   return (
-    <div className="m-auto flex  max-w-3xl flex-col gap-2 p-4">
+    <div className="m-auto flex max-w-3xl flex-col gap-2 p-4">
       <Header
         hasToken={hasToken}
         onUpdatedToken={() => {

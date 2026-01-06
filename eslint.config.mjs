@@ -9,6 +9,7 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import relay from 'eslint-plugin-relay';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import tailwind from 'eslint-plugin-tailwindcss';
 import unusedImports from 'eslint-plugin-unused-imports';
 import tseslint from 'typescript-eslint';
 
@@ -28,6 +29,7 @@ export default defineConfig([
   reactHooks.configs.flat.recommended,
   relay.configs['ts-strict'],
   importPlugin.flatConfigs.recommended,
+  tailwind.configs['flat/recommended'],
   {
     languageOptions: {
       ecmaVersion: 2021, // Equivalent to `ecmaVersion: 2021` in old configs
