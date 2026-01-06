@@ -1,14 +1,15 @@
 import { memo, useRef, useState } from 'react';
 
+import { saveToken } from 'app/actions/token';
 import { ThemeToggle } from 'components/theme-toggle';
-import useLocalState from 'utils/use-local-state';
 
 type Props = {
-  onUpdatedToken: (token: string) => void;
+  hasToken: boolean;
+  onUpdatedToken: () => void;
 };
 
-const Header = ({ onUpdatedToken }: Props) => {
-  const [isUpdatingToken, setIsUpdatingToken] = useState(false);
+const Header = ({ hasToken, onUpdatedToken }: Props) => {
+  const [isUpdatingToken, setIsUpdatingToken] = useState(!hasToken);
   return (
     <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2 dark:bg-catppuccin-surface0 dark:text-catppuccin-text">
       {!isUpdatingToken && (
@@ -17,9 +18,9 @@ const Header = ({ onUpdatedToken }: Props) => {
       {isUpdatingToken && (
         <UpdateTokenHeader
           onClickCancel={() => setIsUpdatingToken(false)}
-          onUpdatedToken={(token: string) => {
+          onUpdatedToken={() => {
             setIsUpdatingToken(false);
-            onUpdatedToken(token);
+            onUpdatedToken();
           }}
         />
       )}
@@ -49,28 +50,29 @@ const DefaultHeader = ({ onClickUpdateToken }: DefaultHeaderProps) => (
 
 type UpdateTokenHeaderProps = {
   onClickCancel: () => void;
-  onUpdatedToken: (token: string) => void;
+  onUpdatedToken: () => void;
 };
 
 const UpdateTokenHeader = ({
   onClickCancel,
   onUpdatedToken,
 }: UpdateTokenHeaderProps) => {
-  const [_token, setToken] = useLocalState<string>('pr-monitor-gh-token', '');
   const tokenRef = useRef<HTMLInputElement>(null);
   return (
     <form
       className="flex w-full justify-between"
-      onSubmit={() => {
-        const token = tokenRef.current?.value ?? '';
-        setToken(token);
-        onUpdatedToken(token);
+      onSubmit={async (e) => {
+        e.preventDefault();
+        const rawToken = tokenRef.current?.value ?? '';
+        await saveToken(rawToken);
+        onUpdatedToken();
       }}
     >
       <input
         className="flex w-full p-2"
         placeholder="Insert GitHub token here..."
         ref={tokenRef}
+        type="password"
       />
       <div className="flex gap-2 pl-2">
         <button
@@ -81,7 +83,14 @@ const UpdateTokenHeader = ({
         </button>
         <button
           className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
-          onClick={onClickCancel}
+          onClick={async () => {
+             // If they cancel, we don't necessarily want to delete the token, just close the form?
+             // But if they are trying to "Update", maybe they want to clear it?
+             // Standard cancel just closes form.
+             // But let's add a logout/clear button separate maybe?
+             // For now, let's keep cancel as just closing the form.
+             onClickCancel();
+          }}
           type="button"
         >
           Cancel

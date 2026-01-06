@@ -1,20 +1,9 @@
-'use client';
+import { cookies } from 'next/headers';
 
-import { memo } from 'react';
+import PrMonitor from 'components/pr-monitor';
 
-import Header from 'components/header';
-import { PageWrapper } from 'components/page-wrapper';
-import { ReviewPage } from 'components/review-page';
-import useLocalState from 'utils/use-local-state';
-
-const PrMonitor = () => {
-  const [token, setToken] = useLocalState('pr-monitor-gh-token', '');
-  return (
-    <PageWrapper>
-      <Header onUpdatedToken={(token) => setToken(token)} />
-      <ReviewPage token={token} />
-    </PageWrapper>
-  );
-};
-
-export default memo(PrMonitor);
+export default async function Page() {
+  const cookieStore = await cookies();
+  const hasToken = cookieStore.has('gh_token');
+  return <PrMonitor initialHasToken={hasToken} />;
+}
