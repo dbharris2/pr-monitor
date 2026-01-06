@@ -4,7 +4,7 @@ import { ThemeToggle } from 'components/theme-toggle';
 import useLocalState from 'utils/use-local-state';
 
 type Props = {
-  onUpdatedToken: () => void;
+  onUpdatedToken: (token: string) => void;
 };
 
 const Header = ({ onUpdatedToken }: Props) => {
@@ -17,9 +17,9 @@ const Header = ({ onUpdatedToken }: Props) => {
       {isUpdatingToken && (
         <UpdateTokenHeader
           onClickCancel={() => setIsUpdatingToken(false)}
-          onUpdatedToken={() => {
+          onUpdatedToken={(token: string) => {
             setIsUpdatingToken(false);
-            onUpdatedToken();
+            onUpdatedToken(token);
           }}
         />
       )}
@@ -49,7 +49,7 @@ const DefaultHeader = ({ onClickUpdateToken }: DefaultHeaderProps) => (
 
 type UpdateTokenHeaderProps = {
   onClickCancel: () => void;
-  onUpdatedToken: () => void;
+  onUpdatedToken: (token: string) => void;
 };
 
 const UpdateTokenHeader = ({
@@ -62,8 +62,9 @@ const UpdateTokenHeader = ({
     <form
       className="flex w-full justify-between"
       onSubmit={() => {
-        setToken(tokenRef.current?.value ?? '');
-        onUpdatedToken();
+        const token = tokenRef.current?.value ?? '';
+        setToken(token);
+        onUpdatedToken(token);
       }}
     >
       <input
