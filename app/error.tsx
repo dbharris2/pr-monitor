@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Error = ({ error, refresh }: Props) => (
-  <div className="m-auto flex  max-w-3xl flex-col gap-2 p-4">
+  <div className="m-auto flex max-w-3xl flex-col gap-2 p-4">
     <Header hasToken={false} onUpdatedToken={refresh} />
     <p>{error.message}</p>
     <p>{errorSuggestion(error.message)}</p>

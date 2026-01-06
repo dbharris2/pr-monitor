@@ -44,7 +44,7 @@ const Pr = ({ prKey }: Props) => {
   return (
     <a
       className={cn(
-        'flex cursor-pointer border-b border-solid bg-white dark:bg-catppuccin-surface0 p-2 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300 dark:hover:bg-catppuccin-mauve/50',
+        'flex cursor-pointer border-b border-solid bg-white p-2 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300 dark:bg-catppuccin-surface0 dark:hover:bg-catppuccin-mauve/50',
         {
           'bg-red-300 dark:bg-catppuccin-red/50':
             pr.reviewDecision === 'CHANGES_REQUESTED',
