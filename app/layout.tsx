@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers';
 
 import 'app/globals.css';
 
@@ -13,28 +14,18 @@ export const metadata: Metadata = {
   description: 'GitHub code review tool',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const theme = cookieStore.get('theme');
+  const isDark = theme?.value === 'dark';
+
   return (
-    <html lang="en">
+    <html className={isDark ? 'dark' : ''} lang="en" suppressHydrationWarning>
       <link href="code-review.svg" rel="icon" type="image/svg+xml"></link>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('theme');
-                if (theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                }
-              } catch (e) { console.error(e); }
-            `,
-          }}
-        />
-      </head>
       <body className={inter.className}>
         <div className="h-full min-h-screen bg-gray-50 dark:bg-catppuccin-base">
           <RelayContextProvider>{children}</RelayContextProvider>
