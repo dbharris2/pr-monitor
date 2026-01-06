@@ -69,27 +69,22 @@ const UpdateTokenHeader = ({
       }}
     >
       <input
-        className="flex w-full p-2"
+        className="flex w-full p-2 placeholder:text-slate-500 dark:bg-catppuccin-surface1 dark:text-catppuccin-text dark:placeholder:text-catppuccin-subtext0"
         placeholder="Insert GitHub token here..."
         ref={tokenRef}
         type="password"
       />
       <div className="flex gap-2 pl-2">
         <button
-          className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
+          className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600 dark:bg-catppuccin-surface1 dark:text-catppuccin-text"
           type="submit"
         >
           Save
         </button>
         <button
-          className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
+          className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600 dark:bg-catppuccin-surface1 dark:text-catppuccin-text"
           onClick={async () => {
-             // If they cancel, we don't necessarily want to delete the token, just close the form?
-             // But if they are trying to "Update", maybe they want to clear it?
-             // Standard cancel just closes form.
-             // But let's add a logout/clear button separate maybe?
-             // For now, let's keep cancel as just closing the form.
-             onClickCancel();
+            onClickCancel();
           }}
           type="button"
         >
