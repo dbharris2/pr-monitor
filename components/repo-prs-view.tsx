@@ -1,27 +1,16 @@
-'use client';
-
-import React, {
-  memo,
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { memo, Suspense, useCallback, useEffect, useRef } from 'react';
 import { useQueryLoader } from 'react-relay';
 
 import type { repoPrListQuery } from 'components/__generated__/repoPrListQuery.graphql';
-import Header from 'components/header';
 import RepoPrList, { RepoPrListQuery } from 'components/repo-pr-list';
 import { SkeletonList } from 'components/skeleton-list';
 import useLocalState from 'utils/use-local-state';
 
 type Props = {
-  initialHasToken: boolean;
+  isLoggedIn: boolean;
 };
 
-const RepoPrsPage = ({ initialHasToken }: Props) => {
-  const [hasToken, setHasToken] = useState(initialHasToken);
+const RepoPrsViewImpl = ({ isLoggedIn }: Props) => {
   const [repo, setRepo] = useLocalState('pr-monitor-repo', '');
 
   const openPrQuery = `repo:${repo} is:open is:pr draft:false sort:updated`;
@@ -36,49 +25,32 @@ const RepoPrsPage = ({ initialHasToken }: Props) => {
     useQueryLoader<repoPrListQuery>(RepoPrListQuery);
 
   const refresh = useCallback(() => {
+    if (!isLoggedIn) return;
     loadOpenPrQuery({ query: openPrQuery }, { fetchPolicy: 'network-only' });
     loadMergedPrQuery(
       { query: mergedPrQuery },
       { fetchPolicy: 'network-only' }
     );
-  }, [loadMergedPrQuery, loadOpenPrQuery, mergedPrQuery, openPrQuery]);
-
-  useEffect(() => {
-    if (hasToken) {
-      if (openPrQueryRef == null) {
-        loadOpenPrQuery({ query: openPrQuery });
-      }
-      if (mergedPrQueryRef == null) {
-        loadMergedPrQuery({ query: mergedPrQuery });
-      }
-    }
   }, [
-    hasToken,
-    openPrQuery,
-    openPrQueryRef,
-    loadOpenPrQuery,
+    isLoggedIn,
     loadMergedPrQuery,
+    loadOpenPrQuery,
     mergedPrQuery,
-    mergedPrQueryRef,
+    openPrQuery,
   ]);
 
   useEffect(() => {
-    const timerId = setInterval(() => hasToken && refresh(), 1000 * 60 * 10);
+    refresh();
+    const timerId = setInterval(() => refresh(), 1000 * 60 * 10);
     return () => clearInterval(timerId);
-  }, [refresh, hasToken]);
+  }, [refresh]);
 
   return (
-    <div className="m-auto flex max-w-3xl flex-col gap-2 p-4">
-      <Header
-        hasToken={hasToken}
-        onUpdatedToken={() => {
-          setHasToken(true);
-          refresh();
-        }}
-      />
+    <>
       <form
         className="flex w-full justify-between"
-        onSubmit={() => {
+        onSubmit={(e) => {
+          e.preventDefault();
           setRepo(repoRef.current?.value ?? '');
           refresh();
         }}
@@ -91,15 +63,19 @@ const RepoPrsPage = ({ initialHasToken }: Props) => {
         />
       </form>
       <Suspense fallback={<SkeletonList titles={['Open PRs', 'Merged PRs']} />}>
-        {openPrQueryRef && (
+        {openPrQueryRef ? (
           <RepoPrList queryRef={openPrQueryRef} title="Open PRs" />
+        ) : (
+          <SkeletonList titles={['Open PRs']} />
         )}
-        {mergedPrQueryRef && (
+        {mergedPrQueryRef ? (
           <RepoPrList queryRef={mergedPrQueryRef} title="Merged PRs" />
+        ) : (
+          <SkeletonList titles={['Merged PRs']} />
         )}
       </Suspense>
-    </div>
+    </>
   );
 };
 
-export default memo(RepoPrsPage);
+export const RepoPrsView = memo(RepoPrsViewImpl);
