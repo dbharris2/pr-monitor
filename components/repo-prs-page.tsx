@@ -1,11 +1,19 @@
 'use client';
 
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  memo,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useQueryLoader } from 'react-relay';
 
 import type { repoPrListQuery } from 'components/__generated__/repoPrListQuery.graphql';
 import Header from 'components/header';
 import RepoPrList, { RepoPrListQuery } from 'components/repo-pr-list';
+import { SkeletonList } from 'components/skeleton-list';
 import useLocalState from 'utils/use-local-state';
 
 type Props = {
@@ -82,12 +90,14 @@ const RepoPrsPage = ({ initialHasToken }: Props) => {
           ref={repoRef}
         />
       </form>
-      {openPrQueryRef && (
-        <RepoPrList queryRef={openPrQueryRef} title="Open PRs" />
-      )}
-      {mergedPrQueryRef && (
-        <RepoPrList queryRef={mergedPrQueryRef} title="Merged PRs" />
-      )}
+      <Suspense fallback={<SkeletonList titles={['Open PRs', 'Merged PRs']} />}>
+        {openPrQueryRef && (
+          <RepoPrList queryRef={openPrQueryRef} title="Open PRs" />
+        )}
+        {mergedPrQueryRef && (
+          <RepoPrList queryRef={mergedPrQueryRef} title="Merged PRs" />
+        )}
+      </Suspense>
     </div>
   );
 };

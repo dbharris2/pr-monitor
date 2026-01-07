@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, Suspense, useCallback, useEffect } from 'react';
 import { useQueryLoader } from 'react-relay';
 
 import type { mentionedPrListQuery } from 'components/__generated__/mentionedPrListQuery.graphql';
@@ -15,6 +15,7 @@ import ReviewPrList, { ReviewPrListQuery } from 'components/review-pr-list';
 import ReviewedPrList, {
   ReviewedPrListQuery,
 } from 'components/reviewed-pr-list';
+import { SkeletonList } from 'components/skeleton-list';
 
 type Props = {
   isLoggedIn: boolean;
@@ -50,13 +51,23 @@ const ReviewPageImpl = ({ isLoggedIn }: Props) => {
     return () => clearInterval(timerId);
   }, [refresh]);
 
+  if (!isLoggedIn) {
+    return null;
+  }
+
   return (
-    <>
+    <Suspense
+      fallback={
+        <SkeletonList
+          titles={['Review requested', 'Reviewed', 'Mentions', 'My PRs']}
+        />
+      }
+    >
       {reviewQueryRef && <ReviewPrList queryRef={reviewQueryRef} />}
       {reviewedQueryRef && <ReviewedPrList queryRef={reviewedQueryRef} />}
       {mentionedQueryRef && <MentionedPrList queryRef={mentionedQueryRef} />}
       {myPrQueryRef && <MyPrList queryRef={myPrQueryRef} />}
-    </>
+    </Suspense>
   );
 };
 
