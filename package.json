@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@primer/octicons-react": "19.21.1",
+    "@vercel/analytics": "^1.6.1",
     "graphql": "16.12.0",
     "moment": "2.30.1",
     "next": "16.1.1",

@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 
+import { Analytics } from '@vercel/analytics/next';
+
 import 'app/globals.css';
 
 import RelayContextProvider from 'components/relay-context-provider';
@@ -30,6 +32,7 @@ export default async function RootLayout({
         <div className="h-full min-h-screen bg-gray-50 dark:bg-catppuccin-base">
           <RelayContextProvider>{children}</RelayContextProvider>
         </div>
+        <Analytics />
       </body>
     </html>
   );
