@@ -1,8 +1,8 @@
 'use client';
 
-import { memo, useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const ThemeToggleImpl = () => {
+export const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(getInitialIsDark());
   const [mounted, setMounted] = useState(false);
 
@@ -11,13 +11,13 @@ const ThemeToggleImpl = () => {
     setMounted(true);
   }, []);
 
-  const toggleTheme = useCallback(() => {
+  const toggleTheme = () => {
     const newTheme = isDark ? 'light' : 'dark';
     setIsDark(!isDark);
     localStorage.setItem('theme', newTheme);
     document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
     document.documentElement.classList.toggle('dark', !isDark);
-  }, [isDark]);
+  };
 
   if (!mounted) {
     return null;
@@ -37,5 +37,3 @@ const getInitialIsDark = () => {
   const storedTheme = window.localStorage.getItem('theme');
   return storedTheme === 'dark';
 };
-
-export const ThemeToggle = memo(ThemeToggleImpl);

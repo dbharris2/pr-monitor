@@ -1,8 +1,8 @@
 'use client';
 
-import { memo, useState } from 'react';
+import { useState } from 'react';
 
-import Header from 'components/header';
+import { Header } from 'components/header';
 import { PageWrapper } from 'components/page-wrapper';
 import { RepoPrsView } from 'components/repo-prs-view';
 import { ReviewPage } from 'components/review-page';
@@ -13,7 +13,7 @@ type Props = {
   initialHasToken: boolean;
 };
 
-const PrMonitor = ({ initialHasToken }: Props) => {
+export const PrMonitor = ({ initialHasToken }: Props) => {
   const [hasToken, setHasToken] = useState(initialHasToken);
   const [view, setView] = useLocalState<'my-prs' | 'repo-prs'>(
     'pr-monitor-view',
@@ -71,5 +71,3 @@ const ToggleButton = ({
     {title}
   </button>
 );
-
-export default memo(PrMonitor);

@@ -1,9 +1,9 @@
-import React, { memo, Suspense, useCallback, useEffect, useRef } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { useQueryLoader } from 'react-relay';
 
 import type { repoPrListQuery } from 'components/__generated__/repoPrListQuery.graphql';
 import { Pill } from 'components/pill';
-import RepoPrList, { RepoPrListQuery } from 'components/repo-pr-list';
+import { RepoPrList, RepoPrListQuery } from 'components/repo-pr-list';
 import { SkeletonList } from 'components/skeleton-list';
 import useLocalState from 'utils/use-local-state';
 
@@ -13,7 +13,7 @@ type Props = {
   isLoggedIn: boolean;
 };
 
-const RepoPrsViewImpl = ({ isLoggedIn }: Props) => {
+export const RepoPrsView = ({ isLoggedIn }: Props) => {
   const [repo, setRepo] = useLocalState('pr-monitor-repo', '');
   const [recentRepos, setRecentRepos] = useLocalState<string[]>(
     'pr-monitor-recent-repos',
@@ -31,47 +31,32 @@ const RepoPrsViewImpl = ({ isLoggedIn }: Props) => {
   const [mergedPrQueryRef, loadMergedPrQuery] =
     useQueryLoader<repoPrListQuery>(RepoPrListQuery);
 
-  const refresh = useCallback(() => {
+  const refresh = () => {
     if (!isLoggedIn) return;
     loadOpenPrQuery({ query: openPrQuery }, { fetchPolicy: 'network-only' });
     loadMergedPrQuery(
       { query: mergedPrQuery },
       { fetchPolicy: 'network-only' }
     );
-  }, [
-    isLoggedIn,
-    loadMergedPrQuery,
-    loadOpenPrQuery,
-    mergedPrQuery,
-    openPrQuery,
-  ]);
+  };
 
-  const addToRecentRepos = useCallback(
-    (newRepo: string) => {
-      if (!newRepo.trim()) return;
-      const filtered = recentRepos.filter((r) => r !== newRepo);
-      const updated = [newRepo, ...filtered].slice(0, MAX_RECENT_REPOS);
-      setRecentRepos(updated);
-    },
-    [recentRepos, setRecentRepos]
-  );
+  const addToRecentRepos = (newRepo: string) => {
+    if (!newRepo.trim()) return;
+    const filtered = recentRepos.filter((r) => r !== newRepo);
+    const updated = [newRepo, ...filtered].slice(0, MAX_RECENT_REPOS);
+    setRecentRepos(updated);
+  };
 
-  const removeFromRecentRepos = useCallback(
-    (repoToRemove: string) => {
-      setRecentRepos(recentRepos.filter((r) => r !== repoToRemove));
-    },
-    [recentRepos, setRecentRepos]
-  );
+  const removeFromRecentRepos = (repoToRemove: string) => {
+    setRecentRepos(recentRepos.filter((r) => r !== repoToRemove));
+  };
 
-  const selectRepo = useCallback(
-    (selectedRepo: string) => {
-      if (repoRef.current) {
-        repoRef.current.value = selectedRepo;
-      }
-      setRepo(selectedRepo);
-    },
-    [setRepo]
-  );
+  const selectRepo = (selectedRepo: string) => {
+    if (repoRef.current) {
+      repoRef.current.value = selectedRepo;
+    }
+    setRepo(selectedRepo);
+  };
 
   useEffect(() => {
     refresh();
@@ -126,5 +111,3 @@ const RepoPrsViewImpl = ({ isLoggedIn }: Props) => {
     </>
   );
 };
-
-export const RepoPrsView = memo(RepoPrsViewImpl);
