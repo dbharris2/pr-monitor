@@ -1,7 +1,6 @@
 'use client';
 
 import type { PropsWithChildren } from 'react';
-import { memo } from 'react';
 import { RelayEnvironmentProvider } from 'react-relay';
 
 import type { RequestParameters, Variables } from 'relay-runtime';
@@ -25,7 +24,7 @@ const fetchQuery = async (params: RequestParameters, variables: Variables) => {
   }
 };
 
-const RelayContextProvider = ({ children }: PropsWithChildren) => {
+export const RelayContextProvider = ({ children }: PropsWithChildren) => {
   const env = new Environment({
     network: Network.create(fetchQuery),
     store: new Store(new RecordSource()),
@@ -36,5 +35,3 @@ const RelayContextProvider = ({ children }: PropsWithChildren) => {
     </RelayEnvironmentProvider>
   );
 };
-
-export default memo(RelayContextProvider);

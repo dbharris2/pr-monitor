@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import cn from 'utils/cn';
 
 const SkeletonLine = ({ className }: { className?: string }) => (
@@ -34,7 +32,7 @@ const SkeletonPr = () => (
   </div>
 );
 
-const SkeletonListImpl = ({
+export const SkeletonList = ({
   count = 1,
   titles,
 }: {
@@ -57,5 +55,3 @@ const SkeletonListImpl = ({
     ))}
   </>
 );
-
-export const SkeletonList = memo(SkeletonListImpl);

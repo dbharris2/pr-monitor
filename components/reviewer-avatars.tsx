@@ -1,15 +1,14 @@
-import { memo } from 'react';
 import { graphql, useFragment } from 'react-relay';
 
 import type { reviewerAvatars_pullRequest$key } from 'components/__generated__/reviewerAvatars_pullRequest.graphql';
-import Avatar from 'components/avatar';
+import { Avatar } from 'components/avatar';
 import nonnull from 'utils/nonnull';
 
 type Props = {
   prKey: reviewerAvatars_pullRequest$key;
 };
 
-const ReviewerAvatars = ({ prKey }: Props) => {
+export const ReviewerAvatars = ({ prKey }: Props) => {
   const pr = useFragment<reviewerAvatars_pullRequest$key>(
     graphql`
       fragment reviewerAvatars_pullRequest on PullRequest {
@@ -59,5 +58,3 @@ const ReviewerAvatars = ({ prKey }: Props) => {
     </div>
   );
 };
-
-export default memo(ReviewerAvatars);

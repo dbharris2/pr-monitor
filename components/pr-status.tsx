@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import type { ReactNode } from 'react';
 import { graphql, useFragment } from 'react-relay';
 
 import {
@@ -15,7 +15,7 @@ import type { prStatus_pullRequest$key } from 'components/__generated__/prStatus
 import cn from 'utils/cn';
 
 type BadgeProps = {
-  icon: React.ReactNode;
+  icon: ReactNode;
   isApproved?: boolean;
   isDraft?: boolean;
   isInMergeQueue?: boolean;
@@ -79,7 +79,7 @@ type Props = {
   prKey: prStatus_pullRequest$key;
 };
 
-const PrStatus = ({ prKey }: Props) => {
+export const PrStatus = ({ prKey }: Props) => {
   const pr = useFragment<prStatus_pullRequest$key>(
     graphql`
       fragment prStatus_pullRequest on PullRequest {
@@ -131,5 +131,3 @@ const PrStatus = ({ prKey }: Props) => {
   }
   return <></>;
 };
-
-export default memo(PrStatus);

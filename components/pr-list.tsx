@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import type { ReactNode } from 'react';
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
   title: string;
 };
 
-const PrList = ({ children, title }: Props) => (
+export const PrList = ({ children, title }: Props) => (
   <div className="flex flex-col gap-2 dark:text-catppuccin-text">
     {title}
     <div className="flex flex-col rounded-lg border border-solid shadow-md">
@@ -13,5 +13,3 @@ const PrList = ({ children, title }: Props) => (
     </div>
   </div>
 );
-
-export default memo(PrList);
