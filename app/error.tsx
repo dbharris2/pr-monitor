@@ -1,6 +1,6 @@
 'use client';
 
-import Header from 'components/header';
+import { Header } from 'components/header';
 
 type Props = {
   error: Error;

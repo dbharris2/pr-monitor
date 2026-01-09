@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import { XCircleIcon } from '@primer/octicons-react';
 
 type PillProps = {
@@ -9,7 +7,7 @@ type PillProps = {
   onRemove?: () => void;
 };
 
-const PillImpl = ({
+export const Pill = ({
   label,
   selected = false,
   onSelect,
@@ -46,5 +44,3 @@ const PillImpl = ({
     )}
   </button>
 );
-
-export const Pill = memo(PillImpl);

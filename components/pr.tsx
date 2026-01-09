@@ -1,12 +1,11 @@
-import { memo } from 'react';
 import { graphql, useFragment } from 'react-relay';
 
 import { CommentIcon } from '@primer/octicons-react';
 
 import type { pr_pullRequest$key } from 'components/__generated__/pr_pullRequest.graphql';
-import Avatar from 'components/avatar';
-import PrStatus from 'components/pr-status';
-import ReviewerAvatars from 'components/reviewer-avatars';
+import { Avatar } from 'components/avatar';
+import { PrStatus } from 'components/pr-status';
+import { ReviewerAvatars } from 'components/reviewer-avatars';
 import moment from 'moment';
 import cn from 'utils/cn';
 
@@ -14,7 +13,7 @@ type Props = {
   prKey: pr_pullRequest$key;
 };
 
-const Pr = ({ prKey }: Props) => {
+export const Pr = ({ prKey }: Props) => {
   const pr = useFragment<pr_pullRequest$key>(
     graphql`
       fragment pr_pullRequest on PullRequest {
@@ -92,5 +91,3 @@ const Pr = ({ prKey }: Props) => {
     </a>
   );
 };
-
-export default memo(Pr);

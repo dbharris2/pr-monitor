@@ -1,13 +1,12 @@
-import { memo } from 'react';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePaginationFragment, usePreloadedQuery } from 'react-relay';
 
 import type { repoPrList_search$key } from 'components/__generated__/repoPrList_search.graphql';
 import type { RepoPrListPaginationQuery } from 'components/__generated__/RepoPrListPaginationQuery.graphql';
 import type { repoPrListQuery } from 'components/__generated__/repoPrListQuery.graphql';
-import LoadMoreButton from 'components/load-more-button';
-import Pr from 'components/pr';
-import PrList from 'components/pr-list';
+import { LoadMoreButton } from 'components/load-more-button';
+import { Pr } from 'components/pr';
+import { PrList } from 'components/pr-list';
 import nonnull from 'utils/nonnull';
 
 export const RepoPrListQuery = graphql`
@@ -21,7 +20,7 @@ type Props = {
   title: string;
 };
 
-const RepoPrList = ({ queryRef, title }: Props) => {
+export const RepoPrList = ({ queryRef, title }: Props) => {
   const data = usePreloadedQuery<repoPrListQuery>(RepoPrListQuery, queryRef);
   const {
     data: { search },
@@ -68,5 +67,3 @@ const RepoPrList = ({ queryRef, title }: Props) => {
     </PrList>
   );
 };
-
-export default memo(RepoPrList);

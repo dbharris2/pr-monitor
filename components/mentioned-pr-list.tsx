@@ -1,13 +1,12 @@
-import { memo } from 'react';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePaginationFragment, usePreloadedQuery } from 'react-relay';
 
 import type { mentionedPrList_search$key } from 'components/__generated__/mentionedPrList_search.graphql';
 import type { MentionedPrListPaginationQuery } from 'components/__generated__/MentionedPrListPaginationQuery.graphql';
 import type { mentionedPrListQuery } from 'components/__generated__/mentionedPrListQuery.graphql';
-import LoadMoreButton from 'components/load-more-button';
-import Pr from 'components/pr';
-import PrList from 'components/pr-list';
+import { LoadMoreButton } from 'components/load-more-button';
+import { Pr } from 'components/pr';
+import { PrList } from 'components/pr-list';
 import nonnull from 'utils/nonnull';
 
 export const MentionedPrListQuery = graphql`
@@ -20,7 +19,7 @@ type Props = {
   queryRef: PreloadedQuery<mentionedPrListQuery, Record<string, unknown>>;
 };
 
-const MentionedPrList = ({ queryRef }: Props) => {
+export const MentionedPrList = ({ queryRef }: Props) => {
   const data = usePreloadedQuery<mentionedPrListQuery>(
     MentionedPrListQuery,
     queryRef
@@ -74,5 +73,3 @@ const MentionedPrList = ({ queryRef }: Props) => {
     </PrList>
   );
 };
-
-export default memo(MentionedPrList);

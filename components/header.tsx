@@ -1,4 +1,4 @@
-import { memo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { saveToken } from 'app/actions/token';
 import { ThemeToggle } from 'components/theme-toggle';
@@ -8,7 +8,7 @@ type Props = {
   onUpdatedToken: () => void;
 };
 
-const Header = ({ hasToken, onUpdatedToken }: Props) => {
+export const Header = ({ hasToken, onUpdatedToken }: Props) => {
   const [isUpdatingToken, setIsUpdatingToken] = useState(!hasToken);
   return (
     <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2 dark:bg-catppuccin-surface0 dark:text-catppuccin-text">
@@ -94,5 +94,3 @@ const UpdateTokenHeader = ({
     </form>
   );
 };
-
-export default memo(Header);

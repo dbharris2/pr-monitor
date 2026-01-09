@@ -1,11 +1,9 @@
-import { memo } from 'react';
-
 type Props = {
   src: string;
   title?: string;
 };
 
-const Avatar = ({ src, title }: Props) => (
+export const Avatar = ({ src, title }: Props) => (
   // eslint-disable-next-line @next/next/no-img-element
   <img
     alt={title}
@@ -14,5 +12,3 @@ const Avatar = ({ src, title }: Props) => (
     title={title}
   />
 );
-
-export default memo(Avatar);

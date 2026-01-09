@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/next';
 
 import 'app/globals.css';
 
-import RelayContextProvider from 'components/relay-context-provider';
+import { RelayContextProvider } from 'components/relay-context-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
