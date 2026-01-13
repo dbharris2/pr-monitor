@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense, useCallback, useEffect, useRef } from 'react';
 import { useQueryLoader } from 'react-relay';
 
 import type { repoPrListQuery } from 'components/__generated__/repoPrListQuery.graphql';
@@ -6,6 +6,7 @@ import { Pill } from 'components/pill';
 import { RepoPrList, RepoPrListQuery } from 'components/repo-pr-list';
 import { SkeletonList } from 'components/skeleton-list';
 import useLocalState from 'utils/use-local-state';
+import useOnVisible from 'utils/use-on-visible';
 
 const MAX_RECENT_REPOS = 5;
 
@@ -33,11 +34,11 @@ export const RepoPrsView = ({ isLoggedIn }: Props) => {
 
   const refresh = () => {
     if (!isLoggedIn) return;
-    loadOpenPrQuery({ query: openPrQuery }, { fetchPolicy: 'network-only' });
-    loadMergedPrQuery(
-      { query: mergedPrQuery },
-      { fetchPolicy: 'network-only' }
-    );
+    if (document.visibilityState !== 'visible') return;
+
+    const fetchPolicy = 'store-and-network' as const;
+    loadOpenPrQuery({ query: openPrQuery }, { fetchPolicy });
+    loadMergedPrQuery({ query: mergedPrQuery }, { fetchPolicy });
   };
 
   const addToRecentRepos = (newRepo: string) => {
@@ -60,9 +61,11 @@ export const RepoPrsView = ({ isLoggedIn }: Props) => {
 
   useEffect(() => {
     refresh();
-    const timerId = setInterval(() => refresh(), 1000 * 60 * 10);
+    const timerId = setInterval(refresh, 1000 * 60 * 10);
     return () => clearInterval(timerId);
   }, [refresh]);
+
+  useOnVisible(refresh);
 
   return (
     <>

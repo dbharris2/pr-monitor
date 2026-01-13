@@ -3,6 +3,8 @@
 import { Suspense, useEffect } from 'react';
 import { useQueryLoader } from 'react-relay';
 
+import useOnVisible from 'utils/use-on-visible';
+
 import type { mentionedPrListQuery } from 'components/__generated__/mentionedPrListQuery.graphql';
 import type { myPrListQuery } from 'components/__generated__/myPrListQuery.graphql';
 import type { reviewedPrListQuery } from 'components/__generated__/reviewedPrListQuery.graphql';
@@ -35,17 +37,22 @@ export const ReviewPage = ({ isLoggedIn }: Props) => {
 
   const refresh = () => {
     if (!isLoggedIn) return;
-    loadMyPrQuery({}, { fetchPolicy: 'network-only' });
-    loadReviewQuery({}, { fetchPolicy: 'network-only' });
-    loadReviewedQuery({}, { fetchPolicy: 'network-only' });
-    loadMentionedQuery({}, { fetchPolicy: 'network-only' });
+    if (document.visibilityState !== 'visible') return;
+
+    const fetchPolicy = 'store-and-network' as const;
+    loadMyPrQuery({}, { fetchPolicy });
+    loadReviewQuery({}, { fetchPolicy });
+    loadReviewedQuery({}, { fetchPolicy });
+    loadMentionedQuery({}, { fetchPolicy });
   };
 
   useEffect(() => {
     refresh();
-    const timerId = setInterval(() => refresh(), 1000 * 60 * 10);
+    const timerId = setInterval(refresh, 1000 * 60 * 10);
     return () => clearInterval(timerId);
   }, [refresh]);
+
+  useOnVisible(refresh);
 
   if (!isLoggedIn) {
     return null;
