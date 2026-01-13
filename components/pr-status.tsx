@@ -10,7 +10,6 @@ import {
   GitMergeQueueIcon,
   GitPullRequestDraftIcon,
 } from '@primer/octicons-react';
-
 import type { prStatus_pullRequest$key } from 'components/__generated__/prStatus_pullRequest.graphql';
 import cn from 'utils/cn';
 

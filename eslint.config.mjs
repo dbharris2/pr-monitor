@@ -26,7 +26,7 @@ export default defineConfig([
   tseslint.configs.recommended,
   next.configs.recommended,
   react.configs.flat.recommended,
-  reactHooks.configs.flat.recommended,
+  reactHooks.configs.flat['recommended-latest'],
   relay.configs['ts-strict'],
   importPlugin.flatConfigs.recommended,
   tailwind.configs['flat/recommended'],
@@ -93,20 +93,15 @@ export default defineConfig([
       'react/jsx-uses-react': 'off', // Not needed with React 17+
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off', // We use TypeScript's types for props instead
-      'react-hooks/exhaustive-deps': 'error',
       'simple-import-sort/exports': 'error',
       'simple-import-sort/imports': [
         'error',
         {
           groups: [
-            // Packages `react` related packages come first.
             ['^react', '^next'],
-            // External packages.
-            ['^@'],
-            // Other relative imports. Put same-folder imports and `.` last.
-            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
-            // Style imports.
-            ['^.*.(s?css)$'],
+            ['^@?\\w'], // Scoped packages (e.g., @storybook/react)
+            ['^[a-z]'], // Absolute imports
+            ['^\\.'], // Relative imports
           ],
         },
       ],
