@@ -18,6 +18,7 @@ import {
   ReviewedPrListQuery,
 } from 'components/reviewed-pr-list';
 import { SkeletonList } from 'components/skeleton-list';
+import useOnVisible from 'utils/use-on-visible';
 
 type Props = {
   isLoggedIn: boolean;
@@ -33,19 +34,16 @@ export const ReviewPage = ({ isLoggedIn }: Props) => {
   const [mentionedQueryRef, loadMentionedQuery] =
     useQueryLoader<mentionedPrListQuery>(MentionedPrListQuery);
 
-  const refresh = () => {
+  useRefresh(() => {
     if (!isLoggedIn) return;
-    loadMyPrQuery({}, { fetchPolicy: 'network-only' });
-    loadReviewQuery({}, { fetchPolicy: 'network-only' });
-    loadReviewedQuery({}, { fetchPolicy: 'network-only' });
-    loadMentionedQuery({}, { fetchPolicy: 'network-only' });
-  };
+    if (document.visibilityState !== 'visible') return;
 
-  useEffect(() => {
-    refresh();
-    const timerId = setInterval(() => refresh(), 1000 * 60 * 10);
-    return () => clearInterval(timerId);
-  }, [refresh]);
+    const fetchPolicy = 'store-and-network' as const;
+    loadMyPrQuery({}, { fetchPolicy });
+    loadReviewQuery({}, { fetchPolicy });
+    loadReviewedQuery({}, { fetchPolicy });
+    loadMentionedQuery({}, { fetchPolicy });
+  });
 
   if (!isLoggedIn) {
     return null;
@@ -65,4 +63,13 @@ export const ReviewPage = ({ isLoggedIn }: Props) => {
       {myPrQueryRef && <MyPrList queryRef={myPrQueryRef} />}
     </Suspense>
   );
+};
+
+const useRefresh = (refresh: () => void) => {
+  useEffect(() => {
+    refresh();
+    const timerId = setInterval(refresh, 1000 * 60 * 10);
+    return () => clearInterval(timerId);
+  }, [refresh]);
+  useOnVisible(refresh);
 };

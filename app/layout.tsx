@@ -4,10 +4,9 @@ import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 
 import { Analytics } from '@vercel/analytics/next';
+import { RelayContextProvider } from 'components/relay-context-provider';
 
 import 'app/globals.css';
-
-import { RelayContextProvider } from 'components/relay-context-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 

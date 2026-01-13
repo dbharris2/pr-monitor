@@ -1,7 +1,6 @@
 import { graphql, useFragment } from 'react-relay';
 
 import { CommentIcon } from '@primer/octicons-react';
-
 import type { pr_pullRequest$key } from 'components/__generated__/pr_pullRequest.graphql';
 import { Avatar } from 'components/avatar';
 import { PrStatus } from 'components/pr-status';
