@@ -23,7 +23,7 @@ export const PrMonitor = ({ initialHasToken }: Props) => {
   return (
     <PageWrapper>
       <Header hasToken={hasToken} onUpdatedToken={() => setHasToken(true)} />
-      <div className="flex w-full rounded-lg bg-white p-1 dark:bg-catppuccin-surface0">
+      <div className="flex w-full gap-1 rounded-lg bg-white p-1 dark:bg-catppuccin-surface0">
         <ToggleButton
           selected={view === 'my-prs'}
           setView={setView}

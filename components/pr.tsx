@@ -55,12 +55,15 @@ export const Pr = ({ prKey }: Props) => {
       rel="noopener noreferrer"
       target="_blank"
     >
-      <div className="flex w-full flex-col">
+      <Avatar
+        className="!size-10 shrink-0 self-center"
+        src={pr.author?.avatarUrl ?? ''}
+      />
+      <div className="ml-2 flex w-full flex-col">
         <div className="flex justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
-            <Avatar src={pr.author?.avatarUrl ?? ''} />
-            <div className="truncate dark:text-catppuccin-text">
-              {pr.title} (#{pr.number})
+            <div className="truncate text-black dark:text-catppuccin-text">
+              {pr.title}
             </div>
           </div>
           <div className="flex shrink-0 pl-2">
@@ -68,8 +71,8 @@ export const Pr = ({ prKey }: Props) => {
           </div>
         </div>
         <div className="flex justify-between">
-          <div className="flex grow flex-wrap gap-2 dark:text-catppuccin-text">
-            {pr.repository.nameWithOwner}
+          <div className="flex grow flex-wrap gap-2 text-slate-600 dark:text-catppuccin-subtext0">
+            {pr.repository.nameWithOwner} #{pr.number}
             <div className="flex gap-1">
               <div className="text-green-600 dark:text-catppuccin-green">
                 +{pr.additions}
