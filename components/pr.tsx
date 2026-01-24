@@ -5,8 +5,8 @@ import type { pr_pullRequest$key } from 'components/__generated__/pr_pullRequest
 import { Avatar } from 'components/avatar';
 import { PrStatus } from 'components/pr-status';
 import { ReviewerAvatars } from 'components/reviewer-avatars';
-import moment from 'moment';
 import cn from 'utils/cn';
+import { formatRelativeTime } from 'utils/format-relative-time';
 
 type Props = {
   prKey: pr_pullRequest$key;
@@ -67,7 +67,7 @@ export const Pr = ({ prKey }: Props) => {
             </div>
           </div>
           <div className="flex shrink-0 pl-2">
-            {moment(pr.mergedAt ?? pr.updatedAt).format('MM/DD HH:mm')}
+            {formatRelativeTime(pr.mergedAt ?? pr.updatedAt)}
           </div>
         </div>
         <div className="flex justify-between">
