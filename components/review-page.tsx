@@ -68,8 +68,6 @@ export const ReviewPage = ({ isLoggedIn }: Props) => {
 const useRefresh = (refresh: () => void) => {
   useEffect(() => {
     refresh();
-    const timerId = setInterval(refresh, 1000 * 60 * 10);
-    return () => clearInterval(timerId);
   }, [refresh]);
   useOnVisible(refresh);
 };

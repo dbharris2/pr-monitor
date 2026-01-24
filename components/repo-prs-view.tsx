@@ -94,15 +94,11 @@ export const RepoPrsView = ({ isLoggedIn }: Props) => {
         </div>
       )}
       <Suspense fallback={<SkeletonList titles={['Open PRs', 'Merged PRs']} />}>
-        {openPrQueryRef ? (
+        {openPrQueryRef && (
           <RepoPrList queryRef={openPrQueryRef} title="Open PRs" />
-        ) : (
-          <SkeletonList titles={['Open PRs']} />
         )}
-        {mergedPrQueryRef ? (
+        {mergedPrQueryRef && (
           <RepoPrList queryRef={mergedPrQueryRef} title="Merged PRs" />
-        ) : (
-          <SkeletonList titles={['Merged PRs']} />
         )}
       </Suspense>
     </>
@@ -112,8 +108,6 @@ export const RepoPrsView = ({ isLoggedIn }: Props) => {
 const useRefresh = (refresh: () => void) => {
   useEffect(() => {
     refresh();
-    const timerId = setInterval(refresh, 1000 * 60 * 10);
-    return () => clearInterval(timerId);
   }, [refresh]);
   useOnVisible(refresh);
 };
