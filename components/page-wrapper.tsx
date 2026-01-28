@@ -1,5 +1,18 @@
 import type { PropsWithChildren } from 'react';
 
-export const PageWrapper = ({ children }: PropsWithChildren) => (
-  <div className="m-auto flex max-w-3xl flex-col gap-2 p-4">{children}</div>
+import cn from 'utils/cn';
+
+type Props = PropsWithChildren<{
+  wide?: boolean;
+}>;
+
+export const PageWrapper = ({ children, wide }: Props) => (
+  <div
+    className={cn('m-auto flex flex-col gap-2 p-4', {
+      'max-w-3xl': !wide,
+      'max-w-7xl': wide,
+    })}
+  >
+    {children}
+  </div>
 );
