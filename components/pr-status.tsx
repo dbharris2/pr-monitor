@@ -36,7 +36,7 @@ const Badge = ({
 }: BadgeProps) => (
   <span
     className={cn(
-      'flex items-center whitespace-nowrap rounded-full bg-gray-600 px-2 py-1 text-xs font-semibold leading-none text-white',
+      'flex items-center whitespace-nowrap rounded-full bg-gray-600 px-1.5 py-0.5 text-xs font-semibold leading-none text-white',
       {
         'bg-green-600': isApproved,
         'bg-gray-600': isDraft,
@@ -126,7 +126,7 @@ export const PrStatus = ({ prKey }: Props) => {
   }
 
   if (badges.length > 0) {
-    return <div className="flex items-center gap-1">{badges}</div>;
+    return <div className="flex shrink-0 items-center gap-1">{badges}</div>;
   }
   return <></>;
 };

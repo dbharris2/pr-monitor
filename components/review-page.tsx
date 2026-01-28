@@ -57,10 +57,12 @@ export const ReviewPage = ({ isLoggedIn }: Props) => {
         />
       }
     >
-      {reviewQueryRef && <ReviewPrList queryRef={reviewQueryRef} />}
-      {reviewedQueryRef && <ReviewedPrList queryRef={reviewedQueryRef} />}
-      {mentionedQueryRef && <MentionedPrList queryRef={mentionedQueryRef} />}
-      {myPrQueryRef && <MyPrList queryRef={myPrQueryRef} />}
+      <div className="flex flex-col gap-2">
+        {reviewQueryRef && <ReviewPrList queryRef={reviewQueryRef} />}
+        {reviewedQueryRef && <ReviewedPrList queryRef={reviewedQueryRef} />}
+        {mentionedQueryRef && <MentionedPrList queryRef={mentionedQueryRef} />}
+        {myPrQueryRef && <MyPrList queryRef={myPrQueryRef} />}
+      </div>
     </Suspense>
   );
 };
