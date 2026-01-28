@@ -62,7 +62,7 @@ export const RepoPrsView = ({ isLoggedIn }: Props) => {
   useRefresh(refresh);
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <form
         className="flex w-full justify-between"
         onSubmit={(e) => {
@@ -81,7 +81,7 @@ export const RepoPrsView = ({ isLoggedIn }: Props) => {
         />
       </form>
       {recentRepos.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2">
           {recentRepos.map((recentRepo) => (
             <Pill
               key={recentRepo}
@@ -94,14 +94,16 @@ export const RepoPrsView = ({ isLoggedIn }: Props) => {
         </div>
       )}
       <Suspense fallback={<SkeletonList titles={['Open PRs', 'Merged PRs']} />}>
-        {openPrQueryRef && (
-          <RepoPrList queryRef={openPrQueryRef} title="Open PRs" />
-        )}
-        {mergedPrQueryRef && (
-          <RepoPrList queryRef={mergedPrQueryRef} title="Merged PRs" />
-        )}
+        <div className="flex flex-col gap-2">
+          {openPrQueryRef && (
+            <RepoPrList queryRef={openPrQueryRef} title="Open PRs" />
+          )}
+          {mergedPrQueryRef && (
+            <RepoPrList queryRef={mergedPrQueryRef} title="Merged PRs" />
+          )}
+        </div>
       </Suspense>
-    </>
+    </div>
   );
 };
 

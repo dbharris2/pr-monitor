@@ -1,8 +1,12 @@
 import { graphql, useFragment } from 'react-relay';
 
 import { CommentIcon } from '@primer/octicons-react';
-import type { pr_pullRequest$key } from 'components/__generated__/pr_pullRequest.graphql';
+import type {
+  pr_pullRequest$data,
+  pr_pullRequest$key,
+} from 'components/__generated__/pr_pullRequest.graphql';
 import { Avatar } from 'components/avatar';
+import { useDisplayMode } from 'components/display-mode-context';
 import { PrStatus } from 'components/pr-status';
 import { ReviewerAvatars } from 'components/reviewer-avatars';
 import cn from 'utils/cn';
@@ -12,32 +16,46 @@ type Props = {
   prKey: pr_pullRequest$key;
 };
 
-export const Pr = ({ prKey }: Props) => {
-  const pr = useFragment<pr_pullRequest$key>(
-    graphql`
-      fragment pr_pullRequest on PullRequest {
-        author {
-          avatarUrl
-        }
-        additions
-        changedFiles
-        deletions
-        mergedAt
-        number
-        permalink
-        repository {
-          nameWithOwner
-        }
-        reviewDecision
-        title
-        totalCommentsCount
-        updatedAt
-        ...prStatus_pullRequest
-        ...reviewerAvatars_pullRequest
+type CompactPrProps = {
+  pr: pr_pullRequest$data;
+};
+
+const CompactPr = ({ pr }: CompactPrProps) => (
+  <a
+    className={cn(
+      'flex cursor-pointer items-center gap-2 border-b border-solid bg-white px-2 py-1 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300 dark:bg-catppuccin-surface0 dark:hover:bg-catppuccin-mauve/50',
+      {
+        'bg-red-300 dark:bg-catppuccin-red/50':
+          pr.reviewDecision === 'CHANGES_REQUESTED',
+        'bg-green-300 dark:bg-catppuccin-green/50':
+          pr.reviewDecision === 'APPROVED' && !pr.mergedAt,
       }
-    `,
-    prKey
-  );
+    )}
+    href={pr.permalink}
+    key={pr.number}
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <Avatar className="!size-6 shrink-0" src={pr.author?.avatarUrl ?? ''} />
+    <span className="truncate text-sm text-black dark:text-catppuccin-text">
+      {pr.title}
+    </span>
+    <span className="ml-auto shrink-0 text-xs text-slate-600 dark:text-catppuccin-subtext0">
+      {formatRelativeTime(pr.mergedAt ?? pr.updatedAt)}
+    </span>
+    <PrStatus prKey={pr} />
+  </a>
+);
+
+export const Pr = ({ prKey }: Props) => {
+  const { displayMode } = useDisplayMode();
+  const isCompact = displayMode === 'compact';
+
+  const pr = usePr(prKey);
+
+  if (isCompact) {
+    return <CompactPr pr={pr} />;
+  }
 
   return (
     <a
@@ -59,7 +77,7 @@ export const Pr = ({ prKey }: Props) => {
         className="!size-10 shrink-0 self-center"
         src={pr.author?.avatarUrl ?? ''}
       />
-      <div className="ml-2 flex w-full flex-col">
+      <div className="ml-2 flex min-w-0 flex-1 flex-col">
         <div className="flex justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
             <div className="truncate text-black dark:text-catppuccin-text">
@@ -93,3 +111,30 @@ export const Pr = ({ prKey }: Props) => {
     </a>
   );
 };
+
+const usePr = (prKey: pr_pullRequest$key) =>
+  useFragment<pr_pullRequest$key>(
+    graphql`
+      fragment pr_pullRequest on PullRequest {
+        author {
+          avatarUrl
+        }
+        additions
+        changedFiles
+        deletions
+        mergedAt
+        number
+        permalink
+        repository {
+          nameWithOwner
+        }
+        reviewDecision
+        title
+        totalCommentsCount
+        updatedAt
+        ...prStatus_pullRequest
+        ...reviewerAvatars_pullRequest
+      }
+    `,
+    prKey
+  );
