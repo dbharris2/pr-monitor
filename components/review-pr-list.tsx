@@ -41,7 +41,7 @@ export const ReviewPrList = ({ queryRef }: Props) => {
       )
       @refetchable(queryName: "ReviewPrListPaginationQuery") {
         search(
-          query: "-author:@me -is:draft is:open is:pr review-requested:@me -review:approved sort:updated"
+          query: "-author:@me -is:draft is:open is:pr review-requested:@me sort:updated"
           type: ISSUE
           first: $count
           after: $cursor
@@ -50,6 +50,7 @@ export const ReviewPrList = ({ queryRef }: Props) => {
             node {
               ... on PullRequest {
                 id
+                reviewDecision
                 ...pr_pullRequest
               }
             }
@@ -60,13 +61,20 @@ export const ReviewPrList = ({ queryRef }: Props) => {
     data
   );
 
+  // Filter out PRs that are approved or have changes requested (matches Mac app behavior)
+  const prs = nonnull(search.edges)
+    .map(({ node }) => node)
+    .filter(
+      (pr) =>
+        pr?.reviewDecision !== 'APPROVED' &&
+        pr?.reviewDecision !== 'CHANGES_REQUESTED'
+    );
+
   return (
     <PrList title="Review requested">
-      {nonnull(search.edges)
-        .map(({ node }) => node)
-        .map((pr) => (
-          <Pr key={pr!.id} prKey={pr!} />
-        ))}
+      {prs.map((pr) => (
+        <Pr key={pr!.id} prKey={pr!} />
+      ))}
       {hasNext && (
         <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />
       )}

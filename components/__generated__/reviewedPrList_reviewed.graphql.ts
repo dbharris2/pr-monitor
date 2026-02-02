@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<24d48d8f32f9519387b61159173e6c64>>
+ * @generated SignedSource<<fbdf5c112c57480b9954b7c05218770a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,30 +9,28 @@
 // @ts-nocheck
 
 import { ReaderFragment } from 'relay-runtime';
-export type PullRequestReviewDecision = "APPROVED" | "CHANGES_REQUESTED" | "REVIEW_REQUIRED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type reviewPrList_search$data = {
-  readonly search: {
+export type reviewedPrList_reviewed$data = {
+  readonly reviewed: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id?: string;
-        readonly reviewDecision?: PullRequestReviewDecision | null | undefined;
         readonly " $fragmentSpreads": FragmentRefs<"pr_pullRequest">;
       } | null | undefined;
     } | null | undefined> | null | undefined;
   };
-  readonly " $fragmentType": "reviewPrList_search";
+  readonly " $fragmentType": "reviewedPrList_reviewed";
 };
-export type reviewPrList_search$key = {
-  readonly " $data"?: reviewPrList_search$data;
-  readonly " $fragmentSpreads": FragmentRefs<"reviewPrList_search">;
+export type reviewedPrList_reviewed$key = {
+  readonly " $data"?: reviewedPrList_reviewed$data;
+  readonly " $fragmentSpreads": FragmentRefs<"reviewedPrList_reviewed">;
 };
 
-import ReviewPrListPaginationQuery_graphql from './ReviewPrListPaginationQuery.graphql';
+import ReviewedPrListPaginationQuery_graphql from './ReviewedPrListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "search"
+  "reviewed"
 ];
 return {
   "argumentDefinitions": [
@@ -67,20 +65,20 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": ReviewPrListPaginationQuery_graphql
+      "operation": ReviewedPrListPaginationQuery_graphql
     }
   },
-  "name": "reviewPrList_search",
+  "name": "reviewedPrList_reviewed",
   "selections": [
     {
       "kind": "RequiredField",
       "field": {
-        "alias": "search",
+        "alias": "reviewed",
         "args": [
           {
             "kind": "Literal",
             "name": "query",
-            "value": "-author:@me -is:draft is:open is:pr review-requested:@me sort:updated"
+            "value": "-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved sort:updated"
           },
           {
             "kind": "Literal",
@@ -90,7 +88,7 @@ return {
         ],
         "concreteType": "SearchResultItemConnection",
         "kind": "LinkedField",
-        "name": "__reviewPrList_search_connection",
+        "name": "__reviewedPrList_reviewed_connection",
         "plural": false,
         "selections": [
           {
@@ -117,13 +115,6 @@ return {
                         "args": null,
                         "kind": "ScalarField",
                         "name": "id",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "reviewDecision",
                         "storageKey": null
                       },
                       {
@@ -181,7 +172,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "__reviewPrList_search_connection(query:\"-author:@me -is:draft is:open is:pr review-requested:@me sort:updated\",type:\"ISSUE\")"
+        "storageKey": "__reviewedPrList_reviewed_connection(query:\"-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved sort:updated\",type:\"ISSUE\")"
       },
       "action": "THROW"
     }
@@ -191,6 +182,6 @@ return {
 };
 })();
 
-(node as any).hash = "a847f9c12f3de69700c665003aa96d4a";
+(node as any).hash = "1262404a387032481886101252e8017c";
 
 export default node;
