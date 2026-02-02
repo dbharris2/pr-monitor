@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<24404485545b19f503f48ffecb20d34a>>
+ * @generated SignedSource<<648860001d96bd0770bf66b3223a6747>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,16 +10,16 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ReviewedPrListPaginationQuery$variables = {
+export type ReviewedPrListChangesRequestedPaginationQuery$variables = {
   count?: number | null | undefined;
   cursor?: string | null | undefined;
 };
-export type ReviewedPrListPaginationQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"reviewedPrList_reviewed">;
+export type ReviewedPrListChangesRequestedPaginationQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"reviewedPrList_changesRequested">;
 };
-export type ReviewedPrListPaginationQuery = {
-  response: ReviewedPrListPaginationQuery$data;
-  variables: ReviewedPrListPaginationQuery$variables;
+export type ReviewedPrListChangesRequestedPaginationQuery = {
+  response: ReviewedPrListChangesRequestedPaginationQuery$data;
+  variables: ReviewedPrListChangesRequestedPaginationQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -49,7 +49,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "query",
-    "value": "-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved sort:updated"
+    "value": "-author:@me -is:draft is:open is:pr review-requested:@me sort:updated"
   },
   {
     "kind": "Literal",
@@ -112,7 +112,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ReviewedPrListPaginationQuery",
+    "name": "ReviewedPrListChangesRequestedPaginationQuery",
     "selections": [
       {
         "args": [
@@ -128,7 +128,7 @@ return {
           }
         ],
         "kind": "FragmentSpread",
-        "name": "reviewedPrList_reviewed"
+        "name": "reviewedPrList_changesRequested"
       }
     ],
     "type": "Query",
@@ -138,10 +138,10 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ReviewedPrListPaginationQuery",
+    "name": "ReviewedPrListChangesRequestedPaginationQuery",
     "selections": [
       {
-        "alias": "reviewed",
+        "alias": "changesRequested",
         "args": (v1/*: any*/),
         "concreteType": "SearchResultItemConnection",
         "kind": "LinkedField",
@@ -169,6 +169,13 @@ return {
                     "kind": "InlineFragment",
                     "selections": [
                       (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "reviewDecision",
+                        "storageKey": null
+                      },
                       (v6/*: any*/),
                       {
                         "alias": null,
@@ -229,13 +236,6 @@ return {
                           },
                           (v3/*: any*/)
                         ],
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "reviewDecision",
                         "storageKey": null
                       },
                       {
@@ -414,30 +414,30 @@ return {
         "storageKey": null
       },
       {
-        "alias": "reviewed",
+        "alias": "changesRequested",
         "args": (v1/*: any*/),
         "filters": [
           "query",
           "type"
         ],
         "handle": "connection",
-        "key": "reviewedPrList_reviewed",
+        "key": "reviewedPrList_changesRequested",
         "kind": "LinkedHandle",
         "name": "search"
       }
     ]
   },
   "params": {
-    "cacheID": "2fd123e2175462920f353f750925e6d5",
+    "cacheID": "43e0072097eb6213a1a873fc05c53d38",
     "id": null,
     "metadata": {},
-    "name": "ReviewedPrListPaginationQuery",
+    "name": "ReviewedPrListChangesRequestedPaginationQuery",
     "operationKind": "query",
-    "text": "query ReviewedPrListPaginationQuery(\n  $count: Int = 10\n  $cursor: String\n) {\n  ...reviewedPrList_reviewed_1G22uz\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewedPrList_reviewed_1G22uz on Query {\n  reviewed: search(query: \"-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved sort:updated\", type: ISSUE, first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query ReviewedPrListChangesRequestedPaginationQuery(\n  $count: Int = 10\n  $cursor: String\n) {\n  ...reviewedPrList_changesRequested_1G22uz\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewedPrList_changesRequested_1G22uz on Query {\n  changesRequested: search(query: \"-author:@me -is:draft is:open is:pr review-requested:@me sort:updated\", type: ISSUE, first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          reviewDecision\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1262404a387032481886101252e8017c";
+(node as any).hash = "e5f626be75366815c23fcf78887dd5e1";
 
 export default node;

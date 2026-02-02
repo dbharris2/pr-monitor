@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<24d48d8f32f9519387b61159173e6c64>>
+ * @generated SignedSource<<89ce679fdbc1e16ababe8b8833c4609a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,8 +11,8 @@
 import { ReaderFragment } from 'relay-runtime';
 export type PullRequestReviewDecision = "APPROVED" | "CHANGES_REQUESTED" | "REVIEW_REQUIRED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type reviewPrList_search$data = {
-  readonly search: {
+export type reviewedPrList_changesRequested$data = {
+  readonly changesRequested: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id?: string;
@@ -21,18 +21,18 @@ export type reviewPrList_search$data = {
       } | null | undefined;
     } | null | undefined> | null | undefined;
   };
-  readonly " $fragmentType": "reviewPrList_search";
+  readonly " $fragmentType": "reviewedPrList_changesRequested";
 };
-export type reviewPrList_search$key = {
-  readonly " $data"?: reviewPrList_search$data;
-  readonly " $fragmentSpreads": FragmentRefs<"reviewPrList_search">;
+export type reviewedPrList_changesRequested$key = {
+  readonly " $data"?: reviewedPrList_changesRequested$data;
+  readonly " $fragmentSpreads": FragmentRefs<"reviewedPrList_changesRequested">;
 };
 
-import ReviewPrListPaginationQuery_graphql from './ReviewPrListPaginationQuery.graphql';
+import ReviewedPrListChangesRequestedPaginationQuery_graphql from './ReviewedPrListChangesRequestedPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "search"
+  "changesRequested"
 ];
 return {
   "argumentDefinitions": [
@@ -67,15 +67,15 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": ReviewPrListPaginationQuery_graphql
+      "operation": ReviewedPrListChangesRequestedPaginationQuery_graphql
     }
   },
-  "name": "reviewPrList_search",
+  "name": "reviewedPrList_changesRequested",
   "selections": [
     {
       "kind": "RequiredField",
       "field": {
-        "alias": "search",
+        "alias": "changesRequested",
         "args": [
           {
             "kind": "Literal",
@@ -90,7 +90,7 @@ return {
         ],
         "concreteType": "SearchResultItemConnection",
         "kind": "LinkedField",
-        "name": "__reviewPrList_search_connection",
+        "name": "__reviewedPrList_changesRequested_connection",
         "plural": false,
         "selections": [
           {
@@ -181,7 +181,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "__reviewPrList_search_connection(query:\"-author:@me -is:draft is:open is:pr review-requested:@me sort:updated\",type:\"ISSUE\")"
+        "storageKey": "__reviewedPrList_changesRequested_connection(query:\"-author:@me -is:draft is:open is:pr review-requested:@me sort:updated\",type:\"ISSUE\")"
       },
       "action": "THROW"
     }
@@ -191,6 +191,6 @@ return {
 };
 })();
 
-(node as any).hash = "a847f9c12f3de69700c665003aa96d4a";
+(node as any).hash = "e5f626be75366815c23fcf78887dd5e1";
 
 export default node;
