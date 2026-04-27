@@ -1,30 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PR Monitor
 
-## Getting Started
+A personal GitHub pull request dashboard. Shows the PRs that need your attention — review requests, mentions, your own PRs — and lets you browse any repo's open PRs at a glance.
 
-First, run the development server:
+Hosted at **https://pr-monitor-zeta.vercel.app** — paste a GitHub personal access token and go. Or run it locally (see [Setup](#setup) below).
+
+## Features
+
+- **Four "Me" lists** that you actually care about: review requested, reviewed, mentions, and your PRs.
+- **Repository view** to browse any `owner/repo`'s open PRs, with quick-access pills for recently visited repos.
+- **Standard and compact display modes** — toggle in the header to swap between roomy rows and a denser list.
+- **Inline PR status**: merged / draft / approved / changes requested / needs review, plus CI status (pending, pass, fail). Rows tint green or red so the state is obvious from a scan.
+- **Reviewer avatars** for both individuals and teams (teams render as rounded squares so they're distinguishable at a glance).
+- **Relative timestamps** for "merged" and "last updated."
+- **Auto-refresh on tab focus** — switch back to the tab and it re-fetches.
+- **Catppuccin theme** with light/dark toggle.
+
+## Setup
+
+1. Create a GitHub personal access token at https://github.com/settings/tokens
+   - Use `repo` scope for private repos, or `public_repo` for public-only.
+2. Install dependencies and start the dev server:
+   ```bash
+   bun install
+   bun dev
+   ```
+3. Open http://localhost:3001 and paste your token into the prompt in the header.
+
+The token is encrypted and stored in an HTTP-only cookie (30-day expiry). It never leaves your machine except to talk to GitHub's GraphQL API.
+
+## Tech stack
+
+- Next.js 16 (Turbopack) + React 19 (with the React Compiler)
+- Relay for GraphQL data fetching
+- Tailwind CSS + Catppuccin
+- TypeScript
+
+## Scripts
 
 ```bash
-bun dev
+bun dev      # Dev server on :3001
+bun build    # Production build
+bun lint     # ESLint
+bun ts       # TypeScript check
+bun format   # Prettier
+bun relay    # Recompile Relay artifacts after editing GraphQL
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run `bun relay` whenever you change a `graphql` tagged template — generated types live in `components/__generated__/` and are not edited by hand.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project layout
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `app/` — Next.js app router pages, layout, server actions
+- `components/` — UI components, each colocated with its Relay fragment
+- `data/schema.graphql` — GitHub's GraphQL schema (used by the Relay compiler)
+- `utils/` — shared helpers
