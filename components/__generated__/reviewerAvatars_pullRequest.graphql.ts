@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<daf3c0a846988c023e7797da9b0135e5>>
+ * @generated SignedSource<<8e40318c5485ef155ef05a81ce429907>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,7 @@ export type reviewerAvatars_pullRequest$data = {
     readonly nodes: ReadonlyArray<{
       readonly requestedReviewer: {
         readonly avatarUrl?: any;
+        readonly teamAvatarUrl?: any | null | undefined;
       } | null | undefined;
     } | null | undefined>;
   };
@@ -106,6 +107,32 @@ return {
                       "selections": (v0/*: any*/),
                       "type": "User",
                       "abstractKey": null
+                    },
+                    {
+                      "kind": "InlineFragment",
+                      "selections": [
+                        {
+                          "alias": "teamAvatarUrl",
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "avatarUrl",
+                          "storageKey": null
+                        }
+                      ],
+                      "type": "Team",
+                      "abstractKey": null
+                    },
+                    {
+                      "kind": "InlineFragment",
+                      "selections": (v0/*: any*/),
+                      "type": "Bot",
+                      "abstractKey": null
+                    },
+                    {
+                      "kind": "InlineFragment",
+                      "selections": (v0/*: any*/),
+                      "type": "Mannequin",
+                      "abstractKey": null
                     }
                   ],
                   "storageKey": null
@@ -153,6 +180,6 @@ return {
 };
 })();
 
-(node as any).hash = "2db382ee9f2dbe1996795cd15adf8250";
+(node as any).hash = "b864f7c53258dda8d90ca8088db6406d";
 
 export default node;

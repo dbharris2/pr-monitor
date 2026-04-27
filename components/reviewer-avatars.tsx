@@ -21,6 +21,15 @@ export const ReviewerAvatars = ({ prKey }: Props) => {
               ... on User {
                 avatarUrl
               }
+              ... on Team {
+                teamAvatarUrl: avatarUrl
+              }
+              ... on Bot {
+                avatarUrl
+              }
+              ... on Mannequin {
+                avatarUrl
+              }
             }
           }
         }
@@ -36,24 +45,29 @@ export const ReviewerAvatars = ({ prKey }: Props) => {
     prKey
   );
 
-  const avatarUrls = new Set(
-    nonnull(pr.reviewRequests.nodes)
-      .map(({ requestedReviewer }) => requestedReviewer?.avatarUrl)
-      .concat(
-        nonnull(pr?.reviews?.nodes).map(({ author }) => author?.avatarUrl)
-      )
-      .filter(Boolean)
-  );
-  avatarUrls.delete(pr.author.avatarUrl);
+  const reviewers = new Map<string, 'circle' | 'rounded'>();
+  for (const { requestedReviewer } of nonnull(pr.reviewRequests.nodes)) {
+    if (requestedReviewer?.teamAvatarUrl) {
+      reviewers.set(requestedReviewer.teamAvatarUrl, 'rounded');
+    } else if (requestedReviewer?.avatarUrl) {
+      reviewers.set(requestedReviewer.avatarUrl, 'circle');
+    }
+  }
+  for (const { author } of nonnull(pr?.reviews?.nodes)) {
+    if (author?.avatarUrl) {
+      reviewers.set(author.avatarUrl, 'circle');
+    }
+  }
+  reviewers.delete(pr.author.avatarUrl);
 
-  if (avatarUrls.size === 0) {
+  if (reviewers.size === 0) {
     return null;
   }
 
   return (
     <div className="flex gap-0.5">
-      {Array.from(avatarUrls).map((avatarUrl, index) => (
-        <Avatar key={index} src={avatarUrl} />
+      {Array.from(reviewers).map(([avatarUrl, shape], index) => (
+        <Avatar key={index} shape={shape} src={avatarUrl} />
       ))}
     </div>
   );
