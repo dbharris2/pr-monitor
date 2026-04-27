@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3f3c1eefe6c48bb022454a862fb8162a>>
+ * @generated SignedSource<<5330afdfe8d009cc0274e4d34ab0a8a3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -113,6 +113,9 @@ v8 = [
     "name": "first",
     "value": 10
   }
+],
+v9 = [
+  (v5/*: any*/)
 ];
 return {
   "fragment": {
@@ -334,10 +337,34 @@ return {
                                   (v3/*: any*/),
                                   {
                                     "kind": "InlineFragment",
-                                    "selections": [
-                                      (v5/*: any*/)
-                                    ],
+                                    "selections": (v9/*: any*/),
                                     "type": "User",
+                                    "abstractKey": null
+                                  },
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": [
+                                      {
+                                        "alias": "teamAvatarUrl",
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "avatarUrl",
+                                        "storageKey": null
+                                      }
+                                    ],
+                                    "type": "Team",
+                                    "abstractKey": null
+                                  },
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": (v9/*: any*/),
+                                    "type": "Bot",
+                                    "abstractKey": null
+                                  },
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": (v9/*: any*/),
+                                    "type": "Mannequin",
                                     "abstractKey": null
                                   },
                                   (v6/*: any*/)
@@ -436,12 +463,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f4c89ff64985212b0f0ce5b333cafa72",
+    "cacheID": "2d18a46c10aa32e13aae3903a5c155d5",
     "id": null,
     "metadata": {},
     "name": "RepoPrListPaginationQuery",
     "operationKind": "query",
-    "text": "query RepoPrListPaginationQuery(\n  $count: Int = 10\n  $cursor: String\n  $query: String!\n) {\n  ...repoPrList_search_1jWD3d\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment repoPrList_search_1jWD3d on Query {\n  search(query: $query, type: ISSUE, first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          mergedAt\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query RepoPrListPaginationQuery(\n  $count: Int = 10\n  $cursor: String\n  $query: String!\n) {\n  ...repoPrList_search_1jWD3d\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment repoPrList_search_1jWD3d on Query {\n  search(query: $query, type: ISSUE, first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          mergedAt\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Team {\n          teamAvatarUrl: avatarUrl\n        }\n        ... on Bot {\n          avatarUrl\n        }\n        ... on Mannequin {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

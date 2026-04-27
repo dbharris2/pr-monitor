@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<412e832f02040e73ac115f782d34e15b>>
+ * @generated SignedSource<<1c0158dab7c765064c6a31b991e8e0f2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -93,6 +93,9 @@ v8 = {
 },
 v9 = [
   (v2/*: any*/)
+],
+v10 = [
+  (v6/*: any*/)
 ];
 return {
   "fragment": {
@@ -304,10 +307,34 @@ return {
                                   (v4/*: any*/),
                                   {
                                     "kind": "InlineFragment",
-                                    "selections": [
-                                      (v6/*: any*/)
-                                    ],
+                                    "selections": (v10/*: any*/),
                                     "type": "User",
+                                    "abstractKey": null
+                                  },
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": [
+                                      {
+                                        "alias": "teamAvatarUrl",
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "avatarUrl",
+                                        "storageKey": null
+                                      }
+                                    ],
+                                    "type": "Team",
+                                    "abstractKey": null
+                                  },
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": (v10/*: any*/),
+                                    "type": "Bot",
+                                    "abstractKey": null
+                                  },
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": (v10/*: any*/),
+                                    "type": "Mannequin",
                                     "abstractKey": null
                                   },
                                   (v7/*: any*/)
@@ -406,12 +433,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7a4c8eeafb6b9b86a9bd67ebf8d7abc0",
+    "cacheID": "fb32dd57aa7be2aa456f8c7fa189972d",
     "id": null,
     "metadata": {},
     "name": "repoPrListQuery",
     "operationKind": "query",
-    "text": "query repoPrListQuery(\n  $query: String!\n) {\n  ...repoPrList_search_1Qr5xf\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment repoPrList_search_1Qr5xf on Query {\n  search(query: $query, type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          mergedAt\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query repoPrListQuery(\n  $query: String!\n) {\n  ...repoPrList_search_1Qr5xf\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment repoPrList_search_1Qr5xf on Query {\n  search(query: $query, type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          mergedAt\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Team {\n          teamAvatarUrl: avatarUrl\n        }\n        ... on Bot {\n          avatarUrl\n        }\n        ... on Mannequin {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

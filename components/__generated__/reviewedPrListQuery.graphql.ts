@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cf19ac42104d53eb8e2a9d72cefaf7c0>>
+ * @generated SignedSource<<400e51f3ac2268ba3472ae242bed2689>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -214,7 +214,10 @@ v22 = {
 v23 = [
   (v0/*: any*/)
 ],
-v24 = {
+v24 = [
+  (v5/*: any*/)
+],
+v25 = {
   "alias": null,
   "args": (v23/*: any*/),
   "concreteType": "ReviewRequestConnection",
@@ -241,10 +244,34 @@ v24 = {
             (v3/*: any*/),
             {
               "kind": "InlineFragment",
-              "selections": [
-                (v5/*: any*/)
-              ],
+              "selections": (v24/*: any*/),
               "type": "User",
+              "abstractKey": null
+            },
+            {
+              "kind": "InlineFragment",
+              "selections": [
+                {
+                  "alias": "teamAvatarUrl",
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "avatarUrl",
+                  "storageKey": null
+                }
+              ],
+              "type": "Team",
+              "abstractKey": null
+            },
+            {
+              "kind": "InlineFragment",
+              "selections": (v24/*: any*/),
+              "type": "Bot",
+              "abstractKey": null
+            },
+            {
+              "kind": "InlineFragment",
+              "selections": (v24/*: any*/),
+              "type": "Mannequin",
               "abstractKey": null
             },
             (v6/*: any*/)
@@ -258,7 +285,7 @@ v24 = {
   ],
   "storageKey": "reviewRequests(first:10)"
 },
-v25 = {
+v26 = {
   "alias": null,
   "args": (v23/*: any*/),
   "concreteType": "PullRequestReviewConnection",
@@ -282,14 +309,14 @@ v25 = {
   ],
   "storageKey": "reviews(first:10)"
 },
-v26 = {
+v27 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "cursor",
   "storageKey": null
 },
-v27 = {
+v28 = {
   "alias": null,
   "args": null,
   "concreteType": "PageInfo",
@@ -314,11 +341,11 @@ v27 = {
   ],
   "storageKey": null
 },
-v28 = [
+v29 = [
   "query",
   "type"
 ],
-v29 = [
+v30 = [
   (v0/*: any*/),
   {
     "kind": "Literal",
@@ -399,8 +426,8 @@ return {
                       (v20/*: any*/),
                       (v21/*: any*/),
                       (v22/*: any*/),
-                      (v24/*: any*/),
-                      (v25/*: any*/)
+                      (v25/*: any*/),
+                      (v26/*: any*/)
                     ],
                     "type": "PullRequest",
                     "abstractKey": null
@@ -409,18 +436,18 @@ return {
                 ],
                 "storageKey": null
               },
-              (v26/*: any*/)
+              (v27/*: any*/)
             ],
             "storageKey": null
           },
-          (v27/*: any*/)
+          (v28/*: any*/)
         ],
         "storageKey": "search(first:10,query:\"-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved sort:updated\",type:\"ISSUE\")"
       },
       {
         "alias": "reviewed",
         "args": (v2/*: any*/),
-        "filters": (v28/*: any*/),
+        "filters": (v29/*: any*/),
         "handle": "connection",
         "key": "reviewedPrList_reviewed",
         "kind": "LinkedHandle",
@@ -428,7 +455,7 @@ return {
       },
       {
         "alias": "changesRequested",
-        "args": (v29/*: any*/),
+        "args": (v30/*: any*/),
         "concreteType": "SearchResultItemConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -471,8 +498,8 @@ return {
                       (v20/*: any*/),
                       (v21/*: any*/),
                       (v22/*: any*/),
-                      (v24/*: any*/),
-                      (v25/*: any*/)
+                      (v25/*: any*/),
+                      (v26/*: any*/)
                     ],
                     "type": "PullRequest",
                     "abstractKey": null
@@ -481,18 +508,18 @@ return {
                 ],
                 "storageKey": null
               },
-              (v26/*: any*/)
+              (v27/*: any*/)
             ],
             "storageKey": null
           },
-          (v27/*: any*/)
+          (v28/*: any*/)
         ],
         "storageKey": "search(first:10,query:\"-author:@me -is:draft is:open is:pr review-requested:@me sort:updated\",type:\"ISSUE\")"
       },
       {
         "alias": "changesRequested",
-        "args": (v29/*: any*/),
-        "filters": (v28/*: any*/),
+        "args": (v30/*: any*/),
+        "filters": (v29/*: any*/),
         "handle": "connection",
         "key": "reviewedPrList_changesRequested",
         "kind": "LinkedHandle",
@@ -501,12 +528,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ea6f012701cc4d648fce996bbdc784ea",
+    "cacheID": "215645a3ff59624e2c5c12ae3edeeee5",
     "id": null,
     "metadata": {},
     "name": "reviewedPrListQuery",
     "operationKind": "query",
-    "text": "query reviewedPrListQuery {\n  ...reviewedPrList_reviewed\n  ...reviewedPrList_changesRequested\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewedPrList_changesRequested on Query {\n  changesRequested: search(query: \"-author:@me -is:draft is:open is:pr review-requested:@me sort:updated\", type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          reviewDecision\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewedPrList_reviewed on Query {\n  reviewed: search(query: \"-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved sort:updated\", type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query reviewedPrListQuery {\n  ...reviewedPrList_reviewed\n  ...reviewedPrList_changesRequested\n}\n\nfragment prStatus_pullRequest on PullRequest {\n  isDraft\n  isInMergeQueue\n  merged\n  reviewDecision\n  statusCheckRollup {\n    state\n    id\n  }\n}\n\nfragment pr_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  additions\n  changedFiles\n  deletions\n  mergedAt\n  number\n  permalink\n  repository {\n    nameWithOwner\n    id\n  }\n  reviewDecision\n  title\n  totalCommentsCount\n  updatedAt\n  ...prStatus_pullRequest\n  ...reviewerAvatars_pullRequest\n}\n\nfragment reviewedPrList_changesRequested on Query {\n  changesRequested: search(query: \"-author:@me -is:draft is:open is:pr review-requested:@me sort:updated\", type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          reviewDecision\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewedPrList_reviewed on Query {\n  reviewed: search(query: \"-author:@me -is:draft is:open is:pr reviewed-by:@me -review:approved sort:updated\", type: ISSUE, first: 10) {\n    edges {\n      node {\n        __typename\n        ... on PullRequest {\n          id\n          ...pr_pullRequest\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment reviewerAvatars_pullRequest on PullRequest {\n  author {\n    __typename\n    avatarUrl\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  reviewRequests(first: 10) {\n    nodes {\n      requestedReviewer {\n        __typename\n        ... on User {\n          avatarUrl\n        }\n        ... on Team {\n          teamAvatarUrl: avatarUrl\n        }\n        ... on Bot {\n          avatarUrl\n        }\n        ... on Mannequin {\n          avatarUrl\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  reviews(first: 10) {\n    nodes {\n      author {\n        __typename\n        avatarUrl\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
