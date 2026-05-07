@@ -8,9 +8,9 @@ import type {
 import { Avatar } from 'components/avatar';
 import { useDisplayMode } from 'components/display-mode-context';
 import { PrStatus } from 'components/pr-status';
+import { RelativeTime } from 'components/relative-time';
 import { ReviewerAvatars } from 'components/reviewer-avatars';
 import cn from 'utils/cn';
-import { formatRelativeTime } from 'utils/format-relative-time';
 
 type Props = {
   prKey: pr_pullRequest$key;
@@ -41,7 +41,7 @@ const CompactPr = ({ pr }: CompactPrProps) => (
       {pr.title}
     </span>
     <span className="ml-auto shrink-0 text-xs text-slate-600 dark:text-catppuccin-subtext0">
-      {formatRelativeTime(pr.mergedAt ?? pr.updatedAt)}
+      <RelativeTime dateString={pr.mergedAt ?? pr.updatedAt} />
     </span>
     <PrStatus prKey={pr} />
   </a>
@@ -85,7 +85,7 @@ export const Pr = ({ prKey }: Props) => {
             </div>
           </div>
           <div className="flex shrink-0 pl-2">
-            {formatRelativeTime(pr.mergedAt ?? pr.updatedAt)}
+            <RelativeTime dateString={pr.mergedAt ?? pr.updatedAt} />
           </div>
         </div>
         <div className="flex justify-between">
