@@ -3,10 +3,12 @@ const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const WEEK = 7 * DAY;
 
-export const formatRelativeTime = (dateString: string): string => {
+export const formatRelativeTime = (
+  dateString: string,
+  now: number = Date.now()
+): string => {
   const date = new Date(dateString);
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
+  const diff = now - date.getTime();
 
   if (diff < MINUTE) {
     return 'just now';
