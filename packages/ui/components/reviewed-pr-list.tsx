@@ -55,7 +55,7 @@ export const ReviewedPrList = ({ queryRef }: Props) => {
             node {
               ... on PullRequest {
                 id
-                ...pr_pullRequest
+                ...pr_pullRequest @alias
               }
             }
           }
@@ -95,7 +95,7 @@ export const ReviewedPrList = ({ queryRef }: Props) => {
               ... on PullRequest {
                 id
                 reviewDecision
-                ...pr_pullRequest
+                ...pr_pullRequest @alias
               }
             }
           }
@@ -132,7 +132,7 @@ export const ReviewedPrList = ({ queryRef }: Props) => {
   return (
     <PrList title="Reviewed">
       {allPrs.map((pr) => (
-        <Pr key={pr!.id} prKey={pr!} />
+        <Pr key={pr!.id} prKey={pr!.pr_pullRequest!} />
       ))}
       {hasNext && (
         <LoadMoreButton disabled={isLoadingNext} onClick={loadNext} />

@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<8e40318c5485ef155ef05a81ce429907>>
+ * @generated SignedSource<<98eaa10f7ea0e8dad15012390f675dd3>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -53,7 +52,7 @@ v1 = {
   "kind": "LinkedField",
   "name": "author",
   "plural": false,
-  "selections": (v0/*: any*/),
+  "selections": (v0/*:: as any*/),
   "storageKey": null
 },
 v2 = [
@@ -71,14 +70,14 @@ return {
   "selections": [
     {
       "kind": "RequiredField",
-      "field": (v1/*: any*/),
+      "field": (v1/*:: as any*/),
       "action": "THROW"
     },
     {
       "kind": "RequiredField",
       "field": {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v2/*:: as any*/),
         "concreteType": "ReviewRequestConnection",
         "kind": "LinkedField",
         "name": "reviewRequests",
@@ -104,7 +103,7 @@ return {
                   "selections": [
                     {
                       "kind": "InlineFragment",
-                      "selections": (v0/*: any*/),
+                      "selections": (v0/*:: as any*/),
                       "type": "User",
                       "abstractKey": null
                     },
@@ -124,13 +123,13 @@ return {
                     },
                     {
                       "kind": "InlineFragment",
-                      "selections": (v0/*: any*/),
+                      "selections": (v0/*:: as any*/),
                       "type": "Bot",
                       "abstractKey": null
                     },
                     {
                       "kind": "InlineFragment",
-                      "selections": (v0/*: any*/),
+                      "selections": (v0/*:: as any*/),
                       "type": "Mannequin",
                       "abstractKey": null
                     }
@@ -149,7 +148,7 @@ return {
     },
     {
       "alias": null,
-      "args": (v2/*: any*/),
+      "args": (v2/*:: as any*/),
       "concreteType": "PullRequestReviewConnection",
       "kind": "LinkedField",
       "name": "reviews",
@@ -165,7 +164,7 @@ return {
             "name": "nodes",
             "plural": true,
             "selections": [
-              (v1/*: any*/)
+              (v1/*:: as any*/)
             ],
             "storageKey": null
           },

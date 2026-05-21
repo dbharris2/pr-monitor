@@ -44,7 +44,7 @@ export const RepoPrList = ({ queryRef, title }: Props) => {
               ... on PullRequest {
                 id
                 mergedAt
-                ...pr_pullRequest
+                ...pr_pullRequest @alias
               }
             }
           }
@@ -59,7 +59,7 @@ export const RepoPrList = ({ queryRef, title }: Props) => {
       {nonnull(search.edges)
         .sort((a, b) => (a.node!.mergedAt > b.node!.mergedAt ? -1 : 1))
         .map(({ node }) => (
-          <Pr key={node!.id} prKey={node!} />
+          <Pr key={node!.id} prKey={node!.pr_pullRequest!} />
         ))}
       {hasNext && (
         <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />

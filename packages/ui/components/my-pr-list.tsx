@@ -44,7 +44,7 @@ export const MyPrList = ({ queryRef }: Props) => {
             node {
               ... on PullRequest {
                 id
-                ...pr_pullRequest
+                ...pr_pullRequest @alias
               }
             }
           }
@@ -59,7 +59,7 @@ export const MyPrList = ({ queryRef }: Props) => {
       {nonnull(search.edges)
         .map(({ node }) => node)
         .map((pr) => (
-          <Pr key={pr!.id} prKey={pr!} />
+          <Pr key={pr!.id} prKey={pr!.pr_pullRequest!} />
         ))}
       {hasNext && (
         <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />
