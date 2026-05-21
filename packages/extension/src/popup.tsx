@@ -2,9 +2,10 @@ import { useMemo } from 'react';
 import { RelayEnvironmentProvider } from 'react-relay';
 
 import { DisplayModeProvider } from 'components/display-mode-context';
+import { Header } from 'components/header';
 import { ReviewPage } from 'components/review-page';
-import { Header } from 'extension/src/header';
 import { createRelayEnvironment } from 'extension/src/relay-env';
+import { saveToken as persistToken } from 'extension/src/token-storage';
 import { useToken } from 'extension/src/use-token';
 
 export const Popup = () => {
@@ -19,7 +20,13 @@ export const Popup = () => {
           {error && <div className="p-2 text-catppuccin-red">{error}</div>}
           {loaded && (
             <>
-              <Header hasToken={!!token} onTokenSaved={setToken} />
+              <Header
+                hasToken={!!token}
+                saveToken={async (t) => {
+                  await persistToken(t);
+                  setToken(t);
+                }}
+              />
               <ReviewPage isLoggedIn={!!token} />
             </>
           )}

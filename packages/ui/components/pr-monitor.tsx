@@ -13,17 +13,18 @@ import useLocalState from 'utils/use-local-state';
 
 type Props = {
   initialHasToken: boolean;
+  saveToken: (token: string) => Promise<void>;
 };
 
 type View = 'me' | 'repository' | 'both';
 
-export const PrMonitor = ({ initialHasToken }: Props) => (
+export const PrMonitor = ({ initialHasToken, saveToken }: Props) => (
   <DisplayModeProvider>
-    <PrMonitorContent initialHasToken={initialHasToken} />
+    <PrMonitorContent initialHasToken={initialHasToken} saveToken={saveToken} />
   </DisplayModeProvider>
 );
 
-const PrMonitorContent = ({ initialHasToken }: Props) => {
+const PrMonitorContent = ({ initialHasToken, saveToken }: Props) => {
   const [hasToken, setHasToken] = useState(initialHasToken);
   const [view, setView] = useLocalState<View>('pr-monitor-view', 'me');
 
@@ -31,9 +32,13 @@ const PrMonitorContent = ({ initialHasToken }: Props) => {
 
   return (
     <PageWrapper wide={isBoth}>
-      <Header hasToken={hasToken} onUpdatedToken={() => setHasToken(true)} />
+      <Header
+        hasToken={hasToken}
+        onUpdatedToken={() => setHasToken(true)}
+        saveToken={saveToken}
+      />
       <div className="flex items-center gap-2">
-        <div className="flex flex-1 gap-1 rounded-lg bg-white p-1 dark:bg-catppuccin-surface0">
+        <div className="dark:bg-catppuccin-surface0 flex flex-1 gap-1 rounded-lg bg-white p-1">
           <ToggleButton
             onClick={() => setView('me')}
             selected={view === 'me'}
@@ -81,9 +86,9 @@ const ToggleButton = ({
 }) => (
   <button
     className={cn(
-      'flex-1 cursor-pointer rounded-md border-none py-1 font-semibold outline-none transition-colors hover:bg-slate-100 dark:text-catppuccin-text dark:hover:bg-catppuccin-surface1',
+      'dark:text-catppuccin-text dark:hover:bg-catppuccin-surface1 flex-1 cursor-pointer rounded-md border-none py-1 font-semibold transition-colors outline-none hover:bg-slate-100',
       {
-        'bg-slate-200 dark:bg-catppuccin-surface1': selected,
+        'dark:bg-catppuccin-surface1 bg-slate-200': selected,
         'bg-transparent': !selected,
       }
     )}
