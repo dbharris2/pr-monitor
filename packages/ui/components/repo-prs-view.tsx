@@ -74,7 +74,7 @@ export const RepoPrsView = ({ isLoggedIn }: Props) => {
         }}
       >
         <input
-          className="flex w-full rounded p-2 dark:bg-catppuccin-surface0 dark:text-catppuccin-text"
+          className="dark:bg-catppuccin-surface0 dark:text-catppuccin-text flex w-full rounded p-2"
           defaultValue={repo}
           placeholder="Insert org/repo here..."
           ref={repoRef}

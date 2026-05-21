@@ -20,9 +20,9 @@ type IconButtonProps = {
 const IconButton = ({ icon, onClick, selected, title }: IconButtonProps) => (
   <button
     className={cn(
-      'cursor-pointer rounded-md border-none p-1.5 outline-none transition-colors hover:bg-slate-100 dark:text-catppuccin-text dark:hover:bg-catppuccin-surface1',
+      'dark:text-catppuccin-text dark:hover:bg-catppuccin-surface1 cursor-pointer rounded-md border-none p-1.5 transition-colors outline-none hover:bg-slate-100',
       {
-        'bg-slate-200 dark:bg-catppuccin-surface1': selected,
+        'dark:bg-catppuccin-surface1 bg-slate-200': selected,
         'bg-transparent': !selected,
       }
     )}
@@ -38,7 +38,7 @@ export const DisplayModeToggle = () => {
   const { displayMode, setDisplayMode } = useDisplayMode();
 
   return (
-    <div className="flex gap-1 rounded-lg bg-white p-1 dark:bg-catppuccin-surface0">
+    <div className="dark:bg-catppuccin-surface0 flex gap-1 rounded-lg bg-white p-1">
       <IconButton
         icon={<StackIcon size={16} />}
         mode="standard"

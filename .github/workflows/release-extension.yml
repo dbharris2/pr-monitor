@@ -1,0 +1,51 @@
+name: Release Extension
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build extension
+        run: bun run ext:build
+
+      - name: Read manifest version
+        id: ver
+        run: |
+          VERSION=$(jq -r .version packages/extension/manifest.json)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Guard against duplicate version
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="extension-v${{ steps.ver.outputs.version }}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "::error::A release tagged '$TAG' already exists. Bump 'version' in packages/extension/manifest.json before running."
+            exit 1
+          fi
+
+      - name: Package zip
+        run: |
+          cd packages/extension/dist
+          zip -r ../pr-monitor-extension.zip .
+
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: extension-v${{ steps.ver.outputs.version }}
+          name: PR Monitor extension v${{ steps.ver.outputs.version }}
+          files: packages/extension/pr-monitor-extension.zip
+          draft: true
+          fail_on_unmatched_files: true

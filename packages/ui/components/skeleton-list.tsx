@@ -3,14 +3,14 @@ import cn from 'utils/cn';
 const SkeletonLine = ({ className }: { className?: string }) => (
   <div
     className={cn(
-      'animate-pulse rounded bg-slate-200 dark:bg-catppuccin-surface1',
+      'dark:bg-catppuccin-surface1 animate-pulse rounded bg-slate-200',
       className
     )}
   />
 );
 
 const SkeletonPr = () => (
-  <div className="flex w-full flex-col border-b border-solid bg-white p-2 first:rounded-t-lg last:rounded-b-lg last:border-none dark:bg-catppuccin-surface0">
+  <div className="dark:bg-catppuccin-surface0 flex w-full flex-col border-b border-solid bg-white p-2 first:rounded-t-lg last:rounded-b-lg last:border-none">
     <div className="flex w-full flex-col gap-2">
       <div className="flex justify-between">
         <div className="flex w-full items-center gap-2">
@@ -42,7 +42,7 @@ export const SkeletonList = ({
   <>
     {titles.map((title) => (
       <div
-        className="flex flex-col gap-2 dark:text-catppuccin-text"
+        className="dark:text-catppuccin-text flex flex-col gap-2"
         key={title}
       >
         {title}

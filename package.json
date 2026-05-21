@@ -11,6 +11,7 @@
     "ext:build": "bun --filter @pr-monitor/extension build",
     "relay": "bun --filter @pr-monitor/ui relay",
     "format": "bun --filter '*' format",
+    "format:check": "bun --filter '*' format:check",
     "lint": "bun --filter '*' lint",
     "ts": "bun --filter '*' ts"
   }

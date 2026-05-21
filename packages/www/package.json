@@ -8,6 +8,7 @@
     "prebuild": "bun --filter @pr-monitor/ui relay",
     "start": "next start",
     "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 20 --no-warn-ignored",
     "ts": "tsc --pretty --noEmit"
   },
