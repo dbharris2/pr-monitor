@@ -14,10 +14,10 @@ export const Pill = ({
   onRemove,
 }: PillProps) => (
   <button
-    className={`flex items-center gap-1 rounded-full px-3 py-1 text-sm text-black hover:bg-slate-300 dark:text-catppuccin-text dark:hover:bg-catppuccin-surface2 ${
+    className={`dark:text-catppuccin-text dark:hover:bg-catppuccin-surface2 flex items-center gap-1 rounded-full px-3 py-1 text-sm text-black hover:bg-slate-300 ${
       selected
-        ? 'bg-slate-300 ring-2 ring-blue-500 dark:bg-catppuccin-surface2 dark:ring-catppuccin-blue'
-        : 'bg-slate-200 dark:bg-catppuccin-surface1'
+        ? 'dark:bg-catppuccin-surface2 dark:ring-catppuccin-blue bg-slate-300 ring-2 ring-blue-500'
+        : 'dark:bg-catppuccin-surface1 bg-slate-200'
     }`}
     onClick={onSelect}
     type="button"
@@ -25,7 +25,7 @@ export const Pill = ({
     <span>{label}</span>
     {onRemove && (
       <span
-        className="ml-1 text-slate-500 hover:text-red-500 dark:text-catppuccin-overlay0 dark:hover:text-catppuccin-red"
+        className="dark:text-catppuccin-overlay0 dark:hover:text-catppuccin-red ml-1 text-slate-500 hover:text-red-500"
         onClick={(e) => {
           e.stopPropagation();
           onRemove();

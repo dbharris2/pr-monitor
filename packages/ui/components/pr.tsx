@@ -23,11 +23,11 @@ type CompactPrProps = {
 const CompactPr = ({ pr }: CompactPrProps) => (
   <a
     className={cn(
-      'flex cursor-pointer items-center gap-2 border-b border-solid bg-white px-2 py-1 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300 dark:bg-catppuccin-surface0 dark:hover:bg-catppuccin-mauve/50',
+      'dark:bg-catppuccin-surface0 dark:hover:bg-catppuccin-mauve/50 flex cursor-pointer items-center gap-2 border-b border-solid bg-white px-2 py-1 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300',
       {
-        'bg-red-300 dark:bg-catppuccin-red/50':
+        'dark:bg-catppuccin-red/50 bg-red-300':
           pr.reviewDecision === 'CHANGES_REQUESTED',
-        'bg-green-300 dark:bg-catppuccin-green/50':
+        'dark:bg-catppuccin-green/50 bg-green-300':
           pr.reviewDecision === 'APPROVED' && !pr.mergedAt,
       }
     )}
@@ -37,10 +37,10 @@ const CompactPr = ({ pr }: CompactPrProps) => (
     target="_blank"
   >
     <Avatar className="!size-6 shrink-0" src={pr.author?.avatarUrl ?? ''} />
-    <span className="truncate text-sm text-black dark:text-catppuccin-text">
+    <span className="dark:text-catppuccin-text truncate text-sm text-black">
       {pr.title}
     </span>
-    <span className="ml-auto shrink-0 text-xs text-slate-600 dark:text-catppuccin-subtext0">
+    <span className="dark:text-catppuccin-subtext0 ml-auto shrink-0 text-xs text-slate-600">
       <RelativeTime dateString={pr.mergedAt ?? pr.updatedAt} />
     </span>
     <PrStatus prKey={pr} />
@@ -60,11 +60,11 @@ export const Pr = ({ prKey }: Props) => {
   return (
     <a
       className={cn(
-        'flex cursor-pointer border-b border-solid bg-white p-2 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300 dark:bg-catppuccin-surface0 dark:hover:bg-catppuccin-mauve/50',
+        'dark:bg-catppuccin-surface0 dark:hover:bg-catppuccin-mauve/50 flex cursor-pointer border-b border-solid bg-white p-2 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-purple-300',
         {
-          'bg-red-300 dark:bg-catppuccin-red/50':
+          'dark:bg-catppuccin-red/50 bg-red-300':
             pr.reviewDecision === 'CHANGES_REQUESTED',
-          'bg-green-300 dark:bg-catppuccin-green/50':
+          'dark:bg-catppuccin-green/50 bg-green-300':
             pr.reviewDecision === 'APPROVED' && !pr.mergedAt,
         }
       )}
@@ -80,7 +80,7 @@ export const Pr = ({ prKey }: Props) => {
       <div className="ml-2 flex min-w-0 flex-1 flex-col">
         <div className="flex justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
-            <div className="truncate text-black dark:text-catppuccin-text">
+            <div className="dark:text-catppuccin-text truncate text-black">
               {pr.title}
             </div>
           </div>
@@ -89,13 +89,13 @@ export const Pr = ({ prKey }: Props) => {
           </div>
         </div>
         <div className="flex justify-between">
-          <div className="flex grow flex-wrap gap-2 text-slate-600 dark:text-catppuccin-subtext0">
+          <div className="dark:text-catppuccin-subtext0 flex grow flex-wrap gap-2 text-slate-600">
             {pr.repository.nameWithOwner} #{pr.number}
             <div className="flex gap-1">
-              <div className="text-green-600 dark:text-catppuccin-green">
+              <div className="dark:text-catppuccin-green text-green-600">
                 +{pr.additions}
               </div>
-              <div className="text-red-600 dark:text-catppuccin-red">
+              <div className="dark:text-catppuccin-red text-red-600">
                 -{pr.deletions}
               </div>
               @{pr.changedFiles}

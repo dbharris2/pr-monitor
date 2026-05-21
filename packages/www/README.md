@@ -26,4 +26,4 @@ bun run ts
 bun run format
 ```
 
-`prebuild` runs `bun --filter @pr-monitor/ui relay` automatically, so artifacts get generated before `next build` runs — Vercel deploys work out of the box once the project's *Root Directory* is set to `packages/www`.
+`prebuild` runs `bun --filter @pr-monitor/ui relay` automatically, so artifacts get generated before `next build` runs — Vercel deploys work out of the box once the project's _Root Directory_ is set to `packages/www`.

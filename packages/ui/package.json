@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 20 --no-warn-ignored",
     "relay": "relay-compiler",
     "ts": "tsc --pretty --noEmit"

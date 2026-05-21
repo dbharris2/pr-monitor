@@ -21,4 +21,4 @@ The Next.js web app. Deployed to Vercel at https://pr-monitor-zeta.vercel.app.
 
 ## Vercel
 
-The project's *Root Directory* is set to `packages/www` with "Include files outside of the Root Directory" enabled so the workspace lockfile + `packages/ui` ship to the build. No `vercel.json` — Vercel auto-detects Next.js.
+The project's _Root Directory_ is set to `packages/www` with "Include files outside of the Root Directory" enabled so the workspace lockfile + `packages/ui` ship to the build. No `vercel.json` — Vercel auto-detects Next.js.

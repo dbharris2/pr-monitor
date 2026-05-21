@@ -36,7 +36,7 @@ const Badge = ({
 }: BadgeProps) => (
   <span
     className={cn(
-      'flex items-center whitespace-nowrap rounded-full bg-gray-600 px-1.5 py-0.5 text-xs font-semibold leading-none text-white',
+      'flex items-center rounded-full bg-gray-600 px-1.5 py-0.5 text-xs leading-none font-semibold whitespace-nowrap text-white',
       {
         'bg-green-600': isApproved,
         'bg-gray-600': isDraft,
