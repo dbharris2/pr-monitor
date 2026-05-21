@@ -1,7 +1,8 @@
 import type { RequestParameters, Variables } from 'relay-runtime';
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
-const createFetchQuery = (token: string | null) =>
+const createFetchQuery =
+  (token: string | null) =>
   async (params: RequestParameters, variables: Variables) => {
     if (!token) {
       throw new Error('Missing token');

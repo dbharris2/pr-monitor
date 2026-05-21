@@ -1,17 +1,17 @@
 import { useRef, useState } from 'react';
 
-import { saveToken } from 'app/actions/token';
 import { ThemeToggle } from 'components/theme-toggle';
 
 type Props = {
   hasToken: boolean;
-  onUpdatedToken: () => void;
+  saveToken: (token: string) => Promise<void>;
+  onUpdatedToken?: () => void;
 };
 
-export const Header = ({ hasToken, onUpdatedToken }: Props) => {
+export const Header = ({ hasToken, saveToken, onUpdatedToken }: Props) => {
   const [isUpdatingToken, setIsUpdatingToken] = useState(!hasToken);
   return (
-    <div className="flex items-center justify-between rounded-lg border border-solid bg-white p-2 dark:bg-catppuccin-surface0 dark:text-catppuccin-text">
+    <div className="dark:bg-catppuccin-surface0 dark:text-catppuccin-text flex items-center justify-between rounded-lg border border-solid bg-white p-2">
       {!isUpdatingToken && (
         <DefaultHeader onClickUpdateToken={() => setIsUpdatingToken(true)} />
       )}
@@ -20,8 +20,9 @@ export const Header = ({ hasToken, onUpdatedToken }: Props) => {
           onClickCancel={() => setIsUpdatingToken(false)}
           onUpdatedToken={() => {
             setIsUpdatingToken(false);
-            onUpdatedToken();
+            onUpdatedToken?.();
           }}
+          saveToken={saveToken}
         />
       )}
     </div>
@@ -38,7 +39,7 @@ const DefaultHeader = ({ onClickUpdateToken }: DefaultHeaderProps) => (
     <div className="flex gap-4">
       <ThemeToggle />
       <button
-        className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600 dark:bg-catppuccin-surface1 dark:text-catppuccin-text"
+        className="dark:bg-catppuccin-surface1 dark:text-catppuccin-text cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
         onClick={onClickUpdateToken}
         type="button"
       >
@@ -51,11 +52,13 @@ const DefaultHeader = ({ onClickUpdateToken }: DefaultHeaderProps) => (
 type UpdateTokenHeaderProps = {
   onClickCancel: () => void;
   onUpdatedToken: () => void;
+  saveToken: (token: string) => Promise<void>;
 };
 
 const UpdateTokenHeader = ({
   onClickCancel,
   onUpdatedToken,
+  saveToken,
 }: UpdateTokenHeaderProps) => {
   const tokenRef = useRef<HTMLInputElement>(null);
   return (
@@ -69,20 +72,20 @@ const UpdateTokenHeader = ({
       }}
     >
       <input
-        className="flex w-full p-2 placeholder:text-slate-500 dark:bg-catppuccin-surface1 dark:text-catppuccin-text dark:placeholder:text-catppuccin-subtext0"
+        className="dark:bg-catppuccin-surface1 dark:text-catppuccin-text dark:placeholder:text-catppuccin-subtext0 flex w-full p-2 placeholder:text-slate-500"
         placeholder="Insert GitHub token here..."
         ref={tokenRef}
         type="password"
       />
       <div className="flex gap-2 pl-2">
         <button
-          className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600 dark:bg-catppuccin-surface1 dark:text-catppuccin-text"
+          className="dark:bg-catppuccin-surface1 dark:text-catppuccin-text cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
           type="submit"
         >
           Save
         </button>
         <button
-          className="cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600 dark:bg-catppuccin-surface1 dark:text-catppuccin-text"
+          className="dark:bg-catppuccin-surface1 dark:text-catppuccin-text cursor-pointer items-center rounded-lg border-none bg-slate-200 p-1 outline-none hover:bg-slate-400 active:bg-slate-600"
           onClick={async () => {
             onClickCancel();
           }}

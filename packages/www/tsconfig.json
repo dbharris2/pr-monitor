@@ -12,19 +12,13 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "target": "ES2017",
+    "plugins": [{ "name": "next" }],
     "paths": {
-      "@/*": ["./*"],
       "app/*": ["./app/*"],
-      "components/*": ["./components/*"],
-      "extension/*": ["./extension/*"],
-      "utils/*": ["./utils/*"]
-    },
-    "target": "ES2017"
+      "components/*": ["../ui/components/*"],
+      "utils/*": ["./utils/*", "../ui/utils/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

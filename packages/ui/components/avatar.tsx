@@ -8,7 +8,6 @@ type Props = {
 };
 
 export const Avatar = ({ src, title, className, shape = 'circle' }: Props) => (
-  // eslint-disable-next-line @next/next/no-img-element
   <img
     alt={title}
     className={cn(

@@ -1,0 +1,52 @@
+{
+  "name": "@pr-monitor/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "format": "prettier . --write",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 20 --no-warn-ignored",
+    "ts": "tsc --pretty --noEmit"
+  },
+  "dependencies": {
+    "@pr-monitor/ui": "workspace:*",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-relay": "20.1.1",
+    "relay-runtime": "20.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@crxjs/vite-plugin": "^2.4.0",
+    "@eslint/js": "9.39.2",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@types/babel__core": "^7.20.5",
+    "@types/chrome": "^0.1.42",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@types/react-relay": "18.2.1",
+    "@types/relay-runtime": "20.1.0",
+    "@typescript-eslint/parser": "8.50.1",
+    "@vitejs/plugin-react": "^6.0.2",
+    "babel-plugin-relay": "^21.0.0",
+    "eslint": "9.39.2",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-no-relative-import-paths": "1.6.1",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-relay": "2.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-tailwindcss": "3.18.2",
+    "eslint-plugin-unused-imports": "4.3.0",
+    "postcss": "^8",
+    "prettier": "3.7.4",
+    "prettier-plugin-tailwindcss": "0.7.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.50.1",
+    "vite": "^8.0.14"
+  }
+}

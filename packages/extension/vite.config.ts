@@ -7,16 +7,15 @@ import { defineConfig } from 'vite';
 
 import manifest from './manifest.json';
 
-const repoRoot = path.resolve(__dirname, '..');
+const uiRoot = path.resolve(__dirname, '../ui');
 
 export default defineConfig({
   root: __dirname,
   resolve: {
     alias: {
-      app: path.resolve(repoRoot, 'app'),
-      components: path.resolve(repoRoot, 'components'),
-      extension: path.resolve(repoRoot, 'extension'),
-      utils: path.resolve(repoRoot, 'utils'),
+      components: path.resolve(uiRoot, 'components'),
+      extension: __dirname,
+      utils: path.resolve(uiRoot, 'utils'),
     },
   },
   plugins: [
