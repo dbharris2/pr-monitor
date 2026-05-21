@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "PR Monitor",
+  "version": "2.0.0",
+  "description": "Personal GitHub PR dashboard",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "PR Monitor"
+  },
+  "background": {
+    "service_worker": "src/background.ts",
+    "type": "module"
+  },
+  "icons": {
+    "48": "icons/logo48.png",
+    "96": "icons/logo96.png",
+    "128": "icons/logo128.png",
+    "256": "icons/logo256.png"
+  },
+  "permissions": ["storage", "alarms"],
+  "host_permissions": ["https://api.github.com/*"]
+}

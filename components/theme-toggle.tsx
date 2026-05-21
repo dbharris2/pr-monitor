@@ -35,5 +35,8 @@ const getInitialIsDark = () => {
 
   // Fallback to localStorage
   const storedTheme = window.localStorage.getItem('theme');
-  return storedTheme === 'dark';
+  if (storedTheme) return storedTheme === 'dark';
+
+  // Fall back to whatever the host document is already showing
+  return document.documentElement.classList.contains('dark');
 };

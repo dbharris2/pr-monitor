@@ -21,6 +21,7 @@
       "@/*": ["./*"],
       "app/*": ["./app/*"],
       "components/*": ["./components/*"],
+      "extension/*": ["./extension/*"],
       "utils/*": ["./utils/*"]
     },
     "target": "ES2017"
