@@ -24,6 +24,9 @@
 # relay-compiler artifacts
 **/__generated__/
 
+# chrome web store packaging
+packages/extension/*.zip
+
 # production
 /build
 
