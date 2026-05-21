@@ -18,6 +18,9 @@
 /out/
 next-env.d.ts
 
+# chrome extension
+/extension/dist/
+
 # production
 /build
 
