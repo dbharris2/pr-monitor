@@ -21,6 +21,9 @@
 # build outputs
 **/dist/
 
+# relay-compiler artifacts
+**/__generated__/
+
 # production
 /build
 
