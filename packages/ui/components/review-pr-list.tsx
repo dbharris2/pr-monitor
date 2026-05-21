@@ -51,7 +51,7 @@ export const ReviewPrList = ({ queryRef }: Props) => {
               ... on PullRequest {
                 id
                 reviewDecision
-                ...pr_pullRequest
+                ...pr_pullRequest @alias
               }
             }
           }
@@ -73,7 +73,7 @@ export const ReviewPrList = ({ queryRef }: Props) => {
   return (
     <PrList title="Review requested">
       {prs.map((pr) => (
-        <Pr key={pr!.id} prKey={pr!} />
+        <Pr key={pr!.id} prKey={pr!.pr_pullRequest!} />
       ))}
       {hasNext && (
         <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />

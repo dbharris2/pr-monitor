@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<24d48d8f32f9519387b61159173e6c64>>
+ * @generated SignedSource<<64ea5a5047b2714b80fbb845be373981>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -16,8 +15,10 @@ export type reviewPrList_search$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id?: string;
+        readonly pr_pullRequest?: {
+          readonly " $fragmentSpreads": FragmentRefs<"pr_pullRequest">;
+        } | null | undefined;
         readonly reviewDecision?: PullRequestReviewDecision | null | undefined;
-        readonly " $fragmentSpreads": FragmentRefs<"pr_pullRequest">;
       } | null | undefined;
     } | null | undefined> | null | undefined;
   };
@@ -54,7 +55,7 @@ return {
         "count": "count",
         "cursor": "cursor",
         "direction": "forward",
-        "path": (v0/*: any*/)
+        "path": (v0/*:: as any*/)
       }
     ],
     "refetch": {
@@ -64,7 +65,7 @@ return {
           "cursor": "cursor"
         },
         "backward": null,
-        "path": (v0/*: any*/)
+        "path": (v0/*:: as any*/)
       },
       "fragmentPathInResult": [],
       "operation": ReviewPrListPaginationQuery_graphql
@@ -127,8 +128,19 @@ return {
                         "storageKey": null
                       },
                       {
-                        "args": null,
-                        "kind": "FragmentSpread",
+                        "fragment": {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "pr_pullRequest"
+                            }
+                          ],
+                          "type": "PullRequest",
+                          "abstractKey": null
+                        },
+                        "kind": "AliasedInlineFragmentSpread",
                         "name": "pr_pullRequest"
                       }
                     ],
@@ -191,6 +203,6 @@ return {
 };
 })();
 
-(node as any).hash = "a847f9c12f3de69700c665003aa96d4a";
+(node as any).hash = "47a5275434b550171444688b14730bad";
 
 export default node;

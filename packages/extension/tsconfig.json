@@ -13,6 +13,7 @@
     "jsx": "react-jsx",
     "incremental": true,
     "target": "ES2017",
+    "types": ["chrome", "vite/client"],
     "paths": {
       "components/*": ["../ui/components/*"],
       "utils/*": ["../ui/utils/*"],

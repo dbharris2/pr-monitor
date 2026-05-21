@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<13deed9e110ecbd6230907a6acd5e6a5>>
+ * @generated SignedSource<<bc795dbc07f6183e7ac996de5e4c9c83>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -81,7 +80,7 @@ v4 = {
 v5 = {
   "kind": "InlineFragment",
   "selections": [
-    (v3/*: any*/)
+    (v3/*:: as any*/)
   ],
   "type": "Node",
   "abstractKey": "__isNode"
@@ -94,9 +93,9 @@ v6 = {
   "name": "author",
   "plural": false,
   "selections": [
-    (v2/*: any*/),
-    (v4/*: any*/),
-    (v5/*: any*/)
+    (v2/*:: as any*/),
+    (v4/*:: as any*/),
+    (v5/*:: as any*/)
   ],
   "storageKey": null
 },
@@ -108,11 +107,11 @@ v7 = [
   }
 ],
 v8 = [
-  (v4/*: any*/)
+  (v4/*:: as any*/)
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ReviewedPrListChangesRequestedPaginationQuery",
@@ -139,13 +138,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Operation",
     "name": "ReviewedPrListChangesRequestedPaginationQuery",
     "selections": [
       {
         "alias": "changesRequested",
-        "args": (v1/*: any*/),
+        "args": (v1/*:: as any*/),
         "concreteType": "SearchResultItemConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -167,11 +166,11 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
+                  (v2/*:: as any*/),
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      (v3/*: any*/),
+                      (v3/*:: as any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -179,7 +178,7 @@ return {
                         "name": "reviewDecision",
                         "storageKey": null
                       },
-                      (v6/*: any*/),
+                      (v6/*:: as any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -237,7 +236,7 @@ return {
                             "name": "nameWithOwner",
                             "storageKey": null
                           },
-                          (v3/*: any*/)
+                          (v3/*:: as any*/)
                         ],
                         "storageKey": null
                       },
@@ -298,13 +297,13 @@ return {
                             "name": "state",
                             "storageKey": null
                           },
-                          (v3/*: any*/)
+                          (v3/*:: as any*/)
                         ],
                         "storageKey": null
                       },
                       {
                         "alias": null,
-                        "args": (v7/*: any*/),
+                        "args": (v7/*:: as any*/),
                         "concreteType": "ReviewRequestConnection",
                         "kind": "LinkedField",
                         "name": "reviewRequests",
@@ -326,10 +325,10 @@ return {
                                 "name": "requestedReviewer",
                                 "plural": false,
                                 "selections": [
-                                  (v2/*: any*/),
+                                  (v2/*:: as any*/),
                                   {
                                     "kind": "InlineFragment",
-                                    "selections": (v8/*: any*/),
+                                    "selections": (v8/*:: as any*/),
                                     "type": "User",
                                     "abstractKey": null
                                   },
@@ -349,21 +348,21 @@ return {
                                   },
                                   {
                                     "kind": "InlineFragment",
-                                    "selections": (v8/*: any*/),
+                                    "selections": (v8/*:: as any*/),
                                     "type": "Bot",
                                     "abstractKey": null
                                   },
                                   {
                                     "kind": "InlineFragment",
-                                    "selections": (v8/*: any*/),
+                                    "selections": (v8/*:: as any*/),
                                     "type": "Mannequin",
                                     "abstractKey": null
                                   },
-                                  (v5/*: any*/)
+                                  (v5/*:: as any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v3/*: any*/)
+                              (v3/*:: as any*/)
                             ],
                             "storageKey": null
                           }
@@ -372,7 +371,7 @@ return {
                       },
                       {
                         "alias": null,
-                        "args": (v7/*: any*/),
+                        "args": (v7/*:: as any*/),
                         "concreteType": "PullRequestReviewConnection",
                         "kind": "LinkedField",
                         "name": "reviews",
@@ -386,8 +385,8 @@ return {
                             "name": "nodes",
                             "plural": true,
                             "selections": [
-                              (v6/*: any*/),
-                              (v3/*: any*/)
+                              (v6/*:: as any*/),
+                              (v3/*:: as any*/)
                             ],
                             "storageKey": null
                           }
@@ -398,7 +397,7 @@ return {
                     "type": "PullRequest",
                     "abstractKey": null
                   },
-                  (v5/*: any*/)
+                  (v5/*:: as any*/)
                 ],
                 "storageKey": null
               },
@@ -442,7 +441,7 @@ return {
       },
       {
         "alias": "changesRequested",
-        "args": (v1/*: any*/),
+        "args": (v1/*:: as any*/),
         "filters": [
           "query",
           "type"
@@ -465,6 +464,6 @@ return {
 };
 })();
 
-(node as any).hash = "e5f626be75366815c23fcf78887dd5e1";
+(node as any).hash = "6cf1be154913ca8fffee1d7bf2faf6e1";
 
 export default node;

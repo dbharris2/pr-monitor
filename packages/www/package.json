@@ -17,8 +17,8 @@
     "next": "16.2.5",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "react-relay": "20.1.1",
-    "relay-runtime": "20.1.1"
+    "react-relay": "21.0.0",
+    "relay-runtime": "21.0.0"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
@@ -43,7 +43,7 @@
     "prettier-plugin-tailwindcss": "0.7.2",
     "server-only": "^0.0.1",
     "tailwindcss": "^3.4.1",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "typescript-eslint": "8.50.1"
   }
 }
