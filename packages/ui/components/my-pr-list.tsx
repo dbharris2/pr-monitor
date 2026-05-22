@@ -1,7 +1,10 @@
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePaginationFragment, usePreloadedQuery } from 'react-relay';
 
-import type { myPrList_search$key } from 'components/__generated__/myPrList_search.graphql';
+import type {
+  myPrList_search$data,
+  myPrList_search$key,
+} from 'components/__generated__/myPrList_search.graphql';
 import type { MyPrListPaginationQuery } from 'components/__generated__/MyPrListPaginationQuery.graphql';
 import type { myPrListQuery } from 'components/__generated__/myPrListQuery.graphql';
 import { LoadMoreButton } from 'components/load-more-button';
@@ -16,7 +19,7 @@ export const MyPrListQuery = graphql`
 `;
 
 type Props = {
-  queryRef: PreloadedQuery<myPrListQuery, Record<string, unknown>>;
+  queryRef: PreloadedQuery<myPrListQuery>;
 };
 
 export const MyPrList = ({ queryRef }: Props) => {
@@ -26,7 +29,23 @@ export const MyPrList = ({ queryRef }: Props) => {
     hasNext,
     loadNext,
     isLoadingNext,
-  } = usePaginationFragment<MyPrListPaginationQuery, myPrList_search$key>(
+  } = usePaginationSearch(data);
+  const nodes = useNodes(search);
+
+  return (
+    <PrList title="My PRs">
+      {nodes.map((pr) => (
+        <Pr key={pr.id} prKey={pr.pr_pullRequest!} />
+      ))}
+      {hasNext && (
+        <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />
+      )}
+    </PrList>
+  );
+};
+
+const usePaginationSearch = (searchKey: myPrList_search$key) =>
+  usePaginationFragment<MyPrListPaginationQuery, myPrList_search$key>(
     graphql`
       fragment myPrList_search on Query
       @argumentDefinitions(
@@ -51,19 +70,8 @@ export const MyPrList = ({ queryRef }: Props) => {
         }
       }
     `,
-    data
+    searchKey
   );
 
-  return (
-    <PrList title="My PRs">
-      {nonnull(search.edges)
-        .map(({ node }) => node)
-        .map((pr) => (
-          <Pr key={pr!.id} prKey={pr!.pr_pullRequest!} />
-        ))}
-      {hasNext && (
-        <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />
-      )}
-    </PrList>
-  );
-};
+const useNodes = (search: myPrList_search$data['search']) =>
+  nonnull(search.edges?.map((e) => e?.node));

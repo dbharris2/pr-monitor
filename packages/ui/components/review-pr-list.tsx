@@ -1,7 +1,10 @@
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePaginationFragment, usePreloadedQuery } from 'react-relay';
 
-import type { reviewPrList_search$key } from 'components/__generated__/reviewPrList_search.graphql';
+import type {
+  reviewPrList_search$data,
+  reviewPrList_search$key,
+} from 'components/__generated__/reviewPrList_search.graphql';
 import type { ReviewPrListPaginationQuery } from 'components/__generated__/ReviewPrListPaginationQuery.graphql';
 import type { reviewPrListQuery } from 'components/__generated__/reviewPrListQuery.graphql';
 import { LoadMoreButton } from 'components/load-more-button';
@@ -16,7 +19,7 @@ export const ReviewPrListQuery = graphql`
 `;
 
 type Props = {
-  queryRef: PreloadedQuery<reviewPrListQuery, Record<string, unknown>>;
+  queryRef: PreloadedQuery<reviewPrListQuery>;
 };
 
 export const ReviewPrList = ({ queryRef }: Props) => {
@@ -29,10 +32,23 @@ export const ReviewPrList = ({ queryRef }: Props) => {
     hasNext,
     loadNext,
     isLoadingNext,
-  } = usePaginationFragment<
-    ReviewPrListPaginationQuery,
-    reviewPrList_search$key
-  >(
+  } = usePaginationSearch(data);
+  const nodes = useAwaitingReviewNodes(search);
+
+  return (
+    <PrList title="Review requested">
+      {nodes.map((pr) => (
+        <Pr key={pr.id} prKey={pr.pr_pullRequest!} />
+      ))}
+      {hasNext && (
+        <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />
+      )}
+    </PrList>
+  );
+};
+
+const usePaginationSearch = (searchKey: reviewPrList_search$key) =>
+  usePaginationFragment<ReviewPrListPaginationQuery, reviewPrList_search$key>(
     graphql`
       fragment reviewPrList_search on Query
       @argumentDefinitions(
@@ -58,26 +74,13 @@ export const ReviewPrList = ({ queryRef }: Props) => {
         }
       }
     `,
-    data
+    searchKey
   );
 
-  // Filter out PRs that are approved or have changes requested (matches Mac app behavior)
-  const prs = nonnull(search.edges)
-    .map(({ node }) => node)
-    .filter(
-      (pr) =>
-        pr?.reviewDecision !== 'APPROVED' &&
-        pr?.reviewDecision !== 'CHANGES_REQUESTED'
-    );
-
-  return (
-    <PrList title="Review requested">
-      {prs.map((pr) => (
-        <Pr key={pr!.id} prKey={pr!.pr_pullRequest!} />
-      ))}
-      {hasNext && (
-        <LoadMoreButton disabled={isLoadingNext} onClick={() => loadNext(10)} />
-      )}
-    </PrList>
+// Exclude PRs already approved or with changes requested (matches Mac app behavior)
+const useAwaitingReviewNodes = (search: reviewPrList_search$data['search']) =>
+  nonnull(search.edges?.map((e) => e?.node)).filter(
+    (pr) =>
+      pr.reviewDecision !== 'APPROVED' &&
+      pr.reviewDecision !== 'CHANGES_REQUESTED'
   );
-};
