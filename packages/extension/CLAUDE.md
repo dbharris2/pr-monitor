@@ -33,3 +33,7 @@ Different from the web app. Extensions can't use HTTP-only cookies the way Next 
 
 - Dev: `bun ext:dev` (Vite HMR), or `bun ext:build` then load `dist/` via `chrome://extensions` → **Load unpacked**.
 - For the Chrome Web Store: zip the **contents** of `dist/` (`manifest.json` at the root of the zip, not nested in a folder).
+
+## Versioning
+
+The `version` in `manifest.json` is a dev-only default — `release-extension.yml` rewrites it on the runner before building. Source of truth is the latest `extension-v*` git tag. Bump derived from conventional-commit prefixes since that tag (`feat:` → minor, `feat!:`/`BREAKING CHANGE` → major, otherwise patch).
