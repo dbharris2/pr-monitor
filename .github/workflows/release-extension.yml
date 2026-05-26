@@ -1,6 +1,13 @@
 name: Release Extension
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "packages/extension/**"
+      - "packages/ui/**"
+      - "bun.lock"
+      - ".github/workflows/release-extension.yml"
   workflow_dispatch:
 
 permissions:
@@ -11,41 +18,61 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine version bump
+        id: version
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 --match='extension-v*' 2>/dev/null || echo "extension-v0.0.0")
+          echo "latest=$LATEST_TAG"
+
+          COMMITS=$(git log "$LATEST_TAG"..HEAD --pretty=format:"%s" 2>/dev/null || echo "")
+
+          if echo "$COMMITS" | grep -qE '^feat(\(.*\))?!:|BREAKING CHANGE'; then
+            BUMP="major"
+          elif echo "$COMMITS" | grep -qE '^feat(\(.*\))?:'; then
+            BUMP="minor"
+          else
+            BUMP="patch"
+          fi
+
+          VERSION=${LATEST_TAG#extension-v}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+          case $BUMP in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH + 1)) ;;
+          esac
+
+          echo "new_version=$MAJOR.$MINOR.$PATCH" >> "$GITHUB_OUTPUT"
+          echo "Bump: $BUMP — $LATEST_TAG → extension-v$MAJOR.$MINOR.$PATCH"
 
       - uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Write version into manifest
+        run: |
+          jq --arg v "${{ steps.version.outputs.new_version }}" '.version = $v' \
+            packages/extension/manifest.json > packages/extension/manifest.json.tmp
+          mv packages/extension/manifest.json.tmp packages/extension/manifest.json
+
       - name: Build extension
         run: bun run ext:build
-
-      - name: Read manifest version
-        id: ver
-        run: |
-          VERSION=$(jq -r .version packages/extension/manifest.json)
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: Guard against duplicate version
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          TAG="extension-v${{ steps.ver.outputs.version }}"
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "::error::A release tagged '$TAG' already exists. Bump 'version' in packages/extension/manifest.json before running."
-            exit 1
-          fi
 
       - name: Package zip
         run: |
           cd packages/extension/dist
           zip -r ../pr-monitor-extension.zip .
 
-      - name: Create draft release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: extension-v${{ steps.ver.outputs.version }}
-          name: PR Monitor extension v${{ steps.ver.outputs.version }}
-          files: packages/extension/pr-monitor-extension.zip
-          draft: true
-          fail_on_unmatched_files: true
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "extension-v${{ steps.version.outputs.new_version }}" \
+            --title "PR Monitor extension v${{ steps.version.outputs.new_version }}" \
+            --generate-notes \
+            packages/extension/pr-monitor-extension.zip
