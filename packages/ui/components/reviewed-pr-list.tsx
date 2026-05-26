@@ -1,8 +1,14 @@
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePaginationFragment, usePreloadedQuery } from 'react-relay';
 
-import type { reviewedPrList_changesRequested$key } from 'components/__generated__/reviewedPrList_changesRequested.graphql';
-import type { reviewedPrList_reviewed$key } from 'components/__generated__/reviewedPrList_reviewed.graphql';
+import type {
+  reviewedPrList_changesRequested$data,
+  reviewedPrList_changesRequested$key,
+} from 'components/__generated__/reviewedPrList_changesRequested.graphql';
+import type {
+  reviewedPrList_reviewed$data,
+  reviewedPrList_reviewed$key,
+} from 'components/__generated__/reviewedPrList_reviewed.graphql';
 import type { ReviewedPrListChangesRequestedPaginationQuery } from 'components/__generated__/ReviewedPrListChangesRequestedPaginationQuery.graphql';
 import type { ReviewedPrListPaginationQuery } from 'components/__generated__/ReviewedPrListPaginationQuery.graphql';
 import type { reviewedPrListQuery } from 'components/__generated__/reviewedPrListQuery.graphql';
@@ -19,7 +25,7 @@ export const ReviewedPrListQuery = graphql`
 `;
 
 type Props = {
-  queryRef: PreloadedQuery<reviewedPrListQuery, Record<string, unknown>>;
+  queryRef: PreloadedQuery<reviewedPrListQuery>;
 };
 
 export const ReviewedPrList = ({ queryRef }: Props) => {
@@ -28,13 +34,44 @@ export const ReviewedPrList = ({ queryRef }: Props) => {
     queryRef
   );
 
-  // PRs the user has already reviewed
   const {
     data: { reviewed },
     hasNext: hasNextReviewed,
     loadNext: loadNextReviewed,
     isLoadingNext: isLoadingNextReviewed,
-  } = usePaginationFragment<
+  } = usePaginationReviewed(data);
+
+  const {
+    data: { changesRequested },
+    hasNext: hasNextChangesRequested,
+    loadNext: loadNextChangesRequested,
+    isLoadingNext: isLoadingNextChangesRequested,
+  } = usePaginationChangesRequested(data);
+
+  const nodes = useCombinedNodes(reviewed, changesRequested);
+
+  const hasNext = hasNextReviewed || hasNextChangesRequested;
+  const isLoadingNext = isLoadingNextReviewed || isLoadingNextChangesRequested;
+
+  const loadNext = () => {
+    if (hasNextReviewed) loadNextReviewed(10);
+    if (hasNextChangesRequested) loadNextChangesRequested(10);
+  };
+
+  return (
+    <PrList title="Reviewed">
+      {nodes.map((pr) => (
+        <Pr key={pr.id} prKey={pr.pr_pullRequest!} />
+      ))}
+      {hasNext && (
+        <LoadMoreButton disabled={isLoadingNext} onClick={loadNext} />
+      )}
+    </PrList>
+  );
+};
+
+const usePaginationReviewed = (key: reviewedPrList_reviewed$key) =>
+  usePaginationFragment<
     ReviewedPrListPaginationQuery,
     reviewedPrList_reviewed$key
   >(
@@ -62,16 +99,13 @@ export const ReviewedPrList = ({ queryRef }: Props) => {
         }
       }
     `,
-    data
+    key
   );
 
-  // PRs where user is a requested reviewer - we'll filter for changes_requested client-side
-  const {
-    data: { changesRequested },
-    hasNext: hasNextChangesRequested,
-    loadNext: loadNextChangesRequested,
-    isLoadingNext: isLoadingNextChangesRequested,
-  } = usePaginationFragment<
+const usePaginationChangesRequested = (
+  key: reviewedPrList_changesRequested$key
+) =>
+  usePaginationFragment<
     ReviewedPrListChangesRequestedPaginationQuery,
     reviewedPrList_changesRequested$key
   >(
@@ -102,41 +136,24 @@ export const ReviewedPrList = ({ queryRef }: Props) => {
         }
       }
     `,
-    data
+    key
   );
 
-  const reviewedPrs = nonnull(reviewed.edges).map(({ node }) => node);
+// Reviewed PRs plus PRs where someone requested changes, deduped by id
+const useCombinedNodes = (
+  reviewed: reviewedPrList_reviewed$data['reviewed'],
+  changesRequested: reviewedPrList_changesRequested$data['changesRequested']
+) => {
+  const reviewedNodes = nonnull(reviewed.edges?.map((e) => e?.node));
+  const changesRequestedNodes = nonnull(
+    changesRequested.edges?.map((e) => e?.node)
+  ).filter((pr) => pr.reviewDecision === 'CHANGES_REQUESTED');
 
-  // Filter to only PRs where someone requested changes (matches Mac app behavior)
-  const changesRequestedPrs = nonnull(changesRequested.edges)
-    .map(({ node }) => node)
-    .filter((pr) => pr?.reviewDecision === 'CHANGES_REQUESTED');
-
-  // Combine both lists, deduplicating by ID
-  const seenIds = new Set<string>();
-  const allPrs = [...reviewedPrs, ...changesRequestedPrs].filter((pr) => {
-    const id = pr?.id;
-    if (!id || seenIds.has(id)) return false;
-    seenIds.add(id);
+  const seen = new Set<string>();
+  return [...reviewedNodes, ...changesRequestedNodes].filter((pr) => {
+    if (!pr.id) return false;
+    if (seen.has(pr.id)) return false;
+    seen.add(pr.id);
     return true;
   });
-
-  const hasNext = hasNextReviewed || hasNextChangesRequested;
-  const isLoadingNext = isLoadingNextReviewed || isLoadingNextChangesRequested;
-
-  const loadNext = () => {
-    if (hasNextReviewed) loadNextReviewed(10);
-    if (hasNextChangesRequested) loadNextChangesRequested(10);
-  };
-
-  return (
-    <PrList title="Reviewed">
-      {allPrs.map((pr) => (
-        <Pr key={pr!.id} prKey={pr!.pr_pullRequest!} />
-      ))}
-      {hasNext && (
-        <LoadMoreButton disabled={isLoadingNext} onClick={loadNext} />
-      )}
-    </PrList>
-  );
 };
